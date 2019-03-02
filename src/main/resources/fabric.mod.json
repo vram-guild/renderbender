@@ -1,0 +1,13 @@
+{
+  "id": "renderbender",
+  "name": "Fabric Render Extensions",
+  "description": "Test mod for Fabric Renderer API and extensions",
+  "version": "1.0.0",
+  "side": "universal",
+  "initializer": "grondag.renderbender.RenderBender",
+  "requires": {
+    "fabric": "*"
+  },
+  "mixins": {
+  }
+}
