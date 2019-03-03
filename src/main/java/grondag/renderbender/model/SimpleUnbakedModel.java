@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.ModelLoader;
@@ -14,9 +13,9 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.util.Identifier;
 
 public class SimpleUnbakedModel implements UnbakedModel {
-    Supplier<BakedModel> baker;
+    Function<ModelBuilder, BakedModel> baker;
     
-    public SimpleUnbakedModel(Supplier<BakedModel> baker) {
+    public SimpleUnbakedModel(Function<ModelBuilder, BakedModel> baker) {
         this.baker = baker;
     }
     
@@ -32,6 +31,6 @@ public class SimpleUnbakedModel implements UnbakedModel {
 
     @Override
     public BakedModel bake(ModelLoader var1, Function<Identifier, Sprite> var2, ModelRotationContainer var3) {
-        return baker.get();
+        return baker.apply(ModelBuilder.instance());
     }
 }

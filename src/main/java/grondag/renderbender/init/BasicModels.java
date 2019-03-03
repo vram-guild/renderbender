@@ -32,8 +32,7 @@ import net.minecraft.util.math.MathHelper;
 public class BasicModels {
 
     public static void initialize(HashMap<String, SimpleUnbakedModel> models) {
-        models.put("glow", new SimpleUnbakedModel(() -> {
-            ModelBuilder mb = ModelBuilder.instance();
+        models.put("glow", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
             mb.box(mb.finder.emissive(0, true).disableAo(0, true).disableDiffuse(0, true).find(),
                     -1, ModelBuilder.FULL_BRIGHTNESS, sprite, 
@@ -41,50 +40,39 @@ public class BasicModels {
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
         
-        models.put("glow_diffuse", new SimpleUnbakedModel(() -> {
-            SpriteAtlasTexture atlas = MinecraftClient.getInstance().getSpriteAtlas();
-            Renderer renderer = RendererAccess.INSTANCE.getRenderer();
-            ModelMeshBuilder builder = new ModelMeshBuilder();
-            builder.box(renderer.materialFinder().emissive(0, true).disableAo(0, true).find(),
-                    -1, ModelBuilder.FULL_BRIGHTNESS, atlas.getSprite("minecraft:block/quartz_block_side"),
+        models.put("glow_diffuse", new SimpleUnbakedModel(mb -> {
+            Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+            mb.box(mb.finder.emissive(0, true).disableAo(0, true).find(),
+                    -1, ModelBuilder.FULL_BRIGHTNESS, sprite, 
                     0, 0, 0, 1, 1, 1);
-            
-            return new SimpleModel(builder.build(), null, atlas.getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+            return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
         
-        models.put("glow_ao", new SimpleUnbakedModel(() -> {
-            SpriteAtlasTexture atlas = MinecraftClient.getInstance().getSpriteAtlas();
-            Renderer renderer = RendererAccess.INSTANCE.getRenderer();
-            ModelMeshBuilder builder = new ModelMeshBuilder();
-            builder.box(renderer.materialFinder().emissive(0, true).disableDiffuse(0, true).find(),
-                    -1, ModelBuilder.FULL_BRIGHTNESS, atlas.getSprite("minecraft:block/quartz_block_side"),
+        models.put("glow_ao", new SimpleUnbakedModel(mb -> {
+            Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+            mb.box(mb.finder.emissive(0, true).disableDiffuse(0, true).find(),
+                    -1, ModelBuilder.FULL_BRIGHTNESS, sprite, 
                     0, 0, 0, 1, 1, 1);
-            
-            return new SimpleModel(builder.build(), null, atlas.getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+            return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
         
-        models.put("glow_shaded", new SimpleUnbakedModel(() -> {
-            SpriteAtlasTexture atlas = MinecraftClient.getInstance().getSpriteAtlas();
-            Renderer renderer = RendererAccess.INSTANCE.getRenderer();
-            ModelMeshBuilder builder = new ModelMeshBuilder();
-            builder.box(renderer.materialFinder().emissive(0, true).find(),
-                    -1, ModelBuilder.FULL_BRIGHTNESS, atlas.getSprite("minecraft:block/quartz_block_side"),
+        models.put("glow_shaded", new SimpleUnbakedModel(mb -> {
+            Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+            mb.box(mb.finder.emissive(0, true).find(),
+                    -1, ModelBuilder.FULL_BRIGHTNESS, sprite, 
                     0, 0, 0, 1, 1, 1);
-            
-            return new SimpleModel(builder.build(), null, atlas.getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+            return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
         
-        models.put("glow_dynamic", new SimpleUnbakedModel(() -> {
-            SpriteAtlasTexture atlas = MinecraftClient.getInstance().getSpriteAtlas();
-            Renderer renderer = RendererAccess.INSTANCE.getRenderer();
-            ModelMeshBuilder builder = new ModelMeshBuilder();
-            builder.box(renderer.materialFinder().emissive(0, true).find(),
-                    -1, 0, atlas.getSprite("minecraft:block/quartz_block_side"),
+        models.put("glow_dynamic", new SimpleUnbakedModel(mb -> {
+            Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+            mb.box(mb.finder.emissive(0, true).find(),
+                    -1, 0, sprite, 
                     0, 0, 0, 1, 1, 1);
-            return new SimpleModel(builder.build(), glowTransform::get, atlas.getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+            return new SimpleModel(mb.builder.build(), glowTransform::get, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
         
-        models.put("round_hard", new SimpleUnbakedModel(() -> {
+        models.put("round_hard", new SimpleUnbakedModel(mb -> {
             SpriteAtlasTexture atlas = MinecraftClient.getInstance().getSpriteAtlas();
             Renderer renderer = RendererAccess.INSTANCE.getRenderer();
             ModelMeshBuilder builder = new ModelMeshBuilder();
@@ -93,7 +81,7 @@ public class BasicModels {
             return new SimpleModel(builder.build(), null, atlas.getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
         
-        models.put("round_soft", new SimpleUnbakedModel(() -> {
+        models.put("round_soft", new SimpleUnbakedModel(mb -> {
             SpriteAtlasTexture atlas = MinecraftClient.getInstance().getSpriteAtlas();
             Renderer renderer = RendererAccess.INSTANCE.getRenderer();
             ModelMeshBuilder builder = new ModelMeshBuilder();
@@ -138,11 +126,11 @@ public class BasicModels {
             
         };
         
-        models.put("ao_test", new SimpleUnbakedModel(() -> {
+        models.put("ao_test", new SimpleUnbakedModel(mb -> {
             return new SimpleModel(null, null, MinecraftClient.getInstance().getSpriteAtlas().getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, aoBuilder);
         }));
         
-        models.put("shade_test", new SimpleUnbakedModel(() -> {
+        models.put("shade_test", new SimpleUnbakedModel(mb -> {
             SpriteAtlasTexture atlas = MinecraftClient.getInstance().getSpriteAtlas();
             Renderer renderer = RendererAccess.INSTANCE.getRenderer();
             ModelMeshBuilder builder = new ModelMeshBuilder();
@@ -154,7 +142,7 @@ public class BasicModels {
             return new SimpleModel(builder.build(), null, atlas.getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
         
-        models.put("be_test", new SimpleUnbakedModel(() -> {
+        models.put("be_test", new SimpleUnbakedModel(mb -> {
             RenderMaterial mat = RendererAccess.INSTANCE.getRenderer().materialFinder().find();
             Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas().getSprite("minecraft:block/quartz_block_side");
             ModelMeshBuilder builder = new ModelMeshBuilder();
