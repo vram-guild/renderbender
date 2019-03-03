@@ -25,7 +25,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 
-public class StandardBlocks {
+public class BasicBlocks {
     public static void register(Block block, String name, Function<Block, Item> itemFunc) {
         Identifier id = new Identifier("renderbender", name);
         Registry.BLOCK.add(id, block);
@@ -125,7 +125,7 @@ public class StandardBlocks {
         }
     };
     
-    public static final BlockEntityType<StandardBlocks.BeTestBlockEntity> BE_TEST_TYPE = BlockEntityType.Builder.create(StandardBlocks.BeTestBlockEntity::new).build(null);
+    public static final BlockEntityType<BasicBlocks.BeTestBlockEntity> BE_TEST_TYPE = BlockEntityType.Builder.create(BasicBlocks.BeTestBlockEntity::new).build(null);
     public static Block BE_TEST_BLOCK = new BeTestBlock();
     
     public static class BeTestBlock extends Block implements BlockEntityProvider {
