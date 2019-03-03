@@ -14,20 +14,22 @@
  * the License.
  ******************************************************************************/
 
-package grondag.renderbender;
+package grondag.renderbender.model;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.Random;
+import java.util.function.Supplier;
 
-import grondag.renderbender.init.StandardBlocks;
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.model.fabric.RenderContext;
+import net.fabricmc.fabric.api.client.model.fabric.TerrainBlockView;
+import net.minecraft.block.BlockState;
+import net.minecraft.util.math.BlockPos;
 
-public class RenderBender implements ModInitializer {
-    public static final Logger LOG = LogManager.getLogger();
-
-    @Override
-    public void onInitialize() {
-        StandardBlocks.initialize();
-        IndigoTests.initialize();
-    }
+/**
+ * Encapsulates parts of baked models that can't be pre-baked and
+ * must be generated at render time. Allows packed models to include
+ * dynamic elements via composition instead of sub-typing.
+ */
+@FunctionalInterface
+public interface DynamicRenderer {
+    void render(TerrainBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context);
 }
