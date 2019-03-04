@@ -34,7 +34,7 @@ public class BasicModels {
     public static void initialize(HashMap<String, SimpleUnbakedModel> models) {
         models.put("glow", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
-            mb.box(mb.finder.emissive(0, true).disableAo(0, true).disableDiffuse(0, true).find(),
+            mb.box(mb.finder().emissive(0, true).disableAo(0, true).disableDiffuse(0, true).find(),
                     -1, ModelBuilder.FULL_BRIGHTNESS, sprite, 
                     0, 0, 0, 1, 1, 1);
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
@@ -42,7 +42,7 @@ public class BasicModels {
         
         models.put("glow_diffuse", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
-            mb.box(mb.finder.emissive(0, true).disableAo(0, true).find(),
+            mb.box(mb.finder().emissive(0, true).disableAo(0, true).find(),
                     -1, ModelBuilder.FULL_BRIGHTNESS, sprite, 
                     0, 0, 0, 1, 1, 1);
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
@@ -50,7 +50,7 @@ public class BasicModels {
         
         models.put("glow_ao", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
-            mb.box(mb.finder.emissive(0, true).disableDiffuse(0, true).find(),
+            mb.box(mb.finder().emissive(0, true).disableDiffuse(0, true).find(),
                     -1, ModelBuilder.FULL_BRIGHTNESS, sprite, 
                     0, 0, 0, 1, 1, 1);
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
@@ -58,7 +58,7 @@ public class BasicModels {
         
         models.put("glow_shaded", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
-            mb.box(mb.finder.emissive(0, true).find(),
+            mb.box(mb.finder().emissive(0, true).find(),
                     -1, ModelBuilder.FULL_BRIGHTNESS, sprite, 
                     0, 0, 0, 1, 1, 1);
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
@@ -66,28 +66,22 @@ public class BasicModels {
         
         models.put("glow_dynamic", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
-            mb.box(mb.finder.emissive(0, true).find(),
+            mb.box(mb.finder().emissive(0, true).find(),
                     -1, 0, sprite, 
                     0, 0, 0, 1, 1, 1);
             return new SimpleModel(mb.builder.build(), glowTransform::get, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
         
         models.put("round_hard", new SimpleUnbakedModel(mb -> {
-            SpriteAtlasTexture atlas = MinecraftClient.getInstance().getSpriteAtlas();
-            Renderer renderer = RendererAccess.INSTANCE.getRenderer();
-            ModelMeshBuilder builder = new ModelMeshBuilder();
-            ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, builder,
-                    renderer.materialFinder().find(), atlas.getSprite("minecraft:block/quartz_block_side"), false);
-            return new SimpleModel(builder.build(), null, atlas.getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+            Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+            ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().find(), sprite, false);
+            return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
         
         models.put("round_soft", new SimpleUnbakedModel(mb -> {
-            SpriteAtlasTexture atlas = MinecraftClient.getInstance().getSpriteAtlas();
-            Renderer renderer = RendererAccess.INSTANCE.getRenderer();
-            ModelMeshBuilder builder = new ModelMeshBuilder();
-            ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, builder,
-                    renderer.materialFinder().find(), atlas.getSprite("minecraft:block/quartz_block_side"), true);
-            return new SimpleModel(builder.build(), null, atlas.getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+            Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+            ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().find(), sprite, true);
+            return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
         
         // this is NOT the way to handle this...
