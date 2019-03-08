@@ -45,7 +45,7 @@ public class ModelBuilder {
     
     public void box(
             RenderMaterial material, 
-            int color, int lightmap, Sprite sprite,
+            int color, Sprite sprite,
             float minX, float minY, float minZ, 
             float maxX, float maxY, float maxZ) {
         
@@ -54,7 +54,6 @@ public class ModelBuilder {
             .square(Direction.UP, minX, minZ, maxX, maxZ, 1-maxY)
             .spriteColor(0, color, color, color, color)
             .spriteUnitSquare(0)
-            .lightmap(lightmap, lightmap, lightmap, lightmap)
             .spriteBake(0, sprite, MutableQuadView.BAKE_NORMALIZED)
             .emit()
         
@@ -62,7 +61,6 @@ public class ModelBuilder {
             .square(Direction.DOWN, minX, minZ, maxX, maxZ, minY)
             .spriteColor(0, color, color, color, color)
             .spriteUnitSquare(0)
-            .lightmap(lightmap, lightmap, lightmap, lightmap)
             .spriteBake(0, sprite, MutableQuadView.BAKE_NORMALIZED)
             .emit()
         
@@ -70,7 +68,6 @@ public class ModelBuilder {
             .square(Direction.EAST, minZ, minY, maxZ, maxY, 1-maxX)
             .spriteColor(0, color, color, color, color)
             .spriteUnitSquare(0)
-            .lightmap(lightmap, lightmap, lightmap, lightmap)
             .spriteBake(0, sprite, MutableQuadView.BAKE_NORMALIZED)
             .emit()
         
@@ -78,7 +75,6 @@ public class ModelBuilder {
             .square(Direction.WEST, minZ, minY, maxZ, maxY, minX)
             .spriteColor(0, color, color, color, color)
             .spriteUnitSquare(0)
-            .lightmap(lightmap, lightmap, lightmap, lightmap)
             .spriteBake(0, sprite, MutableQuadView.BAKE_NORMALIZED)
             .emit()
         
@@ -86,7 +82,6 @@ public class ModelBuilder {
             .square(Direction.SOUTH, minX, minY, maxX, maxY, 1-maxZ)
             .spriteColor(0, color, color, color, color)
             .spriteUnitSquare(0)
-            .lightmap(lightmap, lightmap, lightmap, lightmap)
             .spriteBake(0, sprite, MutableQuadView.BAKE_NORMALIZED)
             .emit()
         
@@ -94,7 +89,6 @@ public class ModelBuilder {
             .square(Direction.NORTH, minX, minY, maxX, maxY, minZ)
             .spriteColor(0, color, color, color, color)
             .spriteUnitSquare(0)
-            .lightmap(lightmap, lightmap, lightmap, lightmap)
             .spriteBake(0, sprite, MutableQuadView.BAKE_NORMALIZED)
             .emit();
     }

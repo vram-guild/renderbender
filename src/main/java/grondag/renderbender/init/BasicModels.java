@@ -2,19 +2,21 @@ package grondag.renderbender.init;
 
 import static net.minecraft.block.BlockRenderLayer.SOLID;
 import static net.minecraft.block.BlockRenderLayer.TRANSLUCENT;
+import static grondag.renderbender.model.ModelBuilder.FULL_BRIGHTNESS;
 
 import java.util.HashMap;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import grondag.renderbender.ModelMeshBuilder;
 import grondag.renderbender.model.DynamicRenderer;
 import grondag.renderbender.model.MeshTransformer;
 import grondag.renderbender.model.ModelBuilder;
 import grondag.renderbender.model.SimpleModel;
 import grondag.renderbender.model.SimpleUnbakedModel;
+import net.fabricmc.fabric.api.client.model.fabric.MeshBuilder;
 import net.fabricmc.fabric.api.client.model.fabric.ModelHelper;
 import net.fabricmc.fabric.api.client.model.fabric.MutableQuadView;
+import net.fabricmc.fabric.api.client.model.fabric.QuadEmitter;
 import net.fabricmc.fabric.api.client.model.fabric.RenderContext;
 import net.fabricmc.fabric.api.client.model.fabric.RenderMaterial;
 import net.fabricmc.fabric.api.client.model.fabric.Renderer;
@@ -23,7 +25,6 @@ import net.fabricmc.fabric.api.client.model.fabric.TerrainBlockView;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -35,7 +36,7 @@ public class BasicModels {
         models.put("glow", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
             mb.box(mb.finder().emissive(0, true).disableAo(0, true).disableDiffuse(0, true).find(),
-                    -1, ModelBuilder.FULL_BRIGHTNESS, sprite, 
+                    -1, sprite, 
                     0, 0, 0, 1, 1, 1);
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
@@ -43,7 +44,7 @@ public class BasicModels {
         models.put("glow_diffuse", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
             mb.box(mb.finder().emissive(0, true).disableAo(0, true).find(),
-                    -1, ModelBuilder.FULL_BRIGHTNESS, sprite, 
+                    -1, sprite, 
                     0, 0, 0, 1, 1, 1);
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
@@ -51,7 +52,7 @@ public class BasicModels {
         models.put("glow_ao", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
             mb.box(mb.finder().emissive(0, true).disableDiffuse(0, true).find(),
-                    -1, ModelBuilder.FULL_BRIGHTNESS, sprite, 
+                    -1, sprite, 
                     0, 0, 0, 1, 1, 1);
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
@@ -59,15 +60,15 @@ public class BasicModels {
         models.put("glow_shaded", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
             mb.box(mb.finder().emissive(0, true).find(),
-                    -1, ModelBuilder.FULL_BRIGHTNESS, sprite, 
+                    -1, sprite, 
                     0, 0, 0, 1, 1, 1);
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
         
         models.put("glow_dynamic", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
-            mb.box(mb.finder().emissive(0, true).find(),
-                    -1, 0, sprite, 
+            mb.box(mb.finder().find(),
+                    -1, sprite, 
                     0, 0, 0, 1, 1, 1);
             return new SimpleModel(mb.builder.build(), glowTransform::get, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
@@ -86,15 +87,16 @@ public class BasicModels {
         
         // this is NOT the way to handle this...
         DynamicRenderer aoBuilder = new DynamicRenderer() {
-            RenderMaterial mat = RendererAccess.INSTANCE.getRenderer().materialFinder().disableDiffuse(0, true).find();
+            Renderer renderer = RendererAccess.INSTANCE.getRenderer();
+            RenderMaterial mat = renderer.materialFinder().disableDiffuse(0, true).find();
             @Override
             public void render(TerrainBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
                 int hash = pos == null ? 8 : pos.hashCode();
                 float height = (1 + (hash & 15)) / 16f;
                 Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas().getSprite("minecraft:block/quartz_block_side");
-                ModelMeshBuilder builder = new ModelMeshBuilder();
+                MeshBuilder builder = renderer.meshBuilder();
+                QuadEmitter emitter = builder.getEmitter(); 
                 
-                builder.tag(1);
                 for(int d = 0; d < 6; d++) {
                     Direction face = Direction.byId(d);
                     if(face == Direction.UP) {
@@ -103,16 +105,19 @@ public class BasicModels {
                             for(int j = 0; j < 4; j++) {
                                 float u = i * .25f;
                                 float v = j * .25f;
-//                            int color = randomLightColor(r);
-                                builder.getEmitter().material(mat).square(face, u, v, u + .25f, v + .25f, depth).tex(sprite, MutableQuadView.BAKE_LOCK_UV)
-//                            .forEachVertex(vt -> vt.color(color))
-                                .emit();
+                                emitter.square(face, u, v, u + .25f, v + .25f, depth)
+                                    .material(mat).spriteColor(0, -1, -1, -1, -1)
+                                    .spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV).emit();
                             }
                         }
                     } else if(face == Direction.DOWN) {
-                        builder.getEmitter().material(mat).square(face, 0, 0, 1, 1, 0).tex(sprite, MutableQuadView.BAKE_LOCK_UV).emit();
+                        emitter.square(face, 0, 0, 1, 1, 0)
+                            .material(mat).spriteColor(0, -1, -1, -1, -1)
+                            .spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV).emit();
                     } else {
-                        builder.getEmitter().material(mat).square(face, 0, 0, 1, height, 0).tex(sprite, MutableQuadView.BAKE_LOCK_UV).emit();
+                        emitter.square(face, 0, 0, 1, height, 0)
+                        .material(mat).spriteColor(0, -1, -1, -1, -1)
+                        .spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV).emit();
                     }
                 }
                 context.meshConsumer().accept(builder.build());
@@ -121,26 +126,22 @@ public class BasicModels {
         };
         
         models.put("ao_test", new SimpleUnbakedModel(mb -> {
-            return new SimpleModel(null, null, MinecraftClient.getInstance().getSpriteAtlas().getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, aoBuilder);
+            return new SimpleModel(null, null, mb.getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, aoBuilder);
         }));
         
         models.put("shade_test", new SimpleUnbakedModel(mb -> {
-            SpriteAtlasTexture atlas = MinecraftClient.getInstance().getSpriteAtlas();
-            Renderer renderer = RendererAccess.INSTANCE.getRenderer();
-            ModelMeshBuilder builder = new ModelMeshBuilder();
-            builder.tag(2);
-            builder.box(renderer.materialFinder().find(),
-                    -1, 0, atlas.getSprite("minecraft:block/quartz_block_side"),
+            Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+            mb.box(mb.finder().find(),
+                    -1, sprite,
                     1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
-            
-            return new SimpleModel(builder.build(), null, atlas.getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+            return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
         
         models.put("be_test", new SimpleUnbakedModel(mb -> {
-            RenderMaterial mat = RendererAccess.INSTANCE.getRenderer().materialFinder().find();
-            Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas().getSprite("minecraft:block/quartz_block_side");
-            ModelMeshBuilder builder = new ModelMeshBuilder();
+            final Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+            final RenderMaterial mat = mb.finder().find();
             final float PIXEL = 1f/16f;
+            final QuadEmitter qe = mb.builder.getEmitter();
             int t = 0;
             for(int d = 0; d < 6; d++) {
                 Direction face = Direction.byId(d);
@@ -148,13 +149,14 @@ public class BasicModels {
                     float u = PIXEL + PIXEL * i;
                     for(int j = 0; j < 14; j++) {
                         float v = PIXEL + PIXEL * j;
-                        builder.tag(t++);
-                        builder.getEmitter().material(mat).square(face, u, v, u + PIXEL, v + PIXEL, PIXEL)
-                        .lightmapAll(ModelBuilder.FULL_BRIGHTNESS).tex(sprite, MutableQuadView.BAKE_LOCK_UV).emit();
+                        qe.tag(t++);
+                        qe.material(mat).square(face, u, v, u + PIXEL, v + PIXEL, PIXEL)
+                        .spriteColor(0, -1, -1, -1, -1)
+                        .spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV).emit();
                     }
                 }
             }
-            return new SimpleModel(builder.build(), beTestTransform::get, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+            return new SimpleModel(mb.builder.build(), beTestTransform::get, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));        
     }
 
@@ -182,8 +184,8 @@ public class BasicModels {
             topColor = ModelBuilder.randomPastelColor(random);
             bottomColor = ModelBuilder.randomPastelColor(random);
             final boolean topGlow = random.nextBoolean();
-            topLight = topGlow ? ModelBuilder.FULL_BRIGHTNESS : 0;
-            bottomLight = topGlow ? 0 : ModelBuilder.FULL_BRIGHTNESS;
+            topLight = topGlow ? FULL_BRIGHTNESS : 0;
+            bottomLight = topGlow ? 0 : FULL_BRIGHTNESS;
             return this;
         }
     }
@@ -196,13 +198,13 @@ public class BasicModels {
                 .blendMode(0, SOLID).find();
         
         static RenderMaterial matSolidGlow = RendererAccess.INSTANCE.getRenderer().materialFinder()
-                .blendMode(0, SOLID).disableDiffuse(0, true).disableAo(0, true).emissive(0, true).find();
+                .blendMode(0, SOLID).disableDiffuse(0, true).emissive(0, true).disableAo(0, true).find();
         
         static RenderMaterial matTrans = RendererAccess.INSTANCE.getRenderer().materialFinder()
                 .blendMode(0, TRANSLUCENT).find();
         
         static RenderMaterial matTransGlow = RendererAccess.INSTANCE.getRenderer().materialFinder()
-                .blendMode(0, TRANSLUCENT).disableDiffuse(0, true).disableAo(0, true).emissive(0, true).find();
+                .blendMode(0, TRANSLUCENT).disableDiffuse(0, true).emissive(0, true).disableAo(0, true).find();
         
         private RenderMaterial mat = null;
         private RenderMaterial matGlow = null;
