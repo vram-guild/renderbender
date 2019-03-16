@@ -1,7 +1,5 @@
 package grondag.renderbender.init;
 
-import static net.minecraft.block.BlockRenderLayer.SOLID;
-import static net.minecraft.block.BlockRenderLayer.TRANSLUCENT;
 import static grondag.renderbender.model.ModelBuilder.FULL_BRIGHTNESS;
 
 import java.util.HashMap;
@@ -85,8 +83,44 @@ public class BasicModels {
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
         
-        // this is NOT the way to handle this...
-        DynamicRenderer aoBuilder = new DynamicRenderer() {
+        models.put("ao_test", new SimpleUnbakedModel(mb -> {
+            return new SimpleModel(null, null, mb.getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, aoBuilder());
+        }));
+        
+        models.put("shade_test", new SimpleUnbakedModel(mb -> {
+            Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+            mb.box(mb.finder().find(),
+                    -1, sprite,
+                    1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
+            return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+        }));
+        
+        models.put("be_test", new SimpleUnbakedModel(mb -> {
+            final Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+            final RenderMaterial mat = mb.finder().find();
+            final float PIXEL = 1f/16f;
+            final QuadEmitter qe = mb.builder.getEmitter();
+            int t = 0;
+            for(int d = 0; d < 6; d++) {
+                Direction face = Direction.byId(d);
+                for(int i = 0; i < 14; i++) {
+                    float u = PIXEL + PIXEL * i;
+                    for(int j = 0; j < 14; j++) {
+                        float v = PIXEL + PIXEL * j;
+                        qe.tag(t++);
+                        qe.material(mat).square(face, u, v, u + PIXEL, v + PIXEL, PIXEL)
+                        .spriteColor(0, -1, -1, -1, -1)
+                        .spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV).emit();
+                    }
+                }
+            }
+            return new SimpleModel(mb.builder.build(), beTestTransform::get, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+        }));        
+    }
+
+    // this is NOT the way to handle this...
+    static DynamicRenderer aoBuilder() {
+        return new DynamicRenderer() {
             Renderer renderer = RendererAccess.INSTANCE.getRenderer();
             RenderMaterial mat = renderer.materialFinder().disableDiffuse(0, true).find();
             @Override
@@ -122,44 +156,9 @@ public class BasicModels {
                 }
                 context.meshConsumer().accept(builder.build());
             }
-            
         };
-        
-        models.put("ao_test", new SimpleUnbakedModel(mb -> {
-            return new SimpleModel(null, null, mb.getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, aoBuilder);
-        }));
-        
-        models.put("shade_test", new SimpleUnbakedModel(mb -> {
-            Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
-            mb.box(mb.finder().find(),
-                    -1, sprite,
-                    1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
-            return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
-        }));
-        
-        models.put("be_test", new SimpleUnbakedModel(mb -> {
-            final Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
-            final RenderMaterial mat = mb.finder().find();
-            final float PIXEL = 1f/16f;
-            final QuadEmitter qe = mb.builder.getEmitter();
-            int t = 0;
-            for(int d = 0; d < 6; d++) {
-                Direction face = Direction.byId(d);
-                for(int i = 0; i < 14; i++) {
-                    float u = PIXEL + PIXEL * i;
-                    for(int j = 0; j < 14; j++) {
-                        float v = PIXEL + PIXEL * j;
-                        qe.tag(t++);
-                        qe.material(mat).square(face, u, v, u + PIXEL, v + PIXEL, PIXEL)
-                        .spriteColor(0, -1, -1, -1, -1)
-                        .spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV).emit();
-                    }
-                }
-            }
-            return new SimpleModel(mb.builder.build(), beTestTransform::get, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
-        }));        
-    }
-
+    };
+    
     static class GlowTransform implements MeshTransformer {
         int topColor;
         int bottomColor;
@@ -192,48 +191,6 @@ public class BasicModels {
     
     static ThreadLocal<MeshTransformer> glowTransform = ThreadLocal.withInitial(GlowTransform::new);
     
-    
-    static class BeTestTransform implements MeshTransformer {
-        static RenderMaterial matSolid = RendererAccess.INSTANCE.getRenderer().materialFinder()
-                .blendMode(0, SOLID).find();
-        
-        static RenderMaterial matSolidGlow = RendererAccess.INSTANCE.getRenderer().materialFinder()
-                .blendMode(0, SOLID).disableDiffuse(0, true).emissive(0, true).disableAo(0, true).find();
-        
-        static RenderMaterial matTrans = RendererAccess.INSTANCE.getRenderer().materialFinder()
-                .blendMode(0, TRANSLUCENT).find();
-        
-        static RenderMaterial matTransGlow = RendererAccess.INSTANCE.getRenderer().materialFinder()
-                .blendMode(0, TRANSLUCENT).disableDiffuse(0, true).emissive(0, true).disableAo(0, true).find();
-        
-        private RenderMaterial mat = null;
-        private RenderMaterial matGlow = null;
-        private int stupid[];
-        private boolean translucent;
-        
-        @Override
-        public boolean transform(MutableQuadView q) {
-            final int s = stupid == null ? -1 : stupid[q.tag()];
-            final int c = translucent ? 0x80000000 | (0xFFFFFF & s) : s;
-            q.material((s & 0x3) == 0 ? matGlow : mat).spriteColor(0, c, c, c, c);
-            return true;
-        }
-        
-        @Override
-        public MeshTransformer prepare(TerrainBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier) {
-            if(randomSupplier.get().nextInt(4) == 0) {
-                mat = matTrans;
-                matGlow = matTransGlow;
-                translucent = true;
-            } else {
-                mat = matSolid;
-                matGlow = matSolidGlow;
-                translucent = false;
-            }
-            stupid = (int[])blockView.getCachedRenderData(pos);
-            return this;
-        }
-    }
-    
     static ThreadLocal<MeshTransformer> beTestTransform = ThreadLocal.withInitial(BeTestTransform::new);
+
 }

@@ -19,12 +19,10 @@ package grondag.renderbender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import grondag.frex.api.ExtendedRenderer;
 import grondag.renderbender.init.BasicBlocks;
 import grondag.renderbender.init.ExtendedBlocks;
 import grondag.renderbender.init.ModelDispatcher;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.model.fabric.RendererAccess;
 
 public class RenderBender implements ModInitializer {
     public static final Logger LOG = LogManager.getLogger();
@@ -39,6 +37,7 @@ public class RenderBender implements ModInitializer {
     }
     
     public static boolean isExtendedRenderer() {
-        return RendererAccess.INSTANCE.getRenderer() instanceof ExtendedRenderer;
+        return true;
+        //return RendererAccess.INSTANCE.getRenderer() instanceof ExtendedRenderer;
     }
 }
