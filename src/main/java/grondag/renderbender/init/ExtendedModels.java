@@ -4,11 +4,17 @@ import static net.minecraft.block.BlockRenderLayer.*;
 
 import java.util.HashMap;
 
+import grondag.frex.api.ExtendedRenderer;
+import grondag.frex.api.Pipeline;
 import grondag.renderbender.model.SimpleModel;
 import grondag.renderbender.model.SimpleUnbakedModel;
 import net.fabricmc.fabric.api.client.model.fabric.ModelHelper;
 import net.fabricmc.fabric.api.client.model.fabric.MutableQuadView;
 import net.fabricmc.fabric.api.client.model.fabric.QuadEmitter;
+import net.fabricmc.fabric.api.client.model.fabric.RenderMaterial;
+import net.fabricmc.fabric.api.client.model.fabric.RendererAccess;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 
 public class ExtendedModels {
@@ -125,6 +131,20 @@ public class ExtendedModels {
                   .emit();
           
           return new SimpleModel(mb.builder.build(), null, mb.getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, null);
-      }));        
+      }));  
+          
+      models.put("shader", new SimpleUnbakedModel(mb -> {
+          ExtendedRenderer er = (ExtendedRenderer) RendererAccess.INSTANCE.getRenderer();
+          Pipeline p = er.pipelineBuilder()
+                  .vertexSource(new Identifier("renderbender", "shader/test.vert"))
+                  .fragmentSource(new Identifier("renderbender", "shader/test.frag"))
+                  .build();
+          RenderMaterial mat = er.materialFinder().pipeline(p).find();
+          Sprite sprite = mb.getSprite("minecraft:block/gray_concrete");
+          mb.box(mat,
+                  -1, sprite, 
+                  0, 0, 0, 1, 1, 1);
+          return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+      }));
     }
 }

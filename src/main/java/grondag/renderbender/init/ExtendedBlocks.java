@@ -16,6 +16,10 @@ public class ExtendedBlocks {
             .of(Material.STONE).strength(1, 1)
             .materialColor(MaterialColor.FOLIAGE).build());
 
+    private static final Block SHADER_BLOCK = new Block(FabricBlockSettings
+            .of(Material.STONE).strength(1, 1)
+            .materialColor(MaterialColor.CYAN).build());
+    
     public static void initialize() {
         register(LAYERS_BLOCK, "layers", ITEM_FUNCTION_STANDARD);
         
@@ -26,5 +30,7 @@ public class ExtendedBlocks {
         ColorProviderRegistry.ITEM.register((stack, colorIndex) -> {
           return FoliageColorHandler.getDefaultColor();
         }, LAYERS_BLOCK);
+        
+        register(SHADER_BLOCK, "shader", ITEM_FUNCTION_STANDARD);
     }
 }
