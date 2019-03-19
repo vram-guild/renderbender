@@ -2,13 +2,13 @@ package grondag.renderbender.model;
 
 import java.util.Random;
 
-import net.fabricmc.fabric.api.client.model.fabric.MaterialFinder;
-import net.fabricmc.fabric.api.client.model.fabric.MeshBuilder;
-import net.fabricmc.fabric.api.client.model.fabric.MutableQuadView;
-import net.fabricmc.fabric.api.client.model.fabric.QuadEmitter;
-import net.fabricmc.fabric.api.client.model.fabric.RenderMaterial;
-import net.fabricmc.fabric.api.client.model.fabric.Renderer;
-import net.fabricmc.fabric.api.client.model.fabric.RendererAccess;
+import grondag.frex.api.core.MaterialFinder;
+import grondag.frex.api.core.MeshBuilder;
+import grondag.frex.api.core.MutableQuadView;
+import grondag.frex.api.core.QuadEmitter;
+import grondag.frex.api.core.RenderMaterial;
+import grondag.frex.api.core.Renderer;
+import grondag.frex.api.core.RendererAccess;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.Vector3f;

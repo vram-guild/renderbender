@@ -7,10 +7,10 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 import grondag.renderbender.model.MeshTransformer;
-import net.fabricmc.fabric.api.client.model.fabric.MutableQuadView;
-import net.fabricmc.fabric.api.client.model.fabric.RenderMaterial;
-import net.fabricmc.fabric.api.client.model.fabric.RendererAccess;
-import net.fabricmc.fabric.api.client.model.fabric.TerrainBlockView;
+import grondag.frex.api.core.MutableQuadView;
+import grondag.frex.api.core.RenderMaterial;
+import grondag.frex.api.core.RendererAccess;
+import grondag.frex.api.core.TerrainBlockView;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 

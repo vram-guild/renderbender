@@ -24,10 +24,10 @@ import java.util.function.Supplier;
 
 import com.google.common.collect.ImmutableList;
 
-import net.fabricmc.fabric.api.client.model.fabric.Mesh;
-import net.fabricmc.fabric.api.client.model.fabric.ModelHelper;
-import net.fabricmc.fabric.api.client.model.fabric.RenderContext;
-import net.fabricmc.fabric.api.client.model.fabric.TerrainBlockView;
+import grondag.frex.api.core.Mesh;
+import grondag.frex.api.core.ModelHelper;
+import grondag.frex.api.core.RenderContext;
+import grondag.frex.api.core.TerrainBlockView;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;

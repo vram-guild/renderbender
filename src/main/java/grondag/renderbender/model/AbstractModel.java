@@ -16,9 +16,9 @@
 
 package grondag.renderbender.model;
 
-import net.fabricmc.fabric.api.client.model.fabric.FabricBakedModel;
-import net.fabricmc.fabric.api.client.model.fabric.Renderer;
-import net.fabricmc.fabric.api.client.model.fabric.RendererAccess;
+import grondag.frex.api.core.FabricBakedModel;
+import grondag.frex.api.core.Renderer;
+import grondag.frex.api.core.RendererAccess;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.Sprite;

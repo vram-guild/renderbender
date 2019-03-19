@@ -19,8 +19,8 @@ package grondag.renderbender.model;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import net.fabricmc.fabric.api.client.model.fabric.RenderContext.QuadTransform;
-import net.fabricmc.fabric.api.client.model.fabric.TerrainBlockView;
+import grondag.frex.api.core.RenderContext.QuadTransform;
+import grondag.frex.api.core.TerrainBlockView;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 

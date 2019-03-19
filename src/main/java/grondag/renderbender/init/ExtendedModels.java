@@ -4,15 +4,15 @@ import static net.minecraft.block.BlockRenderLayer.*;
 
 import java.util.HashMap;
 
-import grondag.frex.api.ExtendedRenderer;
-import grondag.frex.api.Pipeline;
+import grondag.frex.api.extended.ExtendedRenderer;
+import grondag.frex.api.extended.Pipeline;
 import grondag.renderbender.model.SimpleModel;
 import grondag.renderbender.model.SimpleUnbakedModel;
-import net.fabricmc.fabric.api.client.model.fabric.ModelHelper;
-import net.fabricmc.fabric.api.client.model.fabric.MutableQuadView;
-import net.fabricmc.fabric.api.client.model.fabric.QuadEmitter;
-import net.fabricmc.fabric.api.client.model.fabric.RenderMaterial;
-import net.fabricmc.fabric.api.client.model.fabric.RendererAccess;
+import grondag.frex.api.core.ModelHelper;
+import grondag.frex.api.core.MutableQuadView;
+import grondag.frex.api.core.QuadEmitter;
+import grondag.frex.api.core.RenderMaterial;
+import grondag.frex.api.core.RendererAccess;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
