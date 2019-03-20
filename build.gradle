@@ -18,8 +18,8 @@ buildscript {
 
 // see https://github.com/passsy/gradle-GitVersioner
 ext.gitVersioner = [
-        defaultBranch           : "frex",  // default "master"
-        stableBranches          : ["frex"], // default [], the feature branch postfix (-dm4(6)) will not be appended on stable branches, all commits are included into the version number calculation
+        defaultBranch           : "master",  // default "master"
+        stableBranches          : ["master"], // default [], the feature branch postfix (-dm4(6)) will not be appended on stable branches, all commits are included into the version number calculation
         yearFactor              : 1200, 	  // default "1000", increasing every 8.57h
         snapshotEnabled         : true,      // default false, the "-SNAPSHOT" postfix
         localChangesCountEnabled: false,       // default false, the (<commitCount>) before -SNAPSHOT
@@ -84,6 +84,7 @@ sourceSets {
 dependencies {
 	minecraft "com.mojang:minecraft:19w11b"
 	mappings "net.fabricmc:yarn:19w11b.12"
+	modCompile "net.fabricmc:fabric-loader:0.3.7.109"
 	modCompile "net.fabricmc:fabric:0.2.3.111"
 	modCompile "grondag:frex:0.1.72-alpha"
 	modCompile "grondag:indigo:0.1.386-alpha"
