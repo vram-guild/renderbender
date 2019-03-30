@@ -74,14 +74,14 @@ public class BasicBlocks {
         @Override
         public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos pos, VerticalEntityPosition verticalEntityPosition_1) {
             float height = (1 + (pos.hashCode() & 15)) / 16f;
-            return VoxelShapes.cube(0, 0, 0, 1, height, 1);
+            return VoxelShapes.cuboid(0, 0, 0, 1, height, 1);
         }
     };
     
     public static final Block SHADE_TEST = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build()) {
         @Override
         public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos pos, VerticalEntityPosition verticalEntityPosition_1) {
-            return VoxelShapes.cube(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
+            return VoxelShapes.cuboid(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
         }
         @Override
         public int getLightSubtracted(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
@@ -145,7 +145,7 @@ public class BasicBlocks {
         
         @Override
         public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos pos, VerticalEntityPosition verticalEntityPosition_1) {
-            return VoxelShapes.cube(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
+            return VoxelShapes.cuboid(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
         }
         @Override
         public int getLightSubtracted(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
