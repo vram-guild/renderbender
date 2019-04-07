@@ -1,19 +1,24 @@
 package grondag.renderbender.init;
 
-import static net.minecraft.block.BlockRenderLayer.*;
+import static net.minecraft.block.BlockRenderLayer.SOLID;
+import static net.minecraft.block.BlockRenderLayer.TRANSLUCENT;
 
 import java.util.HashMap;
 
-import grondag.frex.api.extended.ExtendedRenderer;
-import grondag.frex.api.extended.Pipeline;
-import grondag.renderbender.model.SimpleModel;
-import grondag.renderbender.model.SimpleUnbakedModel;
 import grondag.frex.api.core.ModelHelper;
 import grondag.frex.api.core.MutableQuadView;
 import grondag.frex.api.core.QuadEmitter;
 import grondag.frex.api.core.RenderMaterial;
 import grondag.frex.api.core.RendererAccess;
+import grondag.frex.api.extended.ExtendedRenderer;
+import grondag.frex.api.extended.Pipeline;
+import grondag.frex.api.extended.RenderCondition;
+import grondag.renderbender.model.SimpleModel;
+import grondag.renderbender.model.SimpleUnbakedModel;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.Sprite;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 
@@ -135,10 +140,7 @@ public class ExtendedModels {
           
       models.put("shader", new SimpleUnbakedModel(mb -> {
           ExtendedRenderer er = (ExtendedRenderer) RendererAccess.INSTANCE.getRenderer();
-          Pipeline p = er.pipelineBuilder()
-                  .vertexSource(new Identifier("renderbender", "shader/test.vert"))
-                  .fragmentSource(new Identifier("renderbender", "shader/test.frag"))
-                  .build();
+          Pipeline p = getTestPipeline(er);
           RenderMaterial mat = er.materialFinder().pipeline(p).find();
           Sprite sprite = mb.getSprite("minecraft:block/gray_concrete");
           mb.box(mat,
@@ -146,5 +148,49 @@ public class ExtendedModels {
                   0, 0, 0, 1, 1, 1);
           return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
       }));
+      
+      models.put("conditional", new SimpleUnbakedModel(mb -> {
+          ExtendedRenderer er = (ExtendedRenderer) RendererAccess.INSTANCE.getRenderer();
+          RenderCondition condition = er.createCondition(() -> {
+              Entity entity = MinecraftClient.getInstance().cameraEntity;
+              if(entity == null || entity.world == null) {
+                  return false;
+              } else if(entity.world.isRaining()) {
+                  return true;
+              } else if(entity instanceof LivingEntity) {
+                  LivingEntity living = (LivingEntity)entity;
+                  return living.getMainHandStack().getItem() == ExtendedBlocks.CONDITION_ITEM
+                          || living.getOffHandStack().getItem() == ExtendedBlocks.CONDITION_ITEM;
+              } else
+                  return false;
+          }, true, true); 
+          Pipeline p = getTestPipeline(er);
+          RenderMaterial mat = er.materialFinder().pipeline(p)
+                  .blendMode(0, TRANSLUCENT)
+                  .condition(condition)
+                  .emissive(0, true)
+                  .disableDiffuse(0, true)
+                  .disableAo(0, true)
+                  .find();
+          Sprite sprite = mb.getSprite("minecraft:block/snow");
+          mb.box(mat,
+                  0x80DCEFFF, sprite, 
+                  0, 0, 0, 1, 1, 1);
+          return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+      }));
+    }
+    
+    private static final Identifier TEST_PIPELINE = new Identifier("renderbender", "test");
+    
+    private static Pipeline getTestPipeline(ExtendedRenderer er) {
+        Pipeline p = er.pipelineById(TEST_PIPELINE);
+        if(p == null) {
+            p = er.pipelineBuilder()
+                .vertexSource(new Identifier("renderbender", "shader/test.vert"))
+                .fragmentSource(new Identifier("renderbender", "shader/test.frag"))
+                .build();
+            er.registerPipeline(TEST_PIPELINE, p);
+        }
+        return p;
     }
 }

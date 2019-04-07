@@ -26,10 +26,12 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 
 public class BasicBlocks {
-    public static void register(Block block, String name, Function<Block, Item> itemFunc) {
+    public static Item register(Block block, String name, Function<Block, Item> itemFunc) {
         Identifier id = new Identifier("renderbender", name);
         Registry.BLOCK.add(id, block);
-        Registry.ITEM.add(id, itemFunc.apply(block));
+        Item result = itemFunc.apply(block);
+        Registry.ITEM.add(id, result);
+        return result;
     }
     
     public static final Function<Block, Item> ITEM_FUNCTION_STANDARD = block -> {
