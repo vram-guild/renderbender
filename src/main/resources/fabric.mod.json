@@ -1,13 +1,33 @@
 {
+  "schemaVersion": 1,
   "id": "renderbender",
-  "name": "Fabric Render Extensions",
-  "description": "Test mod for Fabric Renderer API and extensions",
-  "version": "0.0.1",
-  "side": "universal",
-  "initializer": "grondag.renderbender.RenderBender",
-  "requires": {
-    "fabric": "*"
+  "version": "${version}",
+  "name": "Render Bender",
+  "description": "Test mod for FREX renderers",
+  "authors": [
+    "Grondag"
+  ],
+  "contact": {
+    "sources": "https://github.com/grondag/renderbender"
   },
-  "mixins": {
+  
+  "license": "Apache-2.0",
+  
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "grondag.renderbender.RenderBender"
+    ]
+  },
+  "mixins": [
+  ],
+  "requires": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*",
+    "frex": ">=0.3.2"
+  },
+  "custom": {
+    "modmenu:api": false,
+    "modmenu:clientsideOnly": true
   }
 }

@@ -6,7 +6,7 @@ import java.util.function.Function;
 import grondag.renderbender.model.ModelBuilder;
 import io.netty.util.internal.ThreadLocalRandom;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import grondag.frex.api.core.DynamicModelBlockEntity;
+import grondag.frex.api.model.DynamicModelBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;

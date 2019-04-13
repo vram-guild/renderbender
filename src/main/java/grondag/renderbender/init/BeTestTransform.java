@@ -6,11 +6,11 @@ import static net.minecraft.block.BlockRenderLayer.TRANSLUCENT;
 import java.util.Random;
 import java.util.function.Supplier;
 
+import grondag.frex.api.RendererAccess;
+import grondag.frex.api.material.RenderMaterial;
+import grondag.frex.api.mesh.MutableQuadView;
+import grondag.frex.api.render.TerrainBlockView;
 import grondag.renderbender.model.MeshTransformer;
-import grondag.frex.api.core.MutableQuadView;
-import grondag.frex.api.core.RenderMaterial;
-import grondag.frex.api.core.RendererAccess;
-import grondag.frex.api.core.TerrainBlockView;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 

@@ -5,14 +5,14 @@ import static net.minecraft.block.BlockRenderLayer.TRANSLUCENT;
 
 import java.util.HashMap;
 
-import grondag.frex.api.core.ModelHelper;
-import grondag.frex.api.core.MutableQuadView;
-import grondag.frex.api.core.QuadEmitter;
-import grondag.frex.api.core.RenderMaterial;
-import grondag.frex.api.core.RendererAccess;
-import grondag.frex.api.extended.ExtendedRenderer;
-import grondag.frex.api.extended.Pipeline;
-import grondag.frex.api.extended.RenderCondition;
+import grondag.frex.api.model.ModelHelper;
+import grondag.frex.api.mesh.MutableQuadView;
+import grondag.frex.api.mesh.QuadEmitter;
+import grondag.frex.api.material.RenderMaterial;
+import grondag.frex.api.RendererAccess;
+import grondag.frex.api.Renderer;
+import grondag.frex.api.material.MaterialShader;
+import grondag.frex.api.material.MaterialCondition;
 import grondag.renderbender.model.SimpleModel;
 import grondag.renderbender.model.SimpleUnbakedModel;
 import net.minecraft.client.MinecraftClient;
@@ -139,9 +139,9 @@ public class ExtendedModels {
       }));  
           
       models.put("shader", new SimpleUnbakedModel(mb -> {
-          ExtendedRenderer er = (ExtendedRenderer) RendererAccess.INSTANCE.getRenderer();
-          Pipeline p = getTestPipeline(er);
-          RenderMaterial mat = er.materialFinder().pipeline(p).find();
+          Renderer er = RendererAccess.INSTANCE.getRenderer();
+          MaterialShader s = getTestShader(er);
+          RenderMaterial mat = er.materialFinder().shader(s).find();
           Sprite sprite = mb.getSprite("minecraft:block/gray_concrete");
           mb.box(mat,
                   -1, sprite, 
@@ -150,8 +150,8 @@ public class ExtendedModels {
       }));
       
       models.put("conditional", new SimpleUnbakedModel(mb -> {
-          ExtendedRenderer er = (ExtendedRenderer) RendererAccess.INSTANCE.getRenderer();
-          RenderCondition condition = er.createCondition(() -> {
+          Renderer er = RendererAccess.INSTANCE.getRenderer();
+          MaterialCondition condition = er.createCondition(() -> {
               Entity entity = MinecraftClient.getInstance().cameraEntity;
               if(entity == null || entity.world == null) {
                   return false;
@@ -164,8 +164,8 @@ public class ExtendedModels {
               } else
                   return false;
           }, true, true); 
-          Pipeline p = getTestPipeline(er);
-          RenderMaterial mat = er.materialFinder().pipeline(p)
+          MaterialShader s = getTestShader(er);
+          RenderMaterial mat = er.materialFinder().shader(s)
                   .blendMode(0, TRANSLUCENT)
                   .condition(condition)
                   .emissive(0, true)
@@ -180,17 +180,17 @@ public class ExtendedModels {
       }));
     }
     
-    private static final Identifier TEST_PIPELINE = new Identifier("renderbender", "test");
+    private static final Identifier TEST_SHADER = new Identifier("renderbender", "test");
     
-    private static Pipeline getTestPipeline(ExtendedRenderer er) {
-        Pipeline p = er.pipelineById(TEST_PIPELINE);
-        if(p == null) {
-            p = er.pipelineBuilder()
+    private static MaterialShader getTestShader(Renderer er) {
+        MaterialShader s = er.shaderById(TEST_SHADER);
+        if(s == null) {
+            s = er.shaderBuilder()
                 .vertexSource(new Identifier("renderbender", "shader/test.vert"))
                 .fragmentSource(new Identifier("renderbender", "shader/test.frag"))
                 .build();
-            er.registerPipeline(TEST_PIPELINE, p);
+            er.registerShader(TEST_SHADER, s);
         }
-        return p;
+        return s;
     }
 }

@@ -16,7 +16,7 @@
 
 package grondag.renderbender.model;
 
-import grondag.frex.api.core.TerrainBlockView;
+import grondag.frex.api.render.TerrainBlockView;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 

@@ -16,14 +16,14 @@
 
 package grondag.renderbender.model;
 
-import grondag.frex.api.core.FabricBakedModel;
-import grondag.frex.api.core.Renderer;
-import grondag.frex.api.core.RendererAccess;
+import grondag.frex.api.model.DynamicBakedModel;
+import grondag.frex.api.Renderer;
+import grondag.frex.api.RendererAccess;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.Sprite;
 
-public abstract class AbstractModel implements BakedModel, FabricBakedModel {
+public abstract class AbstractModel implements BakedModel, DynamicBakedModel {
     protected static final Renderer RENDERER = RendererAccess.INSTANCE.getRenderer();
     
     protected final Sprite modelSprite;
