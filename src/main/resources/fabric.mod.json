@@ -8,7 +8,9 @@
     "Grondag"
   ],
   "contact": {
-    "sources": "https://github.com/grondag/renderbender"
+    "homepage": "https://github.com/grondag/renderbender",
+    "sources": "https://github.com/grondag/renderbender",
+    "issues": "https://github.com/grondag/renderbender/issues"
   },
   
   "license": "Apache-2.0",
@@ -19,12 +21,10 @@
       "grondag.renderbender.RenderBender"
     ]
   },
-  "mixins": [
-  ],
   "requires": {
     "fabricloader": ">=0.4.0",
     "fabric": "*",
-    "frex": ">=0.3.2"
+    "frex": ">=0.4.0"
   },
   "custom": {
     "modmenu:api": false,
