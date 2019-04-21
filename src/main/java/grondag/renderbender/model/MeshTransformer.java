@@ -22,8 +22,11 @@ import java.util.function.Supplier;
 import grondag.frex.api.render.RenderContext.QuadTransform;
 import grondag.frex.api.render.TerrainBlockView;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 public interface MeshTransformer extends QuadTransform {
     MeshTransformer prepare(TerrainBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier);
+    
+    MeshTransformer prepare(ItemStack stack, Supplier<Random> randomSupplier);
 }

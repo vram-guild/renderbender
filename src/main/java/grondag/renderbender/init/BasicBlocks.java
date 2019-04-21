@@ -163,14 +163,25 @@ public class BasicBlocks {
         static final int QUAD_COUNT = 6 * 14 * 14;
         private int[] colors = new int[QUAD_COUNT];
         
+        static final int[] ITEM_COLORS;
+        
+        static {
+            ITEM_COLORS = new int[QUAD_COUNT];
+            genColors(ITEM_COLORS);
+        }
+        
         public BeTestBlockEntity() {
             super(BE_TEST_TYPE);
-            Random r = ThreadLocalRandom.current();
-            for(int i = 0; i < QUAD_COUNT; i++) {
-                colors[i] = ModelBuilder.randomPastelColor(r);
-            }
+            genColors(colors);
         }
     
+        static void genColors(int[] data) {
+            Random r = ThreadLocalRandom.current();
+            for(int i = 0; i < QUAD_COUNT; i++) {
+                data[i] = ModelBuilder.randomPastelColor(r);
+            }
+        }
+        
         @Override
         public Object getDynamicModelData() {
             return colors;

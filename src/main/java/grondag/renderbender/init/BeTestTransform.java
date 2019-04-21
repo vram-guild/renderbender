@@ -10,8 +10,10 @@ import grondag.frex.api.RendererAccess;
 import grondag.frex.api.material.RenderMaterial;
 import grondag.frex.api.mesh.MutableQuadView;
 import grondag.frex.api.render.TerrainBlockView;
+import grondag.renderbender.init.BasicBlocks.BeTestBlockEntity;
 import grondag.renderbender.model.MeshTransformer;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 class BeTestTransform implements MeshTransformer {
@@ -52,6 +54,15 @@ class BeTestTransform implements MeshTransformer {
             translucent = false;
         }
         stupid = (int[])blockView.getCachedRenderData(pos);
+        return this;
+    }
+    
+    @Override
+    public MeshTransformer prepare(ItemStack stack, Supplier<Random> randomSupplier) {
+        mat = matSolid;
+        matGlow = matSolidGlow;
+        translucent = false;
+        stupid = BeTestBlockEntity.ITEM_COLORS;
         return this;
     }
 }

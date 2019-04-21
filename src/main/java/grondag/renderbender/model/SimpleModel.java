@@ -78,18 +78,18 @@ public class SimpleModel extends AbstractModel {
     
     @Override
     public void emitBlockQuads(TerrainBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
+        final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(blockView, state, pos, randomSupplier);
+        if(transform != null) {
+            context.pushTransform(transform);
+        }
         if(mesh != null) {
-            MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(blockView, state, pos, randomSupplier);
-            if(transform == null) {
-                context.meshConsumer().accept(mesh);
-            } else {
-                context.pushTransform(transform);
-                context.meshConsumer().accept(mesh);
-                context.popTransform();
-            }
+            context.meshConsumer().accept(mesh);
         }
         if(dynamicRender != null) {
             dynamicRender.render(blockView, state, pos, randomSupplier, context);
+        }
+        if(transform != null) {
+            context.popTransform();
         }
     }
     
@@ -111,11 +111,18 @@ public class SimpleModel extends AbstractModel {
 
     @Override
     public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
+        final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(stack, randomSupplier);
+        if(transform != null) {
+            context.pushTransform(transform);
+        }
         if(mesh != null) {
             context.meshConsumer().accept(mesh);
         }
         if(dynamicRender != null) {
             dynamicRender.render(null, null, null, randomSupplier, context);
+        }
+        if(transform != null) {
+            context.popTransform();
         }
     }
 }

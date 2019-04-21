@@ -24,6 +24,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -179,6 +180,15 @@ public class BasicModels {
         
         @Override
         public GlowTransform prepare(TerrainBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier) {
+            return prep(randomSupplier);
+        }
+
+        @Override
+        public GlowTransform prepare(ItemStack stack, Supplier<Random> randomSupplier) {
+            return prep(randomSupplier);
+        }
+        
+        private GlowTransform prep(Supplier<Random> randomSupplier) {
             Random random = randomSupplier.get();
             topColor = ModelBuilder.randomPastelColor(random);
             bottomColor = ModelBuilder.randomPastelColor(random);
