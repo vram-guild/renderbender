@@ -64,8 +64,7 @@ public class ExtendedModels {
                   .emit();
           
           qe.material(mb.finder().spriteDepth(3)
-                  .blendMode(0, SOLID).emissive(0, true)
-                  .disableAo(0, true).disableDiffuse(0, true)
+                  .blendMode(0, SOLID)
                   .blendMode(1, TRANSLUCENT)
                   .blendMode(2, TRANSLUCENT).emissive(2, true)
                   .disableAo(2, true).disableDiffuse(2, true)
@@ -82,8 +81,7 @@ public class ExtendedModels {
                   .emit();
           
           qe.material(mb.finder().spriteDepth(3)
-                  .blendMode(0, SOLID).emissive(0, true)
-                  .disableAo(0, true).disableDiffuse(0, true)
+                  .blendMode(0, SOLID)
                   .blendMode(1, TRANSLUCENT).emissive(1, true)
                   .disableAo(1, true).disableDiffuse(0, true)
                   .blendMode(2, TRANSLUCENT)
