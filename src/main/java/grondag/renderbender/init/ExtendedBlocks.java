@@ -11,8 +11,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
-import net.minecraft.client.render.block.BiomeColors;
-import net.minecraft.client.render.block.FoliageColorHandler;
+import net.minecraft.client.color.world.BiomeColors;
+import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
@@ -54,8 +54,8 @@ public class ExtendedBlocks {
 
         @Environment(EnvType.CLIENT)
         @Override
-        public boolean skipRenderingSide(BlockState blockState_1, BlockState blockState_2, Direction direction_1) {
-            return blockState_2.getBlock() == this ? true : super.skipRenderingSide(blockState_1, blockState_2, direction_1);
+        public boolean isSideInvisible(BlockState blockState_1, BlockState blockState_2, Direction direction_1) {
+            return blockState_2.getBlock() == this ? true : super.isSideInvisible(blockState_1, blockState_2, direction_1);
         }
 
         @Override
@@ -75,11 +75,11 @@ public class ExtendedBlocks {
         register(LAYERS_BLOCK, "layers", ITEM_FUNCTION_STANDARD);
 
         ColorProviderRegistry.BLOCK.register((blockState, extendedBlockView, pos, colorIndex) -> {
-            return extendedBlockView != null && pos != null ? BiomeColors.foliageColorAt(extendedBlockView, pos) : FoliageColorHandler.getDefaultColor();
+            return extendedBlockView != null && pos != null ? BiomeColors.getFoliageColor(extendedBlockView, pos) : FoliageColors.getDefaultColor();
         }, LAYERS_BLOCK);
 
         ColorProviderRegistry.ITEM.register((stack, colorIndex) -> {
-            return FoliageColorHandler.getDefaultColor();
+            return FoliageColors.getDefaultColor();
         }, LAYERS_BLOCK);
 
         register(SHADER_BLOCK, "shader", ITEM_FUNCTION_STANDARD);

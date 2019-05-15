@@ -13,7 +13,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.VerticalEntityPosition;
+import net.minecraft.entity.EntityContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -74,7 +74,7 @@ public class BasicBlocks {
     
     public static final Block AO_TEST = new Block(FabricBlockSettings.of(Material.STONE).dynamicBounds().strength(1, 1).build()) {
         @Override
-        public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos pos, VerticalEntityPosition verticalEntityPosition_1) {
+        public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos pos, EntityContext entityContext) {
             float height = (1 + (pos.hashCode() & 15)) / 16f;
             return VoxelShapes.cuboid(0, 0, 0, 1, height, 1);
         }
@@ -82,7 +82,7 @@ public class BasicBlocks {
     
     public static final Block SHADE_TEST = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build()) {
         @Override
-        public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos pos, VerticalEntityPosition verticalEntityPosition_1) {
+        public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos pos, EntityContext entityContext) {
             return VoxelShapes.cuboid(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
         }
         @Override
@@ -99,7 +99,7 @@ public class BasicBlocks {
     
     public static final Block ROUND_BLOCK_HARD = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build()) {
         @Override
-        public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, VerticalEntityPosition verticalEntityPosition_1) {
+        public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, EntityContext entityContext) {
             return ROUND_SHAPE;
         }
         @Override
@@ -114,7 +114,7 @@ public class BasicBlocks {
     
     public static final Block ROUND_BLOCK_SOFT = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build()) {
         @Override
-        public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, VerticalEntityPosition verticalEntityPosition_1) {
+        public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, EntityContext entityContext) {
             return ROUND_SHAPE;
         }
         @Override
@@ -146,7 +146,7 @@ public class BasicBlocks {
         }
         
         @Override
-        public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos pos, VerticalEntityPosition verticalEntityPosition_1) {
+        public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos pos, EntityContext entityContext) {
             return VoxelShapes.cuboid(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
         }
         @Override

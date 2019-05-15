@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.2.1-SNAPSHOT'
+	id 'fabric-loom' version '0.2.2-SNAPSHOT'
 	id 'java'
 	id 'maven'
 	id 'maven-publish'
@@ -76,14 +76,14 @@ sourceSets {
     }
 }
 
-def mcVersion = "1.14 Pre-Release 5"
+def mcVersion = "1.14.1"
 dependencies {
-minecraft "com.mojang:minecraft:$mcVersion"
-	mappings "net.fabricmc:yarn:$mcVersion+build.3"
-	modCompile "net.fabricmc:fabric-loader:0.4.1+build.128"
-	modCompile "net.fabricmc:fabric:0.2.7+build.126"
+	minecraft "com.mojang:minecraft:$mcVersion"
+	mappings "net.fabricmc:yarn:$mcVersion+build.5"
+	modCompile "net.fabricmc:fabric-loader:0.4.7+build.147"
+	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.0-pre+build.156"
 	
-	modCompile "grondag:frex:0.4.+"
+	modCompile "grondag:frex:0.6.2"
 	
 	compile "org.apiguardian:apiguardian-api:1.0.0"
 	compile "com.google.code.findbugs:jsr305:3.0.2"
