@@ -127,8 +127,8 @@ public class BasicBlocks {
         }
     };
     
-    public static final BlockEntityType<BasicBlocks.BeTestBlockEntity> BE_TEST_TYPE = BlockEntityType.Builder.create(BasicBlocks.BeTestBlockEntity::new).build(null);
     public static Block BE_TEST_BLOCK = new BeTestBlock();
+    public static final BlockEntityType<BasicBlocks.BeTestBlockEntity> BE_TEST_TYPE = BlockEntityType.Builder.create(BasicBlocks.BeTestBlockEntity::new, BE_TEST_BLOCK).build(null);
     
     public static class BeTestBlock extends Block implements BlockEntityProvider {
         public BeTestBlock() {
@@ -160,6 +160,8 @@ public class BasicBlocks {
     }
     
     public static class BeTestBlockEntity extends BlockEntity implements DynamicModelBlockEntity {
+        
+        
         static final int QUAD_COUNT = 6 * 14 * 14;
         private int[] colors = new int[QUAD_COUNT];
         
