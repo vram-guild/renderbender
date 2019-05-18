@@ -16,9 +16,9 @@
 
 package grondag.renderbender.model;
 
-import grondag.frex.api.render.TerrainBlockView;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ExtendedBlockView;
 
 /**
  * Used to control visibility of multi-part model parts.
@@ -34,5 +34,5 @@ public interface PartVisibilityPredicate {
      * model in that case. Future API versions will probably provide
      * better support for dynamic damage models.
      */
-    boolean apply(TerrainBlockView blockView, BlockState state, BlockPos pos);
+    boolean apply(ExtendedBlockView blockView, BlockState state, BlockPos pos);
 }

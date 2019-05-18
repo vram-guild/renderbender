@@ -6,7 +6,7 @@ import java.util.function.Function;
 import grondag.renderbender.model.ModelBuilder;
 import io.netty.util.internal.ThreadLocalRandom;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import grondag.frex.api.model.DynamicModelBlockEntity;
+import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -159,7 +159,7 @@ public class BasicBlocks {
         }
     }
     
-    public static class BeTestBlockEntity extends BlockEntity implements DynamicModelBlockEntity {
+    public static class BeTestBlockEntity extends BlockEntity implements RenderAttachmentBlockEntity {
         
         
         static final int QUAD_COUNT = 6 * 14 * 14;
@@ -185,7 +185,7 @@ public class BasicBlocks {
         }
         
         @Override
-        public Object getDynamicModelData() {
+        public Object getRenderAttachmentData() {
             return colors;
         }
     }

@@ -5,16 +5,16 @@ import static net.minecraft.block.BlockRenderLayer.TRANSLUCENT;
 
 import java.util.HashMap;
 
-import grondag.frex.api.model.ModelHelper;
-import grondag.frex.api.mesh.MutableQuadView;
-import grondag.frex.api.mesh.QuadEmitter;
-import grondag.frex.api.material.RenderMaterial;
-import grondag.frex.api.RendererAccess;
 import grondag.frex.api.Renderer;
 import grondag.frex.api.material.MaterialShader;
 import grondag.frex.api.material.MaterialCondition;
 import grondag.renderbender.model.SimpleModel;
 import grondag.renderbender.model.SimpleUnbakedModel;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
+import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
+import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
+import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.entity.Entity;
@@ -137,7 +137,7 @@ public class ExtendedModels {
       }));  
           
       models.put("shader", new SimpleUnbakedModel(mb -> {
-          Renderer er = RendererAccess.INSTANCE.getRenderer();
+          Renderer er = (Renderer) RendererAccess.INSTANCE.getRenderer();
           MaterialShader s = getTestShader(er);
           RenderMaterial mat = er.materialFinder().shader(s).find();
           Sprite sprite = mb.getSprite("minecraft:block/gray_concrete");
@@ -148,7 +148,7 @@ public class ExtendedModels {
       }));
       
       models.put("conditional", new SimpleUnbakedModel(mb -> {
-          Renderer er = RendererAccess.INSTANCE.getRenderer();
+          Renderer er = (Renderer) RendererAccess.INSTANCE.getRenderer();
           MaterialCondition condition = er.createCondition(() -> {
               Entity entity = MinecraftClient.getInstance().cameraEntity;
               if(entity == null || entity.world == null) {

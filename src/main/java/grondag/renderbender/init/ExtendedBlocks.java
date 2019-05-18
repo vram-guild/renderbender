@@ -33,7 +33,7 @@ public class ExtendedBlocks {
             .materialColor(MaterialColor.CYAN).build()) {
 
         @Override
-        public boolean isFullBoundsCubeForCulling(BlockState blockState_1) {
+        public boolean isOpaque(BlockState blockState_1) {
             return false;
         }
 

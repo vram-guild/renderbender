@@ -6,15 +6,16 @@ import static net.minecraft.block.BlockRenderLayer.TRANSLUCENT;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import grondag.frex.api.RendererAccess;
-import grondag.frex.api.material.RenderMaterial;
-import grondag.frex.api.mesh.MutableQuadView;
-import grondag.frex.api.render.TerrainBlockView;
 import grondag.renderbender.init.BasicBlocks.BeTestBlockEntity;
 import grondag.renderbender.model.MeshTransformer;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
+import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
+import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ExtendedBlockView;
 
 class BeTestTransform implements MeshTransformer {
     static RenderMaterial matSolid = RendererAccess.INSTANCE.getRenderer().materialFinder()
@@ -43,7 +44,7 @@ class BeTestTransform implements MeshTransformer {
     }
     
     @Override
-    public MeshTransformer prepare(TerrainBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier) {
+    public MeshTransformer prepare(ExtendedBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier) {
         if(randomSupplier.get().nextInt(4) == 0) {
             mat = matTrans;
             matGlow = matTransGlow;
@@ -53,7 +54,7 @@ class BeTestTransform implements MeshTransformer {
             matGlow = matSolidGlow;
             translucent = false;
         }
-        stupid = (int[])blockView.getCachedRenderData(pos);
+        stupid = (int[])((RenderAttachedBlockView)blockView).getBlockEntityRenderAttachment(pos);
         return this;
     }
     

@@ -3,12 +3,12 @@ package grondag.renderbender.model;
 import java.util.Random;
 
 import grondag.frex.api.Renderer;
-import grondag.frex.api.RendererAccess;
 import grondag.frex.api.material.MaterialFinder;
-import grondag.frex.api.material.RenderMaterial;
-import grondag.frex.api.mesh.MeshBuilder;
-import grondag.frex.api.mesh.MutableQuadView;
-import grondag.frex.api.mesh.QuadEmitter;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
+import net.fabricmc.fabric.api.renderer.v1.mesh.MeshBuilder;
+import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
+import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.Vector3f;
@@ -30,7 +30,7 @@ public class ModelBuilder {
     public static final int FULL_BRIGHTNESS = 15 << 20 | 15 << 4;
     
     private ModelBuilder() {
-        Renderer renderer = RendererAccess.INSTANCE.getRenderer();
+        Renderer renderer = (Renderer) RendererAccess.INSTANCE.getRenderer();
         builder = renderer.meshBuilder();
         finder = renderer.materialFinder();
     }

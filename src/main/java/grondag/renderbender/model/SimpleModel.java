@@ -24,10 +24,9 @@ import java.util.function.Supplier;
 
 import com.google.common.collect.ImmutableList;
 
-import grondag.frex.api.mesh.Mesh;
-import grondag.frex.api.model.ModelHelper;
-import grondag.frex.api.render.RenderContext;
-import grondag.frex.api.render.TerrainBlockView;
+import net.fabricmc.fabric.api.renderer.v1.mesh.Mesh;
+import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
+import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
@@ -38,6 +37,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.ExtendedBlockView;
 import net.minecraft.world.World;
 
 /**
@@ -77,7 +77,7 @@ public class SimpleModel extends AbstractModel {
     }
     
     @Override
-    public void emitBlockQuads(TerrainBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
+    public void emitBlockQuads(ExtendedBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
         final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(blockView, state, pos, randomSupplier);
         if(transform != null) {
             context.pushTransform(transform);
