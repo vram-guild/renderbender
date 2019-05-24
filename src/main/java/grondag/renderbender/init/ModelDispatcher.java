@@ -14,7 +14,7 @@ public class ModelDispatcher {
             models = new HashMap<>();
             BasicModels.initialize(models);
             if(RenderBender.isExtendedRenderer()) {
-                ExtendedModels.initialize(models);
+//                ExtendedModels.initialize(models);
             }
         }
     }

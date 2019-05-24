@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import grondag.frex.api.Renderer;
 import grondag.renderbender.model.DynamicRenderer;
 import grondag.renderbender.model.MeshTransformer;
 import grondag.renderbender.model.ModelBuilder;
 import grondag.renderbender.model.SimpleModel;
 import grondag.renderbender.model.SimpleUnbakedModel;
+import net.fabricmc.fabric.api.renderer.v1.Renderer;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MeshBuilder;
@@ -122,7 +122,7 @@ public class BasicModels {
     // this is NOT the way to handle this...
     static DynamicRenderer aoBuilder() {
         return new DynamicRenderer() {
-            Renderer renderer = (Renderer) RendererAccess.INSTANCE.getRenderer();
+            Renderer renderer = RendererAccess.INSTANCE.getRenderer();
             RenderMaterial mat = renderer.materialFinder().disableDiffuse(0, true).find();
             @Override
             public void render(ExtendedBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {

@@ -23,6 +23,7 @@ import grondag.renderbender.init.BasicBlocks;
 import grondag.renderbender.init.ExtendedBlocks;
 import grondag.renderbender.init.ModelDispatcher;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 
 public class RenderBender implements ModInitializer {
     public static final Logger LOG = LogManager.getLogger();
@@ -37,7 +38,7 @@ public class RenderBender implements ModInitializer {
     }
     
     public static boolean isExtendedRenderer() {
-        return true;
-        //return RendererAccess.INSTANCE.getRenderer() instanceof ExtendedRenderer;
+        return false;
+//        return RendererAccess.INSTANCE.getRenderer() instanceof grondag.frex.api.Renderer;
     }
 }
