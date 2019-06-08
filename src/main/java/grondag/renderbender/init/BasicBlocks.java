@@ -36,14 +36,14 @@ public class BasicBlocks {
     
     public static final Function<Block, Item> ITEM_FUNCTION_STANDARD = block -> {
         return new BlockItem(block, new Item.Settings()
-                .stackSize(64)
-                .itemGroup(ItemGroup.BUILDING_BLOCKS));
+                .maxCount(64)
+                .group(ItemGroup.BUILDING_BLOCKS));
     };
     
     public static final Function<Block, Item> ITEM_FUNCTION_ENCHANTED = block -> {
         return new BlockItem(block, new Item.Settings()
-                .stackSize(64)
-                .itemGroup(ItemGroup.BUILDING_BLOCKS)) {
+                .maxCount(64)
+                .group(ItemGroup.BUILDING_BLOCKS)) {
                       @Override
                       public boolean hasEnchantmentGlint(ItemStack itemStack_1) {
                           return true;
