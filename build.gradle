@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.2.3-SNAPSHOT'
+	id 'fabric-loom' version '0.2.4-SNAPSHOT'
 	id 'java'
 	id 'maven'
 	id 'maven-publish'
@@ -91,15 +91,15 @@ def mcVersion = "1.14.2"
 dependencies {
 	minecraft "com.mojang:minecraft:$mcVersion"
 	mappings "net.fabricmc:yarn:$mcVersion+build.7"
-    modCompile "net.fabricmc:fabric-loader:0.4.8+build.154"
-    modCompile "net.fabricmc.fabric-api:fabric-api:0.3.0+build.179"
+    modImplementation "net.fabricmc:fabric-loader:0.4.8+build.155"
+    modCompile "net.fabricmc.fabric-api:fabric-api:0.3.0+build.185"
 	
-	modCompile "grondag:frex:0.7.0+"
-	include "grondag:frex:0.7.0+"
+	modCompile "grondag:frex:0.7.1+"
+	include "grondag:frex:0.7.1+"
 	
 	compile "org.apiguardian:apiguardian-api:1.0.0"
 	compile "com.google.code.findbugs:jsr305:3.0.2"
-	compile "org.joml:joml:1.9.14"
+	//compile "org.joml:joml:1.9.14"
 }
 
 publishing {
