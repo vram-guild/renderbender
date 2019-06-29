@@ -1,12 +1,10 @@
 plugins {
 	id 'fabric-loom' version '0.2.4-SNAPSHOT'
-	id 'java'
-	id 'maven'
 	id 'maven-publish'
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 ext.getVersionCode = { ->
     try {
@@ -24,12 +22,23 @@ ext.getVersionCode = { ->
 
 archivesBaseName = "renderbender"
 group = "grondag"
-version = "0.7.0+build." + project.getVersionCode();
+version = "0.7.1+build." + project.getVersionCode();
 
 minecraft {
 }
 
 repositories {
+    //mavenLocal()
+    //flatDir {
+    //    dirs '../fabric/build/libs'
+    //}
+    
+    maven { url "https://tehnut.info/maven"}
+    maven { url "http://maven.sargunv.s3-website-us-west-2.amazonaws.com/" }
+    maven { url "https://minecraft.curseforge.com/api/maven" }
+    maven { url "https://maven.fabricmc.net/io/github/prospector/modmenu/ModMenu/" }
+    maven { url "https://maven.jamieswhiteshirt.com/libs-release/"}
+    
  	maven {
     	name = "grondag"
     	url = "https://grondag-repo.appspot.com"
@@ -42,9 +51,14 @@ repositories {
 
 processResources {
 	inputs.property "version", version
+	
 	from(sourceSets.main.resources.srcDirs) {
 		include "fabric.mod.json"
 		expand "version": version
+	}
+	
+	from(sourceSets.main.resources.srcDirs) {
+		exclude "fabric.mod.json"
 	}
 }
 
@@ -86,19 +100,23 @@ sourceSets {
     }
 }
 
-def mcVersion = "1.14.2"
+def mcVersion = "1.14.3"
 
 dependencies {
 	minecraft "com.mojang:minecraft:$mcVersion"
-	mappings "net.fabricmc:yarn:$mcVersion+build.7"
+	mappings "net.fabricmc:yarn:$mcVersion+build.1"
     modImplementation "net.fabricmc:fabric-loader:0.4.8+build.155"
-    modCompile "net.fabricmc.fabric-api:fabric-api:0.3.0+build.185"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.3.0+build.187"
 	
-	modCompile "grondag:frex:0.7.1+"
-	include "grondag:frex:0.7.1+"
+	modRuntime "grondag:frex:0.7.3+build.71"
+    include "grondag:frex:0.7.3+build.71"
 	
+    modImplementation "grondag:fermion:0.6.3+build.37"
+    include "grondag:fermion:0.6.3+build.37"
+    
 	compile "org.apiguardian:apiguardian-api:1.0.0"
 	compile "com.google.code.findbugs:jsr305:3.0.2"
+	modRuntime "com.jamieswhiteshirt:developer-mode:1.0.11"
 	//compile "org.joml:joml:1.9.14"
 }
 
