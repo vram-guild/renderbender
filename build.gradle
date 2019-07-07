@@ -22,7 +22,7 @@ ext.getVersionCode = { ->
 
 archivesBaseName = "renderbender"
 group = "grondag"
-version = "0.7.1+build." + project.getVersionCode();
+version = "0.8.0+build." + project.getVersionCode();
 
 minecraft {
 }
@@ -108,11 +108,11 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:0.4.8+build.155"
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.3.0+build.187"
 	
-	modRuntime "grondag:frex:0.7.3+build.71"
-    include "grondag:frex:0.7.3+build.71"
+	modImplementation "grondag:frex:0.8+"
+    include "grondag:frex:0.8+"
 	
-    modImplementation "grondag:fermion:0.6.3+build.37"
-    include "grondag:fermion:0.6.3+build.37"
+    //modImplementation "grondag:fermion:0.6.3+build.37"
+    //include "grondag:fermion:0.6.3+build.37"
     
 	compile "org.apiguardian:apiguardian-api:1.0.0"
 	compile "com.google.code.findbugs:jsr305:3.0.2"
@@ -123,9 +123,16 @@ dependencies {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-			artifact(jar) {
+			artifact ("${project.buildDir.absolutePath}/libs/${archivesBaseName}-${project.version}.jar") { 
+				classifier null
 				builtBy remapJar
 			}
+
+			artifact ("${project.buildDir.absolutePath}/libs/${archivesBaseName}-${project.version}-dev.jar") { 
+				classifier "dev"
+				builtBy remapJar
+			}
+			
 			artifact(sourcesJar) {
 				builtBy remapSourcesJar
 			}
