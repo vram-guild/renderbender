@@ -52,6 +52,7 @@ public class BasicBlocks {
     };
     
     public static void initialize() {
+        register(ITEM_TRANSFORM, "item_transform", ITEM_FUNCTION_STANDARD);
         register(GLOW_BLOCK, "glow", ITEM_FUNCTION_STANDARD);
         register(GLOW_BLOCK_DIFFUSE, "glow_diffuse", ITEM_FUNCTION_STANDARD);
         register(GLOW_BLOCK_AO, "glow_ao", ITEM_FUNCTION_STANDARD);
@@ -66,6 +67,7 @@ public class BasicBlocks {
         Registry.register(Registry.BLOCK_ENTITY, new Identifier("renderbender", "be_test"), BE_TEST_TYPE);
     }
     
+    public static final Block ITEM_TRANSFORM = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build());
     public static final Block GLOW_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build());
     public static final Block GLOW_BLOCK_SHADED = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build());
     public static final Block GLOW_BLOCK_DIFFUSE = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build());

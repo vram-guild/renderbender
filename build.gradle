@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.2.4-SNAPSHOT'
+	id 'fabric-loom' version '0.2.5-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -22,7 +22,7 @@ ext.getVersionCode = { ->
 
 archivesBaseName = "renderbender"
 group = "grondag"
-version = "0.8.0+build." + project.getVersionCode();
+version = project.renderbender_version + project.getVersionCode();
 
 minecraft {
 }
@@ -100,39 +100,26 @@ sourceSets {
     }
 }
 
-def mcVersion = "1.14.3"
 
 dependencies {
-	minecraft "com.mojang:minecraft:$mcVersion"
-	mappings "net.fabricmc:yarn:$mcVersion+build.1"
-    modImplementation "net.fabricmc:fabric-loader:0.4.8+build.155"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.3.0+build.187"
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}"
+	modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
+	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
-	modImplementation "grondag:frex:0.8+"
-    include "grondag:frex:0.8+"
+	modImplementation "grondag:frex:${project.frex_version}+"
+    include "grondag:frex:${project.frex_version}+"
 	
-    //modImplementation "grondag:fermion:0.6.3+build.37"
-    //include "grondag:fermion:0.6.3+build.37"
-    
 	compile "org.apiguardian:apiguardian-api:1.0.0"
 	compile "com.google.code.findbugs:jsr305:3.0.2"
-	modRuntime "com.jamieswhiteshirt:developer-mode:1.0.11"
-	//compile "org.joml:joml:1.9.14"
 }
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
-			artifact ("${project.buildDir.absolutePath}/libs/${archivesBaseName}-${project.version}.jar") { 
-				classifier null
-				builtBy remapJar
+			artifact(jar.archivePath) {
+	    		builtBy remapJar
 			}
-
-			artifact ("${project.buildDir.absolutePath}/libs/${archivesBaseName}-${project.version}-dev.jar") { 
-				classifier "dev"
-				builtBy remapJar
-			}
-			
 			artifact(sourcesJar) {
 				builtBy remapSourcesJar
 			}

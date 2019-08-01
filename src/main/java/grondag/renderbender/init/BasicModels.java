@@ -21,9 +21,12 @@ import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -31,15 +34,35 @@ import net.minecraft.world.ExtendedBlockView;
 
 public class BasicModels {
 
+    static boolean hackformer(MutableQuadView victim) {
+        final Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas().getSprite("minecraft:block/quartz_block_side");
+        victim.spriteColor(0, 0xFFFF0000, 0xFFFF0000, 0xFFFF0000, 0xFFFF0000);
+        victim.spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV);
+        return true;
+    }
+
     public static void initialize(HashMap<String, SimpleUnbakedModel> models) {
         models.put("glow", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
             mb.box(mb.finder().emissive(0, true).disableAo(0, true).disableDiffuse(0, true).find(),
                     -1, sprite, 
                     0, 0, 0, 1, 1, 1);
-            return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+            return new SimpleModel(mb.builder.build(), () -> BasicModels::hackformer, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
-        
+
+        models.put("item_transform", new SimpleUnbakedModel(mb -> {
+            Sprite sprite = mb.getSprite("minecraft:block/cobble");
+
+            return new SimpleModel(mb.builder.build(), () -> BasicModels::hackformer, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, new DynamicRenderer() {
+                @Override
+                public void render(ExtendedBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
+                    BakedModel baseModel = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(new Identifier("minecraft", "cobblestone"), "inventory"));
+                    context.fallbackConsumer().accept(baseModel);
+                }
+            });
+        }));
+
+
         models.put("glow_diffuse", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
             mb.box(mb.finder().emissive(0, true).disableAo(0, true).find(),
@@ -47,7 +70,7 @@ public class BasicModels {
                     0, 0, 0, 1, 1, 1);
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
-        
+
         models.put("glow_ao", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
             mb.box(mb.finder().emissive(0, true).disableDiffuse(0, true).find(),
@@ -55,7 +78,7 @@ public class BasicModels {
                     0, 0, 0, 1, 1, 1);
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
-        
+
         models.put("glow_shaded", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
             mb.box(mb.finder().emissive(0, true).find(),
@@ -63,7 +86,7 @@ public class BasicModels {
                     0, 0, 0, 1, 1, 1);
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
-        
+
         models.put("glow_dynamic", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
             mb.box(mb.finder().find(),
@@ -71,23 +94,23 @@ public class BasicModels {
                     0, 0, 0, 1, 1, 1);
             return new SimpleModel(mb.builder.build(), glowTransform::get, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
-        
+
         models.put("round_hard", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
             ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().find(), sprite, false);
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
-        
+
         models.put("round_soft", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
             ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().find(), sprite, true);
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
-        
+
         models.put("ao_test", new SimpleUnbakedModel(mb -> {
             return new SimpleModel(null, null, mb.getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, aoBuilder());
         }));
-        
+
         models.put("shade_test", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
             mb.box(mb.finder().find(),
@@ -95,7 +118,7 @@ public class BasicModels {
                     1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
             return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
         }));
-        
+
         models.put("be_test", new SimpleUnbakedModel(mb -> {
             final Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
             final RenderMaterial mat = mb.finder().find();
@@ -131,7 +154,7 @@ public class BasicModels {
                 Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas().getSprite("minecraft:block/quartz_block_side");
                 MeshBuilder builder = renderer.meshBuilder();
                 QuadEmitter emitter = builder.getEmitter(); 
-                
+
                 for(int d = 0; d < 6; d++) {
                     Direction face = Direction.byId(d);
                     if(face == Direction.UP) {
@@ -141,14 +164,14 @@ public class BasicModels {
                                 float u = i * .25f;
                                 float v = j * .25f;
                                 emitter.square(face, u, v, u + .25f, v + .25f, depth)
-                                    .material(mat).spriteColor(0, -1, -1, -1, -1)
-                                    .spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV).emit();
+                                .material(mat).spriteColor(0, -1, -1, -1, -1)
+                                .spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV).emit();
                             }
                         }
                     } else if(face == Direction.DOWN) {
                         emitter.square(face, 0, 0, 1, 1, 0)
-                            .material(mat).spriteColor(0, -1, -1, -1, -1)
-                            .spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV).emit();
+                        .material(mat).spriteColor(0, -1, -1, -1, -1)
+                        .spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV).emit();
                     } else {
                         emitter.square(face, 0, 0, 1, height, 0)
                         .material(mat).spriteColor(0, -1, -1, -1, -1)
@@ -159,13 +182,13 @@ public class BasicModels {
             }
         };
     };
-    
+
     static class GlowTransform implements MeshTransformer {
         int topColor;
         int bottomColor;
         int topLight;
         int bottomLight;
-        
+
         @Override
         public boolean transform(MutableQuadView q) {
             for(int i = 0; i < 4; i++) {
@@ -177,7 +200,7 @@ public class BasicModels {
             }
             return true;
         }
-        
+
         @Override
         public GlowTransform prepare(ExtendedBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier) {
             return prep(randomSupplier);
@@ -187,7 +210,7 @@ public class BasicModels {
         public GlowTransform prepare(ItemStack stack, Supplier<Random> randomSupplier) {
             return prep(randomSupplier);
         }
-        
+
         private GlowTransform prep(Supplier<Random> randomSupplier) {
             Random random = randomSupplier.get();
             topColor = ModelBuilder.randomPastelColor(random);
@@ -198,9 +221,9 @@ public class BasicModels {
             return this;
         }
     }
-    
+
     static ThreadLocal<MeshTransformer> glowTransform = ThreadLocal.withInitial(GlowTransform::new);
-    
+
     static ThreadLocal<MeshTransformer> beTestTransform = ThreadLocal.withInitial(BeTestTransform::new);
 
 }

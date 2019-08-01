@@ -26,7 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ExtendedBlockView;
 
 public interface MeshTransformer extends QuadTransform {
-    MeshTransformer prepare(ExtendedBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier);
+    default MeshTransformer prepare(ExtendedBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier) { return this;}
     
-    MeshTransformer prepare(ItemStack stack, Supplier<Random> randomSupplier);
+    default MeshTransformer prepare(ItemStack stack, Supplier<Random> randomSupplier) { return this;};
 }

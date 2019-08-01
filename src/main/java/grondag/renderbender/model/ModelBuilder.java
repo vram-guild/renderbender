@@ -128,12 +128,12 @@ public class ModelBuilder {
 
         for(int i = 0; i < 12; i++) {
             Vector3f n = normals[i];
-            vertexes[i] = new Vector3f(center.x() + n.x(), center.y() + n.y(), center.z() + n.z());
+            vertexes[i] = new Vector3f(center.getX() + n.getX(), center.getY() + n.getY(), center.getZ() + n.getZ());
             
             if(smoothNormals) {
-                float x = n.x();
-                float y = n.y();
-                float z = n.z();
+                float x = n.getX();
+                float y = n.getY();
+                float z = n.getZ();
                 
                 float len = (float) Math.sqrt(x * x + y * y + z * z);
                 
