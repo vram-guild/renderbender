@@ -33,10 +33,11 @@ repositories {
     //    dirs '../fabric/build/libs'
     //}
     
+    jcenter();
     maven { url "https://tehnut.info/maven"}
     maven { url "http://maven.sargunv.s3-website-us-west-2.amazonaws.com/" }
     maven { url "https://minecraft.curseforge.com/api/maven" }
-    maven { url "https://maven.fabricmc.net/io/github/prospector/modmenu/ModMenu/" }
+    maven { url "https://maven.fabricmc.net/" }
     maven { url "https://maven.jamieswhiteshirt.com/libs-release/"}
     
  	maven {
