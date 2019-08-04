@@ -7,16 +7,17 @@ plugins {
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-archivesBaseName = "renderbender"
-group = "grondag"
+archivesBaseName = 'renderbender'
+group = 'grondag'
+version_tag = 'renderbender_version'
 
 if (grgit == null) {
 	version = '99.0.0-nogit'
-} else if (project.hasProperty('renderbender_version')) {
+} else if (project.hasProperty(version_tag)) {
 	if(grgit.status().isClean()) {
-		version = project.getProperty('renderbender_version') + '.' + grgit.log().size() + '+' + project.minecraft_version
+		version = project.getProperty(version_tag) + '.' + grgit.log().size() + '+' + project.minecraft_version
 	} else {
-		version = project.getProperty('renderbender_version') + '.' + (grgit.log().size() + 1) + '-snapshot+' + project.minecraft_version
+		version = project.getProperty(version_tag) + '.' + (grgit.log().size() + 1) + '-snapshot+' + project.minecraft_version
 	}
 } else {
 	version = '99.0.0-local'
