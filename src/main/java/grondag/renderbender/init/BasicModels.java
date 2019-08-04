@@ -42,26 +42,23 @@ public class BasicModels {
     }
 
     public static void initialize(HashMap<String, SimpleUnbakedModel> models) {
-        models.put("glow", new SimpleUnbakedModel(mb -> {
-            Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
-            mb.box(mb.finder().emissive(0, true).disableAo(0, true).disableDiffuse(0, true).find(),
-                    -1, sprite, 
-                    0, 0, 0, 1, 1, 1);
-            return new SimpleModel(mb.builder.build(), () -> BasicModels::hackformer, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
-        }));
-
         models.put("item_transform", new SimpleUnbakedModel(mb -> {
-            Sprite sprite = mb.getSprite("minecraft:block/cobble");
-
-            return new SimpleModel(mb.builder.build(), () -> BasicModels::hackformer, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, new DynamicRenderer() {
+            return new SimpleModel(mb.builder.build(), () -> BasicModels::hackformer, mb.getSprite("minecraft:block/cobble"), ModelHelper.MODEL_TRANSFORM_BLOCK, new DynamicRenderer() {
                 @Override
                 public void render(ExtendedBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
-                    BakedModel baseModel = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(new Identifier("minecraft", "cobblestone"), "inventory"));
+                    BakedModel baseModel = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(new Identifier("minecraft", "cobble"), "inventory"));
                     context.fallbackConsumer().accept(baseModel);
                 }
             });
         }));
 
+        models.put("glow", new SimpleUnbakedModel(mb -> {
+            Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+            mb.box(mb.finder().emissive(0, true).disableAo(0, true).disableDiffuse(0, true).find(),
+                    -1, sprite, 
+                    0, 0, 0, 1, 1, 1);
+            return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+        }));
 
         models.put("glow_diffuse", new SimpleUnbakedModel(mb -> {
             Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");

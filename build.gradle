@@ -9,7 +9,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = 'renderbender'
 group = 'grondag'
-version_tag = 'renderbender_version'
+def version_tag = 'renderbender_version'
 
 if (grgit == null) {
 	version = '99.0.0-nogit'
