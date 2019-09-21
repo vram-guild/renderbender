@@ -19,9 +19,7 @@ package grondag.renderbender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import grondag.frex.Frex;
 import grondag.renderbender.init.BasicBlocks;
-import grondag.renderbender.init.ExtendedBlocks;
 import grondag.renderbender.init.ModelDispatcher;
 import net.fabricmc.api.ModInitializer;
 
@@ -31,9 +29,9 @@ public class RenderBender implements ModInitializer {
     @Override
     public void onInitialize() {
         BasicBlocks.initialize();
-        if(Frex.isAvailable()) {
-            ExtendedBlocks.initialize();
-        }
+//        if(Frex.isAvailable()) {
+//            ExtendedBlocks.initialize();
+//        }
         ModelDispatcher.initialize();
     }
 }

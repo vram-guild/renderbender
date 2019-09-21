@@ -27,10 +27,10 @@ minecraft {
 }
 
 repositories {
-    //mavenLocal()
-    //flatDir {
-    //    dirs '../fabric/build/libs'
-    //}
+    mavenLocal()
+    flatDir {
+        dirs '../fabric/build/libs'
+    }
     
     jcenter();
     maven { url "https://tehnut.info/maven"}
@@ -102,13 +102,13 @@ sourceSets {
 
 
 dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}"
-	modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
-	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	minecraft "com.mojang:minecraft:19w38b"
+	mappings "net.fabricmc:yarn:19w38b+build.4"
+	modCompile "net.fabricmc:fabric-loader:0.6.2+build.166"
+	modCompile "net.fabricmc:fabric-api:0.3.2+local-19w38b-fixes"
 	
-	modImplementation "grondag:frex:${project.frex_version}+"
-    include "grondag:frex:${project.frex_version}+"
+	//modImplementation "grondag:frex:${project.frex_version}+"
+    //include "grondag:frex:${project.frex_version}+"
 	
 	compile "org.apiguardian:apiguardian-api:1.0.0"
 	compile "com.google.code.findbugs:jsr305:3.0.2"

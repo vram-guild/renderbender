@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ExtendedBlockView;
+import net.minecraft.world.BlockRenderView;
 
 /**
  * Encapsulates parts of baked models that can't be pre-baked and
@@ -31,5 +31,5 @@ import net.minecraft.world.ExtendedBlockView;
  */
 @FunctionalInterface
 public interface DynamicRenderer {
-    void render(ExtendedBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context);
+    void render(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context);
 }

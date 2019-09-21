@@ -6,6 +6,7 @@ import java.util.function.Function;
 import grondag.renderbender.model.ModelBuilder;
 import io.netty.util.internal.ThreadLocalRandom;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
@@ -14,10 +15,10 @@ import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityContext;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.BlockItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -65,6 +66,8 @@ public class BasicBlocks {
         register(BE_TEST_BLOCK, "be_test", ITEM_FUNCTION_STANDARD);
         
         Registry.register(Registry.BLOCK_ENTITY, new Identifier("renderbender", "be_test"), BE_TEST_TYPE);
+        
+        BlockRenderLayerMap.INSTANCE.putBlock(GLOW_BLOCK, null);
     }
     
     public static final Block ITEM_TRANSFORM = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build());
@@ -88,9 +91,11 @@ public class BasicBlocks {
             return VoxelShapes.cuboid(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
         }
         @Override
-        public int getLightSubtracted(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
+        public int getOpacity(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
             return 1;
         }
+        
+        
         @Override
         public float getAmbientOcclusionLightLevel(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
             return .4f;
@@ -105,7 +110,7 @@ public class BasicBlocks {
             return ROUND_SHAPE;
         }
         @Override
-        public int getLightSubtracted(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
+        public int getOpacity(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
             return 1;
          }
         @Override
@@ -120,7 +125,7 @@ public class BasicBlocks {
             return ROUND_SHAPE;
         }
         @Override
-        public int getLightSubtracted(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
+        public int getOpacity(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
             return 1;
          }
         @Override
@@ -152,7 +157,7 @@ public class BasicBlocks {
             return VoxelShapes.cuboid(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
         }
         @Override
-        public int getLightSubtracted(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
+        public int getOpacity(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
             return 1;
         }
         @Override

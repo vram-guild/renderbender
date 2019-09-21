@@ -2,7 +2,7 @@ package grondag.renderbender.init;
 
 import java.util.HashMap;
 
-import grondag.frex.Frex;
+//import grondag.frex.Frex;
 import grondag.renderbender.model.SimpleUnbakedModel;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 
@@ -13,9 +13,9 @@ public class ModelDispatcher {
         if(models == null) {
             models = new HashMap<>();
             BasicModels.initialize(models);
-            if(Frex.isAvailable()) {
-                ExtendedModels.initialize(models);
-            }
+//            if(Frex.isAvailable()) {
+//                ExtendedModels.initialize(models);
+//            }
         }
     }
     

@@ -18,7 +18,7 @@ package grondag.renderbender.model;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ExtendedBlockView;
+import net.minecraft.world.BlockRenderView;
 
 /**
  * Used to control visibility of multi-part model parts.
@@ -34,5 +34,5 @@ public interface PartVisibilityPredicate {
      * model in that case. Future API versions will probably provide
      * better support for dynamic damage models.
      */
-    boolean apply(ExtendedBlockView blockView, BlockState state, BlockPos pos);
+    boolean apply(BlockRenderView blockView, BlockState state, BlockPos pos);
 }

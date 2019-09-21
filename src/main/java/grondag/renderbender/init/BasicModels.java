@@ -30,7 +30,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.ExtendedBlockView;
+import net.minecraft.world.BlockRenderView;
 
 public class BasicModels {
 
@@ -45,7 +45,7 @@ public class BasicModels {
         models.put("item_transform", new SimpleUnbakedModel(mb -> {
             return new SimpleModel(mb.builder.build(), () -> BasicModels::hackformer, mb.getSprite("minecraft:block/cobble"), ModelHelper.MODEL_TRANSFORM_BLOCK, new DynamicRenderer() {
                 @Override
-                public void render(ExtendedBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
+                public void render(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
                     BakedModel baseModel = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(new Identifier("minecraft", "cobble"), "inventory"));
                     context.fallbackConsumer().accept(baseModel);
                 }
@@ -145,7 +145,7 @@ public class BasicModels {
             Renderer renderer = RendererAccess.INSTANCE.getRenderer();
             RenderMaterial mat = renderer.materialFinder().disableDiffuse(0, true).find();
             @Override
-            public void render(ExtendedBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
+            public void render(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
                 int hash = pos == null ? 8 : pos.hashCode();
                 float height = (1 + (hash & 15)) / 16f;
                 Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas().getSprite("minecraft:block/quartz_block_side");
@@ -189,7 +189,7 @@ public class BasicModels {
         @Override
         public boolean transform(MutableQuadView q) {
             for(int i = 0; i < 4; i++) {
-                if(MathHelper.equalsApproximate(q.y(i), 0)) {
+                if(MathHelper.approximatelyEquals(q.y(i), 0)) {
                     q.spriteColor(i, 0, bottomColor).lightmap(i, bottomLight);
                 } else {
                     q.spriteColor(i, 0, topColor).lightmap(i, topLight);
@@ -199,7 +199,7 @@ public class BasicModels {
         }
 
         @Override
-        public GlowTransform prepare(ExtendedBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier) {
+        public GlowTransform prepare(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier) {
             return prep(randomSupplier);
         }
 
