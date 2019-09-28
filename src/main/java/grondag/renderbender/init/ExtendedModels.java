@@ -1,8 +1,5 @@
 package grondag.renderbender.init;
 
-import static net.minecraft.block.BlockRenderLayer.SOLID;
-import static net.minecraft.block.BlockRenderLayer.TRANSLUCENT;
-
 import java.util.HashMap;
 
 import grondag.frex.api.Renderer;
@@ -11,6 +8,7 @@ import grondag.frex.api.material.MaterialCondition;
 import grondag.renderbender.model.SimpleModel;
 import grondag.renderbender.model.SimpleUnbakedModel;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.fabricmc.fabric.api.renderer.v1.material.BlendMode;
 import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
@@ -29,10 +27,10 @@ public class ExtendedModels {
           models.put("layers", new SimpleUnbakedModel(mb -> {
               final QuadEmitter qe = mb.builder.getEmitter();
           qe.material(mb.finder().spriteDepth(3)
-                  .blendMode(0, SOLID).emissive(0, true)
+                  .blendMode(0, BlendMode.SOLID).emissive(0, true)
                   .disableAo(0, true).disableDiffuse(0, true)
-                  .blendMode(1, TRANSLUCENT)
-                  .blendMode(2, TRANSLUCENT)
+                  .blendMode(1, BlendMode.TRANSLUCENT)
+                  .blendMode(2, BlendMode.TRANSLUCENT)
                   .disableColorIndex(0, true)
                   .disableColorIndex(2, true).find())
                   .colorIndex(0)
@@ -46,11 +44,11 @@ public class ExtendedModels {
                   .emit();
           
           qe.material(mb.finder().spriteDepth(3)
-                  .blendMode(0, SOLID).emissive(0, true)
+                  .blendMode(0, BlendMode.SOLID).emissive(0, true)
                   .disableAo(0, true).disableDiffuse(0, true)
-                  .blendMode(1, TRANSLUCENT).emissive(1, true)
+                  .blendMode(1, BlendMode.TRANSLUCENT).emissive(1, true)
                   .disableAo(1, true).disableDiffuse(1, true)
-                  .blendMode(2, TRANSLUCENT)
+                  .blendMode(2, BlendMode.TRANSLUCENT)
                   .disableColorIndex(0, true)
                   .disableColorIndex(2, true).find())
                   .colorIndex(0)
@@ -64,9 +62,9 @@ public class ExtendedModels {
                   .emit();
           
           qe.material(mb.finder().spriteDepth(3)
-                  .blendMode(0, SOLID)
-                  .blendMode(1, TRANSLUCENT)
-                  .blendMode(2, TRANSLUCENT).emissive(2, true)
+                  .blendMode(0, BlendMode.SOLID)
+                  .blendMode(1, BlendMode.TRANSLUCENT)
+                  .blendMode(2, BlendMode.TRANSLUCENT).emissive(2, true)
                   .disableAo(2, true).disableDiffuse(2, true)
                   .disableColorIndex(0, true)
                   .disableColorIndex(2, true).find())
@@ -81,10 +79,10 @@ public class ExtendedModels {
                   .emit();
           
           qe.material(mb.finder().spriteDepth(3)
-                  .blendMode(0, SOLID)
-                  .blendMode(1, TRANSLUCENT).emissive(1, true)
+                  .blendMode(0, BlendMode.SOLID)
+                  .blendMode(1, BlendMode.TRANSLUCENT).emissive(1, true)
                   .disableAo(1, true).disableDiffuse(0, true)
-                  .blendMode(2, TRANSLUCENT)
+                  .blendMode(2, BlendMode.TRANSLUCENT)
                   .disableColorIndex(0, true)
                   .disableColorIndex(2, true).find())
                   .colorIndex(-1)
@@ -98,10 +96,10 @@ public class ExtendedModels {
                   .emit();
           
           qe.material(mb.finder().spriteDepth(3)
-                  .blendMode(0, SOLID).emissive(0, true)
+                  .blendMode(0, BlendMode.SOLID).emissive(0, true)
                   .disableAo(0, true).disableDiffuse(0, true)
-                  .blendMode(1, TRANSLUCENT)
-                  .blendMode(2, TRANSLUCENT)
+                  .blendMode(1, BlendMode.TRANSLUCENT)
+                  .blendMode(2, BlendMode.TRANSLUCENT)
                   .disableColorIndex(0, true)
                   .disableColorIndex(1, true)
                   .disableColorIndex(2, true).find())
@@ -116,10 +114,10 @@ public class ExtendedModels {
                   .emit();
           
           qe.material(mb.finder().spriteDepth(3)
-                  .blendMode(0, SOLID)
-                  .blendMode(1, TRANSLUCENT).emissive(1, true)
+                  .blendMode(0, BlendMode.SOLID)
+                  .blendMode(1, BlendMode.TRANSLUCENT).emissive(1, true)
                   .disableAo(1, true).disableDiffuse(1, true)
-                  .blendMode(2, TRANSLUCENT).emissive(2, true)
+                  .blendMode(2, BlendMode.TRANSLUCENT).emissive(2, true)
                   .disableAo(2, true).disableDiffuse(2, true)
                   .disableColorIndex(0, true)
                   .disableColorIndex(2, true).find())
@@ -164,7 +162,7 @@ public class ExtendedModels {
           }, true, true); 
           MaterialShader s = getTestShader(er);
           RenderMaterial mat = er.materialFinder().shader(s)
-                  .blendMode(0, TRANSLUCENT)
+                  .blendMode(0, BlendMode.TRANSLUCENT)
                   .condition(condition)
                   .emissive(0, true)
                   .disableDiffuse(0, true)

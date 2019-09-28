@@ -30,12 +30,7 @@ public class ExtendedBlocks {
 
     private static final Block CONDITIONAL_BLOCK = new Block(FabricBlockSettings
             .of(Material.GLASS).strength(1, 1)
-            .materialColor(MaterialColor.CYAN).build()) {
-
-        @Override
-        public boolean isOpaque(BlockState blockState_1) {
-            return false;
-        }
+            .materialColor(MaterialColor.CYAN).build().method_22488()) {
 
         @Override
         public boolean canSuffocate(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
@@ -64,7 +59,7 @@ public class ExtendedBlocks {
         }
 
         @Override
-        public int getLightSubtracted(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
+        public int getOpacity(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
             return 0;
         }
     };

@@ -88,7 +88,7 @@ public class BasicBlocks {
             return VoxelShapes.cuboid(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
         }
         @Override
-        public int getLightSubtracted(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
+        public int getOpacity(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
             return 1;
         }
         @Override
@@ -105,7 +105,7 @@ public class BasicBlocks {
             return ROUND_SHAPE;
         }
         @Override
-        public int getLightSubtracted(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
+        public int getOpacity(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
             return 1;
          }
         @Override
@@ -120,7 +120,7 @@ public class BasicBlocks {
             return ROUND_SHAPE;
         }
         @Override
-        public int getLightSubtracted(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
+        public int getOpacity(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
             return 1;
          }
         @Override
@@ -152,7 +152,7 @@ public class BasicBlocks {
             return VoxelShapes.cuboid(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
         }
         @Override
-        public int getLightSubtracted(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
+        public int getOpacity(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
             return 1;
         }
         @Override

@@ -1,7 +1,5 @@
 package grondag.renderbender.init;
 
-import static net.minecraft.block.BlockRenderLayer.SOLID;
-import static net.minecraft.block.BlockRenderLayer.TRANSLUCENT;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -9,26 +7,27 @@ import java.util.function.Supplier;
 import grondag.renderbender.init.BasicBlocks.BeTestBlockEntity;
 import grondag.renderbender.model.MeshTransformer;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.fabricmc.fabric.api.renderer.v1.material.BlendMode;
 import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ExtendedBlockView;
+import net.minecraft.world.BlockRenderView;
 
 class BeTestTransform implements MeshTransformer {
     static RenderMaterial matSolid = RendererAccess.INSTANCE.getRenderer().materialFinder()
-            .blendMode(0, SOLID).find();
+            .blendMode(0, BlendMode.SOLID).find();
     
     static RenderMaterial matSolidGlow = RendererAccess.INSTANCE.getRenderer().materialFinder()
-            .blendMode(0, SOLID).disableDiffuse(0, true).emissive(0, true).disableAo(0, true).find();
+            .blendMode(0, BlendMode.SOLID).disableDiffuse(0, true).emissive(0, true).disableAo(0, true).find();
     
     static RenderMaterial matTrans = RendererAccess.INSTANCE.getRenderer().materialFinder()
-            .blendMode(0, TRANSLUCENT).find();
+            .blendMode(0, BlendMode.TRANSLUCENT).find();
     
     static RenderMaterial matTransGlow = RendererAccess.INSTANCE.getRenderer().materialFinder()
-            .blendMode(0, TRANSLUCENT).disableDiffuse(0, true).emissive(0, true).disableAo(0, true).find();
+            .blendMode(0, BlendMode.TRANSLUCENT).disableDiffuse(0, true).emissive(0, true).disableAo(0, true).find();
     
     private RenderMaterial mat = null;
     private RenderMaterial matGlow = null;
@@ -44,7 +43,7 @@ class BeTestTransform implements MeshTransformer {
     }
     
     @Override
-    public MeshTransformer prepare(ExtendedBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier) {
+    public MeshTransformer prepare(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier) {
         if(randomSupplier.get().nextInt(4) == 0) {
             mat = matTrans;
             matGlow = matTransGlow;
