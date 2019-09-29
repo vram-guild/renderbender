@@ -68,10 +68,16 @@ public class SimpleModel extends AbstractModel {
     @Override
     public List<BakedQuad> getQuads(BlockState state, Direction face, Random rand) {
         List<BakedQuad>[] lists = quadLists == null ? null : quadLists.get();
+        
         if(lists == null) {
             lists = ModelHelper.toQuadLists(this.mesh);
             quadLists = new WeakReference<>(lists);
         }
+        
+        if (lists == null) {
+        	return ImmutableList.of();
+        }
+        
         List<BakedQuad> result = lists[face == null ? 6 : face.getId()];
         return result == null ? ImmutableList.of() : result;
     }

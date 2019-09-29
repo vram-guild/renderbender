@@ -29,8 +29,8 @@ public class SimpleUnbakedModel implements UnbakedModel {
         return Collections.emptyList();
     }
 
-    @Override
-    public BakedModel bake(ModelLoader var1, Function<Identifier, Sprite> var2, ModelBakeSettings var3) {
-        return baker.apply(ModelBuilder.instance());
-    }
+	@Override
+	public BakedModel bake(ModelLoader var1, Function<Identifier, Sprite> var2, ModelBakeSettings var3, Identifier var4) {
+		return baker.apply(ModelBuilder.instance());
+	}
 }

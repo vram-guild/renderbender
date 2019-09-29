@@ -28,9 +28,9 @@ minecraft {
 
 repositories {
     mavenLocal()
-    flatDir {
-        dirs '../fabric/build/libs'
-    }
+    //flatDir {
+    //    dirs '../fabric/build/libs'
+    //}
     
     jcenter();
     maven { url "https://tehnut.info/maven"}
@@ -102,11 +102,12 @@ sourceSets {
 
 
 dependencies {
-	minecraft "com.mojang:minecraft:19w38b"
-	mappings "net.fabricmc:yarn:19w38b+build.4"
+	minecraft "com.mojang:minecraft:19w39a"
+	mappings "net.fabricmc:yarn:19w39a+build.1"
 	modCompile "net.fabricmc:fabric-loader:0.6.2+build.166"
-	modCompile "net.fabricmc:fabric-api:0.3.2+local-19w38b-fixes"
-	
+	// strage path for maven local
+	modCompile "net.fabricmc.fabric-api:fabric-api:0.4.0+local-19w39a-fixes"
+
 	//modImplementation "grondag:frex:${project.frex_version}+"
     //include "grondag:frex:${project.frex_version}+"
 	
