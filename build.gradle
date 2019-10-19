@@ -102,11 +102,12 @@ sourceSets {
 
 
 dependencies {
-	minecraft "com.mojang:minecraft:19w39a"
-	mappings "net.fabricmc:yarn:19w39a+build.1"
-	modCompile "net.fabricmc:fabric-loader:0.6.2+build.166"
-	// strage path for maven local
-	modCompile "net.fabricmc.fabric-api:fabric-api:0.4.0+local-19w39a-fixes"
+    minecraft "com.mojang:minecraft:19w42a"
+    mappings "net.fabricmc:yarn:19w42a+build.1"
+    modCompile "net.fabricmc:fabric-loader:0.6.3+build.167"
+            
+    //Fabric api
+    modCompile "net.fabricmc.fabric-api:fabric-api:0.4.6+build.251-1.15"
 
 	//modImplementation "grondag:frex:${project.frex_version}+"
     //include "grondag:frex:${project.frex_version}+"
