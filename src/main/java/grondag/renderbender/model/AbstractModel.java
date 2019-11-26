@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2019 grondag
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
  * of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
@@ -24,43 +24,43 @@ import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.Sprite;
 
 public abstract class AbstractModel implements BakedModel, FabricBakedModel {
-    protected static final Renderer RENDERER = RendererAccess.INSTANCE.getRenderer();
-    
-    protected final Sprite modelSprite;
-    protected final ModelTransformation transformation;
-    protected final DynamicRenderer dynamicRender;
-    
-    protected AbstractModel(
-            Sprite sprite, 
-            ModelTransformation transformation, 
-            DynamicRenderer dynamicRender) {
-        this.modelSprite = sprite;
-        this.transformation = transformation;
-        this.dynamicRender = dynamicRender;
-    }
-    
-    @Override
-    public boolean useAmbientOcclusion() {
-        return true;
-    }
+	protected static final Renderer RENDERER = RendererAccess.INSTANCE.getRenderer();
 
-    @Override
-    public boolean hasDepthInGui() {
-        return true;
-    }
+	protected final Sprite modelSprite;
+	protected final ModelTransformation transformation;
+	protected final DynamicRenderer dynamicRender;
 
-    @Override
-    public boolean isBuiltin() {
-        return false;
-    }
+	protected AbstractModel(
+			Sprite sprite,
+			ModelTransformation transformation,
+			DynamicRenderer dynamicRender) {
+		modelSprite = sprite;
+		this.transformation = transformation;
+		this.dynamicRender = dynamicRender;
+	}
 
-    @Override
-    public Sprite getSprite() {
-        return modelSprite;
-    }
+	@Override
+	public boolean useAmbientOcclusion() {
+		return true;
+	}
 
-    @Override
-    public ModelTransformation getTransformation() {
-        return transformation;
-    }
+	@Override
+	public boolean hasDepthInGui() {
+		return true;
+	}
+
+	@Override
+	public boolean isBuiltin() {
+		return false;
+	}
+
+	@Override
+	public Sprite getSprite() {
+		return modelSprite;
+	}
+
+	@Override
+	public ModelTransformation getTransformation() {
+		return transformation;
+	}
 }

@@ -5,32 +5,35 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.function.Function;
 
+import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.ModelBakeSettings;
+import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
 
 public class SimpleUnbakedModel implements UnbakedModel {
-    Function<ModelBuilder, BakedModel> baker;
-    
-    public SimpleUnbakedModel(Function<ModelBuilder, BakedModel> baker) {
-        this.baker = baker;
-    }
-    
-    @Override
-    public Collection<Identifier> getModelDependencies() {
-        return Collections.emptyList();
-    }
+	Function<ModelBuilder, BakedModel> baker;
 
-    @Override
-    public Collection<Identifier> getTextureDependencies(Function<Identifier, UnbakedModel> var1, Set<String> var2) {
-        return Collections.emptyList();
-    }
+	public SimpleUnbakedModel(Function<ModelBuilder, BakedModel> baker) {
+		this.baker = baker;
+	}
 
 	@Override
-	public BakedModel bake(ModelLoader var1, Function<Identifier, Sprite> var2, ModelBakeSettings var3, Identifier var4) {
-		return baker.apply(ModelBuilder.instance());
+	public Collection<Identifier> getModelDependencies() {
+		return Collections.emptyList();
+	}
+
+	@Override
+	public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> var1, Set<Pair<String, String>> set) {
+		return Collections.emptyList();
+	}
+
+	@Override
+	public BakedModel bake(ModelLoader var1, Function<SpriteIdentifier, Sprite> spriteFunc, ModelBakeSettings var3, Identifier var4) {
+		return baker.apply(ModelBuilder.prepare(spriteFunc));
 	}
 }
