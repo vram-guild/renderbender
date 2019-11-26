@@ -21,7 +21,7 @@
       "grondag.renderbender.RenderBender"
     ]
   },
-  "requires": {
+  "depends": {
     "fabricloader": ">=0.4.0",
     "fabric": "*",
     "frex": ">=0.4.0"
