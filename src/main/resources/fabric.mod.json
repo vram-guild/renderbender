@@ -22,9 +22,10 @@
     ]
   },
   "depends": {
-    "fabricloader": ">=0.4.0",
+    "fabricloader": ">=0.7.1",
+    "minecraft": "~1.15-pre2",
     "fabric": "*",
-    "frex": ">=0.4.0"
+    "frex": "*"
   },
   "custom": {
     "modmenu:api": false,
