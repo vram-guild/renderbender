@@ -16,12 +16,13 @@
 
 package grondag.renderbender.model;
 
-import net.fabricmc.fabric.api.renderer.v1.Renderer;
-import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
-import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.Sprite;
+
+import net.fabricmc.fabric.api.renderer.v1.Renderer;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 
 public abstract class AbstractModel implements BakedModel, FabricBakedModel {
 	protected static final Renderer RENDERER = RendererAccess.INSTANCE.getRenderer();
@@ -45,7 +46,12 @@ public abstract class AbstractModel implements BakedModel, FabricBakedModel {
 	}
 
 	@Override
-	public boolean hasDepthInGui() {
+	public boolean isSideLit() {
+		return true;
+	}
+
+	@Override
+	public boolean hasDepth() {
 		return true;
 	}
 
