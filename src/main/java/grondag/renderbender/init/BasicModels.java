@@ -6,19 +6,6 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import grondag.renderbender.model.DynamicRenderer;
-import grondag.renderbender.model.MeshTransformer;
-import grondag.renderbender.model.ModelBuilder;
-import grondag.renderbender.model.SimpleModel;
-import grondag.renderbender.model.SimpleUnbakedModel;
-import net.fabricmc.fabric.api.renderer.v1.Renderer;
-import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
-import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
-import net.fabricmc.fabric.api.renderer.v1.mesh.MeshBuilder;
-import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
-import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
-import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
-import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
@@ -32,6 +19,21 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockRenderView;
+
+import net.fabricmc.fabric.api.renderer.v1.Renderer;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
+import net.fabricmc.fabric.api.renderer.v1.mesh.MeshBuilder;
+import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
+import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
+import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
+import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
+
+import grondag.renderbender.model.DynamicRenderer;
+import grondag.renderbender.model.MeshTransformer;
+import grondag.renderbender.model.ModelBuilder;
+import grondag.renderbender.model.SimpleModel;
+import grondag.renderbender.model.SimpleUnbakedModel;
 
 public class BasicModels {
 

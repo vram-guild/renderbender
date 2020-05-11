@@ -3,49 +3,45 @@ package grondag.renderbender.init;
 import static grondag.renderbender.init.BasicBlocks.ITEM_FUNCTION_STANDARD;
 import static grondag.renderbender.init.BasicBlocks.register;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.client.render.ColorProviderRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
-import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+
 public class ExtendedBlocks {
 	private static final Block LAYERS_BLOCK = new Block(FabricBlockSettings
 			.of(Material.STONE).strength(1, 1)
-			.materialColor(MaterialColor.FOLIAGE).build());
+			.materialColor(MaterialColor.FOLIAGE).build()
+			.allowsSpawning((s,v,p,o) -> false)
+			.solidBlock((s,v,p) -> false)
+			.suffocates((s,v,p) -> false));
 
 	private static final Block SHADER_BLOCK = new Block(FabricBlockSettings
 			.of(Material.STONE).strength(1, 1)
-			.materialColor(MaterialColor.CYAN).build());
+			.materialColor(MaterialColor.CYAN).build()
+			.allowsSpawning((s,v,p,o) -> false)
+			.solidBlock((s,v,p) -> false)
+			.suffocates((s,v,p) -> false));
 
 	private static final Block CONDITIONAL_BLOCK = new Block(FabricBlockSettings
 			.of(Material.GLASS).strength(1, 1)
-			.materialColor(MaterialColor.CYAN).build().noCollision()) {
+			.materialColor(MaterialColor.CYAN).build()
+			.noCollision()
+			.allowsSpawning((s,v,p,o) -> false)
+			.solidBlock((s,v,p) -> false)
+			.suffocates((s,v,p) -> false)) {
 
-		@Override
-		public boolean canSuffocate(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
-			return false;
-		}
-
-		@Override
-		public boolean isSimpleFullBlock(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
-			return false;
-		}
-
-		@Override
-		public boolean allowsSpawning(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, EntityType<?> entityType_1) {
-			return false;
-		}
 
 		@Environment(EnvType.CLIENT)
 		@Override
