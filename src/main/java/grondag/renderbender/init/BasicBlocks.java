@@ -23,7 +23,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 
 import grondag.renderbender.model.ModelBuilder;
@@ -31,9 +31,9 @@ import grondag.renderbender.model.ModelBuilder;
 public class BasicBlocks {
 	public static Item register(Block block, String name, Function<Block, Item> itemFunc) {
 		final Identifier id = new Identifier("renderbender", name);
-		Registry.BLOCK.add(id, block);
+		Registry.register(Registry.BLOCK, id, block);
 		final Item result = itemFunc.apply(block);
-		Registry.ITEM.add(id, result);
+		Registry.register(Registry.ITEM, id, result);
 		return result;
 	}
 
@@ -64,20 +64,26 @@ public class BasicBlocks {
 		register(AO_TEST, "ao_test", ITEM_FUNCTION_STANDARD);
 		register(SHADE_TEST, "shade_test", ITEM_FUNCTION_STANDARD);
 		register(ROUND_BLOCK_HARD, "round_hard", ITEM_FUNCTION_ENCHANTED);
+		register(ROUND_BLOCK_HARD_AO, "round_hard_ao", ITEM_FUNCTION_ENCHANTED);
+		register(ROUND_BLOCK_HARD_DIFFUSE, "round_hard_diffuse", ITEM_FUNCTION_ENCHANTED);
+		register(ROUND_BLOCK_HARD_DIFFUSE_GLOW, "round_hard_diffuse_glow", ITEM_FUNCTION_ENCHANTED);
 		register(ROUND_BLOCK_SOFT, "round_soft", ITEM_FUNCTION_ENCHANTED);
+		register(ROUND_BLOCK_SOFT_AO, "round_soft_ao", ITEM_FUNCTION_ENCHANTED);
+		register(ROUND_BLOCK_SOFT_DIFFUSE, "round_soft_diffuse", ITEM_FUNCTION_ENCHANTED);
+		register(ROUND_BLOCK_SOFT_DIFFUSE_GLOW, "round_soft_diffuse_glow", ITEM_FUNCTION_ENCHANTED);
 		register(BE_TEST_BLOCK, "be_test", ITEM_FUNCTION_STANDARD);
 
 		Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("renderbender", "be_test"), BE_TEST_TYPE);
 	}
 
-	public static final Block ITEM_TRANSFORM = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build());
-	public static final Block GLOW_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build());
-	public static final Block GLOW_BLOCK_SHADED = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build());
-	public static final Block GLOW_BLOCK_DIFFUSE = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build());
-	public static final Block GLOW_BLOCK_AO = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build());
-	public static final Block GLOW_BLOCK_DYNAMIC = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build());
+	public static final Block ITEM_TRANSFORM = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
+	public static final Block GLOW_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
+	public static final Block GLOW_BLOCK_SHADED = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
+	public static final Block GLOW_BLOCK_DIFFUSE = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
+	public static final Block GLOW_BLOCK_AO = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
+	public static final Block GLOW_BLOCK_DYNAMIC = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
 
-	public static final Block AO_TEST = new Block(FabricBlockSettings.of(Material.STONE).dynamicBounds().strength(1, 1).build()) {
+	public static final Block AO_TEST = new Block(FabricBlockSettings.of(Material.STONE).dynamicBounds().strength(1, 1)) {
 		@Override
 		public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos pos, ShapeContext entityContext) {
 			final float height = (1 + (pos.hashCode() & 15)) / 16f;
@@ -85,7 +91,7 @@ public class BasicBlocks {
 		}
 	};
 
-	public static final Block SHADE_TEST = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build()) {
+	public static final Block SHADE_TEST = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1)) {
 		@Override
 		public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos pos, ShapeContext entityContext) {
 			return VoxelShapes.cuboid(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
@@ -102,22 +108,11 @@ public class BasicBlocks {
 
 	public static final VoxelShape ROUND_SHAPE = Block.createCuboidShape(1.0D, 1.0D, 1.0D, 14.0D, 14.0D, 15.0D);
 
-	public static final Block ROUND_BLOCK_HARD = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build()) {
-		@Override
-		public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, ShapeContext entityContext) {
-			return ROUND_SHAPE;
+	private static class RoundBlock extends Block {
+		public RoundBlock(Settings settings) {
+			super(settings);
 		}
-		@Override
-		public int getOpacity(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
-			return 1;
-		}
-		@Override
-		public float getAmbientOcclusionLightLevel(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
-			return .5f;
-		}
-	};
 
-	public static final Block ROUND_BLOCK_SOFT = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1).build()) {
 		@Override
 		public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, ShapeContext entityContext) {
 			return ROUND_SHAPE;
@@ -130,14 +125,24 @@ public class BasicBlocks {
 		public float getAmbientOcclusionLightLevel(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
 			return .5f;
 		}
-	};
+	}
+
+	public static final Block ROUND_BLOCK_HARD = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
+	public static final Block ROUND_BLOCK_HARD_AO = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
+	public static final Block ROUND_BLOCK_HARD_DIFFUSE = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
+	public static final Block ROUND_BLOCK_HARD_DIFFUSE_GLOW = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
+
+	public static final Block ROUND_BLOCK_SOFT = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
+	public static final Block ROUND_BLOCK_SOFT_AO = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
+	public static final Block ROUND_BLOCK_SOFT_DIFFUSE = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
+	public static final Block ROUND_BLOCK_SOFT_DIFFUSE_GLOW = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
 
 	public static Block BE_TEST_BLOCK = new BeTestBlock();
 	public static final BlockEntityType<BasicBlocks.BeTestBlockEntity> BE_TEST_TYPE = BlockEntityType.Builder.create(BasicBlocks.BeTestBlockEntity::new, BE_TEST_BLOCK).build(null);
 
 	public static class BeTestBlock extends Block implements BlockEntityProvider {
 		public BeTestBlock() {
-			super(FabricBlockSettings.of(Material.STONE).dynamicBounds().strength(1, 1).build());
+			super(FabricBlockSettings.of(Material.STONE).dynamicBounds().strength(1, 1));
 		}
 
 		@Override

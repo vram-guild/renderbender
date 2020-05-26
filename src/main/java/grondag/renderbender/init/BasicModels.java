@@ -38,7 +38,7 @@ import grondag.renderbender.model.SimpleUnbakedModel;
 public class BasicModels {
 
 	static boolean hackformer(MutableQuadView victim) {
-		final Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEX).apply(new Identifier("minecraft:block/quartz_block_side"));
+		final Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEX).apply(new Identifier("minecraft:block/white_concrete"));
 		victim.spriteColor(0, 0xFFFF0000, 0xFFFF0000, 0xFFFF0000, 0xFFFF0000);
 		victim.spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV);
 		return true;
@@ -56,7 +56,7 @@ public class BasicModels {
 		}));
 
 		models.put("glow", new SimpleUnbakedModel(mb -> {
-			final Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			mb.box(mb.finder().emissive(0, true).disableAo(0, true).disableDiffuse(0, true).find(),
 					-1, sprite,
 					0, 0, 0, 1, 1, 1);
@@ -64,7 +64,7 @@ public class BasicModels {
 		}));
 
 		models.put("glow_diffuse", new SimpleUnbakedModel(mb -> {
-			final Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			mb.box(mb.finder().emissive(0, true).disableAo(0, true).find(),
 					-1, sprite,
 					0, 0, 0, 1, 1, 1);
@@ -72,7 +72,7 @@ public class BasicModels {
 		}));
 
 		models.put("glow_ao", new SimpleUnbakedModel(mb -> {
-			final Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			mb.box(mb.finder().emissive(0, true).disableDiffuse(0, true).find(),
 					-1, sprite,
 					0, 0, 0, 1, 1, 1);
@@ -80,7 +80,7 @@ public class BasicModels {
 		}));
 
 		models.put("glow_shaded", new SimpleUnbakedModel(mb -> {
-			final Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			mb.box(mb.finder().emissive(0, true).find(),
 					-1, sprite,
 					0, 0, 0, 1, 1, 1);
@@ -88,7 +88,7 @@ public class BasicModels {
 		}));
 
 		models.put("glow_dynamic", new SimpleUnbakedModel(mb -> {
-			final Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			mb.box(mb.finder().find(),
 					-1, sprite,
 					0, 0, 0, 1, 1, 1);
@@ -96,23 +96,59 @@ public class BasicModels {
 		}));
 
 		models.put("round_hard", new SimpleUnbakedModel(mb -> {
-			final Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().find(), sprite, false);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
+		models.put("round_hard_diffuse", new SimpleUnbakedModel(mb -> {
+			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
+			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableAo(0, true).find(), sprite, false);
+			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+		}));
+
+		models.put("round_hard_diffuse_glow", new SimpleUnbakedModel(mb -> {
+			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
+			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().emissive(0, true).disableAo(0, true).find(), sprite, false);
+			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+		}));
+
+		models.put("round_hard_ao", new SimpleUnbakedModel(mb -> {
+			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
+			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableDiffuse(0, true).find(), sprite, false);
+			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+		}));
+
 		models.put("round_soft", new SimpleUnbakedModel(mb -> {
-			final Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().find(), sprite, true);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
+		models.put("round_soft_diffuse", new SimpleUnbakedModel(mb -> {
+			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
+			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableAo(0, true).find(), sprite, true);
+			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+		}));
+
+		models.put("round_soft_diffuse_glow", new SimpleUnbakedModel(mb -> {
+			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
+			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().emissive(0, true).disableAo(0, true).find(), sprite, true);
+			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+		}));
+
+		models.put("round_soft_ao", new SimpleUnbakedModel(mb -> {
+			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
+			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableDiffuse(0, true).find(), sprite, true);
+			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+		}));
+
 		models.put("ao_test", new SimpleUnbakedModel(mb -> {
-			return new SimpleModel(null, null, mb.getSprite("minecraft:block/quartz_block_side"), ModelHelper.MODEL_TRANSFORM_BLOCK, aoBuilder());
+			return new SimpleModel(null, null, mb.getSprite("minecraft:block/white_concrete"), ModelHelper.MODEL_TRANSFORM_BLOCK, aoBuilder());
 		}));
 
 		models.put("shade_test", new SimpleUnbakedModel(mb -> {
-			final Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			mb.box(mb.finder().find(),
 					-1, sprite,
 					1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
@@ -120,7 +156,7 @@ public class BasicModels {
 		}));
 
 		models.put("be_test", new SimpleUnbakedModel(mb -> {
-			final Sprite sprite = mb.getSprite("minecraft:block/quartz_block_side");
+			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			final RenderMaterial mat = mb.finder().find();
 			final float PIXEL = 1f/16f;
 			final QuadEmitter qe = mb.builder.getEmitter();
@@ -151,7 +187,7 @@ public class BasicModels {
 			public void render(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
 				final int hash = pos == null ? 8 : pos.hashCode();
 				final float height = (1 + (hash & 15)) / 16f;
-				final Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEX).apply(new Identifier("minecraft:block/quartz_block_side"));
+				final Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEX).apply(new Identifier("minecraft:block/white_concrete"));
 				final MeshBuilder builder = renderer.meshBuilder();
 				final QuadEmitter emitter = builder.getEmitter();
 

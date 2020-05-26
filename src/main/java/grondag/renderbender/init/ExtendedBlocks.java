@@ -16,27 +16,27 @@ import net.minecraft.world.BlockView;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 
 public class ExtendedBlocks {
 	private static final Block LAYERS_BLOCK = new Block(FabricBlockSettings
 			.of(Material.STONE).strength(1, 1)
-			.materialColor(MaterialColor.FOLIAGE).build()
+			.materialColor(MaterialColor.FOLIAGE)
 			.allowsSpawning((s,v,p,o) -> false)
 			.solidBlock((s,v,p) -> false)
 			.suffocates((s,v,p) -> false));
 
 	private static final Block SHADER_BLOCK = new Block(FabricBlockSettings
 			.of(Material.STONE).strength(1, 1)
-			.materialColor(MaterialColor.CYAN).build()
+			.materialColor(MaterialColor.CYAN)
 			.allowsSpawning((s,v,p,o) -> false)
 			.solidBlock((s,v,p) -> false)
 			.suffocates((s,v,p) -> false));
 
 	private static final Block CONDITIONAL_BLOCK = new Block(FabricBlockSettings
 			.of(Material.GLASS).strength(1, 1)
-			.materialColor(MaterialColor.CYAN).build()
+			.materialColor(MaterialColor.CYAN)
 			.noCollision()
 			.allowsSpawning((s,v,p,o) -> false)
 			.solidBlock((s,v,p) -> false)
