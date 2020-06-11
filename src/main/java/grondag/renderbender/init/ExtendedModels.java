@@ -139,7 +139,7 @@ public class ExtendedModels {
 		models.put("shader", new SimpleUnbakedModel(mb -> {
 			final Renderer er = (Renderer) RendererAccess.INSTANCE.getRenderer();
 			final MaterialShader s = getTestShader(er);
-			final RenderMaterial mat = er.materialFinder().shader(s).find();
+			final RenderMaterial mat = er.materialFinder().shader(0, s).find();
 			final Sprite sprite = mb.getSprite("minecraft:block/gray_concrete");
 			mb.box(mat,
 					-1, sprite,
@@ -164,8 +164,8 @@ public class ExtendedModels {
 					return false;
 			}, true, true);
 			final MaterialShader s = getTestShader(er);
-			final RenderMaterial mat = er.materialFinder().shader(s)
-					.blendMode(0, BlendMode.TRANSLUCENT)
+			final RenderMaterial mat = er.materialFinder().shader(0, s)
+					.blendMode(BlendMode.TRANSLUCENT)
 					.condition(condition)
 					.emissive(0, true)
 					.disableDiffuse(0, true)
