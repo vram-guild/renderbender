@@ -48,7 +48,7 @@ public class BasicBlocks {
 				.maxCount(64)
 				.group(ItemGroup.BUILDING_BLOCKS)) {
 			@Override
-			public boolean hasEnchantmentGlint(ItemStack itemStack_1) {
+			public boolean hasGlint(ItemStack itemStack_1) {
 				return true;
 			};
 		};
