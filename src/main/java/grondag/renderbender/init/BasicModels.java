@@ -1,10 +1,16 @@
 package grondag.renderbender.init;
 
-import static grondag.renderbender.model.ModelBuilder.FULL_BRIGHTNESS;
-
 import java.util.HashMap;
 import java.util.Random;
 import java.util.function.Supplier;
+
+import grondag.renderbender.model.DynamicRenderer;
+import grondag.renderbender.model.MeshTransformer;
+import grondag.renderbender.model.ModelBuilder;
+import grondag.renderbender.model.SimpleModel;
+import grondag.renderbender.model.SimpleUnbakedModel;
+
+import static grondag.renderbender.model.ModelBuilder.FULL_BRIGHTNESS;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -29,16 +35,10 @@ import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 
-import grondag.renderbender.model.DynamicRenderer;
-import grondag.renderbender.model.MeshTransformer;
-import grondag.renderbender.model.ModelBuilder;
-import grondag.renderbender.model.SimpleModel;
-import grondag.renderbender.model.SimpleUnbakedModel;
-
 public class BasicModels {
 
 	static boolean hackformer(MutableQuadView victim) {
-		final Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEX).apply(new Identifier("minecraft:block/white_concrete"));
+		final Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).apply(new Identifier("minecraft:block/white_concrete"));
 		victim.spriteColor(0, 0xFFFF0000, 0xFFFF0000, 0xFFFF0000, 0xFFFF0000);
 		victim.spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV);
 		return true;
@@ -58,40 +58,40 @@ public class BasicModels {
 		models.put("glow", new SimpleUnbakedModel(mb -> {
 			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			mb.box(mb.finder().emissive(0, true).disableAo(0, true).disableDiffuse(0, true).find(),
-					-1, sprite,
-					0, 0, 0, 1, 1, 1);
+				-1, sprite,
+				0, 0, 0, 1, 1, 1);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("glow_diffuse", new SimpleUnbakedModel(mb -> {
 			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			mb.box(mb.finder().emissive(0, true).disableAo(0, true).find(),
-					-1, sprite,
-					0, 0, 0, 1, 1, 1);
+				-1, sprite,
+				0, 0, 0, 1, 1, 1);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("glow_ao", new SimpleUnbakedModel(mb -> {
 			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			mb.box(mb.finder().emissive(0, true).disableDiffuse(0, true).find(),
-					-1, sprite,
-					0, 0, 0, 1, 1, 1);
+				-1, sprite,
+				0, 0, 0, 1, 1, 1);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("glow_shaded", new SimpleUnbakedModel(mb -> {
 			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			mb.box(mb.finder().emissive(0, true).find(),
-					-1, sprite,
-					0, 0, 0, 1, 1, 1);
+				-1, sprite,
+				0, 0, 0, 1, 1, 1);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("glow_dynamic", new SimpleUnbakedModel(mb -> {
 			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			mb.box(mb.finder().find(),
-					-1, sprite,
-					0, 0, 0, 1, 1, 1);
+				-1, sprite,
+				0, 0, 0, 1, 1, 1);
 			return new SimpleModel(mb.builder.build(), glowTransform::get, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
@@ -150,8 +150,8 @@ public class BasicModels {
 		models.put("shade_test", new SimpleUnbakedModel(mb -> {
 			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			mb.box(mb.finder().find(),
-					-1, sprite,
-					1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
+				-1, sprite,
+				1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
@@ -187,7 +187,7 @@ public class BasicModels {
 			public void render(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
 				final int hash = pos == null ? 8 : pos.hashCode();
 				final float height = (1 + (hash & 15)) / 16f;
-				final Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEX).apply(new Identifier("minecraft:block/white_concrete"));
+				final Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).apply(new Identifier("minecraft:block/white_concrete"));
 				final MeshBuilder builder = renderer.meshBuilder();
 				final QuadEmitter emitter = builder.getEmitter();
 

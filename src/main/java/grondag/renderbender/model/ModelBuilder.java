@@ -47,14 +47,14 @@ public class ModelBuilder {
 	}
 
 	public Sprite getSprite(String spriteName) {
-		return spriteFunc.apply(new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEX, new Identifier(spriteName)));
+		return spriteFunc.apply(new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier(spriteName)));
 	}
 
 	public void box(
-			RenderMaterial material,
-			int color, Sprite sprite,
-			float minX, float minY, float minZ,
-			float maxX, float maxY, float maxZ) {
+	RenderMaterial material,
+	int color, Sprite sprite,
+	float minX, float minY, float minZ,
+	float maxX, float maxY, float maxZ) {
 
 		builder.getEmitter()
 		.material(material)
