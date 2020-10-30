@@ -2,6 +2,11 @@ package grondag.renderbender.init;
 
 import java.util.HashMap;
 
+import grondag.frex.api.Renderer;
+import grondag.frex.api.material.MaterialCondition;
+import grondag.renderbender.model.SimpleModel;
+import grondag.renderbender.model.SimpleUnbakedModel;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.entity.Entity;
@@ -16,12 +21,6 @@ import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
 
-import grondag.frex.api.Renderer;
-import grondag.frex.api.material.MaterialCondition;
-import grondag.frex.api.material.MaterialShader;
-import grondag.renderbender.model.SimpleModel;
-import grondag.renderbender.model.SimpleUnbakedModel;
-
 public class ExtendedModels {
 
 	public static void initialize(HashMap<String, SimpleUnbakedModel> models) {
@@ -29,12 +28,12 @@ public class ExtendedModels {
 		models.put("layers", new SimpleUnbakedModel(mb -> {
 			final QuadEmitter qe = mb.builder.getEmitter();
 			qe.material(mb.finder().spriteDepth(3)
-					.blendMode(0, BlendMode.SOLID).emissive(0, true)
-					.disableAo(0, true).disableDiffuse(0, true)
-					.blendMode(1, BlendMode.TRANSLUCENT)
-					.blendMode(2, BlendMode.TRANSLUCENT)
-					.disableColorIndex(0, true)
-					.disableColorIndex(2, true).find())
+				.blendMode(0, BlendMode.SOLID).emissive(0, true)
+				.disableAo(0, true).disableDiffuse(0, true)
+				.blendMode(1, BlendMode.TRANSLUCENT)
+				.blendMode(2, BlendMode.TRANSLUCENT)
+				.disableColorIndex(0, true)
+				.disableColorIndex(2, true).find())
 			.colorIndex(0)
 			.square(Direction.UP,  0, 0, 1, 1, 0)
 			.spriteBake(0, mb.getSprite("minecraft:block/quartz_block_side"), MutableQuadView.BAKE_LOCK_UV | MutableQuadView.BAKE_NORMALIZED)
@@ -46,13 +45,13 @@ public class ExtendedModels {
 			.emit();
 
 			qe.material(mb.finder().spriteDepth(3)
-					.blendMode(0, BlendMode.SOLID).emissive(0, true)
-					.disableAo(0, true).disableDiffuse(0, true)
-					.blendMode(1, BlendMode.TRANSLUCENT).emissive(1, true)
-					.disableAo(1, true).disableDiffuse(1, true)
-					.blendMode(2, BlendMode.TRANSLUCENT)
-					.disableColorIndex(0, true)
-					.disableColorIndex(2, true).find())
+				.blendMode(0, BlendMode.SOLID).emissive(0, true)
+				.disableAo(0, true).disableDiffuse(0, true)
+				.blendMode(1, BlendMode.TRANSLUCENT).emissive(1, true)
+				.disableAo(1, true).disableDiffuse(1, true)
+				.blendMode(2, BlendMode.TRANSLUCENT)
+				.disableColorIndex(0, true)
+				.disableColorIndex(2, true).find())
 			.colorIndex(0)
 			.square(Direction.DOWN,  0, 0, 1, 1, 0)
 			.spriteBake(0, mb.getSprite("minecraft:block/quartz_block_side"), MutableQuadView.BAKE_LOCK_UV | MutableQuadView.BAKE_NORMALIZED)
@@ -64,12 +63,12 @@ public class ExtendedModels {
 			.emit();
 
 			qe.material(mb.finder().spriteDepth(3)
-					.blendMode(0, BlendMode.SOLID)
-					.blendMode(1, BlendMode.TRANSLUCENT)
-					.blendMode(2, BlendMode.TRANSLUCENT).emissive(2, true)
-					.disableAo(2, true).disableDiffuse(2, true)
-					.disableColorIndex(0, true)
-					.disableColorIndex(2, true).find())
+				.blendMode(0, BlendMode.SOLID)
+				.blendMode(1, BlendMode.TRANSLUCENT)
+				.blendMode(2, BlendMode.TRANSLUCENT).emissive(2, true)
+				.disableAo(2, true).disableDiffuse(2, true)
+				.disableColorIndex(0, true)
+				.disableColorIndex(2, true).find())
 			.colorIndex(0)
 			.square(Direction.EAST,  0, 0, 1, 1, 0)
 			.spriteBake(0, mb.getSprite("minecraft:block/quartz_block_side"), MutableQuadView.BAKE_LOCK_UV | MutableQuadView.BAKE_NORMALIZED)
@@ -81,12 +80,12 @@ public class ExtendedModels {
 			.emit();
 
 			qe.material(mb.finder().spriteDepth(3)
-					.blendMode(0, BlendMode.SOLID)
-					.blendMode(1, BlendMode.TRANSLUCENT).emissive(1, true)
-					.disableAo(1, true).disableDiffuse(0, true)
-					.blendMode(2, BlendMode.TRANSLUCENT)
-					.disableColorIndex(0, true)
-					.disableColorIndex(2, true).find())
+				.blendMode(0, BlendMode.SOLID)
+				.blendMode(1, BlendMode.TRANSLUCENT).emissive(1, true)
+				.disableAo(1, true).disableDiffuse(0, true)
+				.blendMode(2, BlendMode.TRANSLUCENT)
+				.disableColorIndex(0, true)
+				.disableColorIndex(2, true).find())
 			.colorIndex(-1)
 			.square(Direction.WEST,  0, 0, 1, 1, 0)
 			.spriteBake(0, mb.getSprite("minecraft:block/quartz_block_side"), MutableQuadView.BAKE_LOCK_UV | MutableQuadView.BAKE_NORMALIZED)
@@ -98,13 +97,13 @@ public class ExtendedModels {
 			.emit();
 
 			qe.material(mb.finder().spriteDepth(3)
-					.blendMode(0, BlendMode.SOLID).emissive(0, true)
-					.disableAo(0, true).disableDiffuse(0, true)
-					.blendMode(1, BlendMode.TRANSLUCENT)
-					.blendMode(2, BlendMode.TRANSLUCENT)
-					.disableColorIndex(0, true)
-					.disableColorIndex(1, true)
-					.disableColorIndex(2, true).find())
+				.blendMode(0, BlendMode.SOLID).emissive(0, true)
+				.disableAo(0, true).disableDiffuse(0, true)
+				.blendMode(1, BlendMode.TRANSLUCENT)
+				.blendMode(2, BlendMode.TRANSLUCENT)
+				.disableColorIndex(0, true)
+				.disableColorIndex(1, true)
+				.disableColorIndex(2, true).find())
 			.colorIndex(0)
 			.square(Direction.NORTH,  0, 0, 1, 1, 0)
 			.spriteBake(0, mb.getSprite("minecraft:block/quartz_block_side"), MutableQuadView.BAKE_LOCK_UV | MutableQuadView.BAKE_NORMALIZED)
@@ -116,13 +115,13 @@ public class ExtendedModels {
 			.emit();
 
 			qe.material(mb.finder().spriteDepth(3)
-					.blendMode(0, BlendMode.SOLID)
-					.blendMode(1, BlendMode.TRANSLUCENT).emissive(1, true)
-					.disableAo(1, true).disableDiffuse(1, true)
-					.blendMode(2, BlendMode.TRANSLUCENT).emissive(2, true)
-					.disableAo(2, true).disableDiffuse(2, true)
-					.disableColorIndex(0, true)
-					.disableColorIndex(2, true).find())
+				.blendMode(0, BlendMode.SOLID)
+				.blendMode(1, BlendMode.TRANSLUCENT).emissive(1, true)
+				.disableAo(1, true).disableDiffuse(1, true)
+				.blendMode(2, BlendMode.TRANSLUCENT).emissive(2, true)
+				.disableAo(2, true).disableDiffuse(2, true)
+				.disableColorIndex(0, true)
+				.disableColorIndex(2, true).find())
 			.colorIndex(0)
 			.square(Direction.SOUTH,  0, 0, 1, 1, 0)
 			.spriteBake(0, mb.getSprite("minecraft:block/quartz_block_side"), MutableQuadView.BAKE_LOCK_UV | MutableQuadView.BAKE_NORMALIZED)
@@ -138,12 +137,14 @@ public class ExtendedModels {
 
 		models.put("shader", new SimpleUnbakedModel(mb -> {
 			final Renderer er = (Renderer) RendererAccess.INSTANCE.getRenderer();
-			final MaterialShader s = getTestShader(er);
-			final RenderMaterial mat = er.materialFinder().shader(0, s).find();
+			final RenderMaterial mat = er.materialFinder()
+			.vertexShader(new Identifier("renderbender", "shader/test.vert"))
+			.fragmentShader(new Identifier("renderbender", "shader/test.frag"))
+			.find();
 			final Sprite sprite = mb.getSprite("minecraft:block/gray_concrete");
 			mb.box(mat,
-					-1, sprite,
-					0, 0, 0, 1, 1, 1);
+				-1, sprite,
+				0, 0, 0, 1, 1, 1);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
@@ -159,37 +160,24 @@ public class ExtendedModels {
 				} else if(entity instanceof LivingEntity) {
 					final LivingEntity living = (LivingEntity)entity;
 					return living.getMainHandStack().getItem() == ExtendedBlocks.CONDITION_ITEM
-							|| living.getOffHandStack().getItem() == ExtendedBlocks.CONDITION_ITEM;
+					|| living.getOffHandStack().getItem() == ExtendedBlocks.CONDITION_ITEM;
 				} else
 					return false;
 			}, true, true);
-			final MaterialShader s = getTestShader(er);
-			final RenderMaterial mat = er.materialFinder().shader(0, s)
-					.blendMode(BlendMode.TRANSLUCENT)
-					.condition(condition)
-					.emissive(0, true)
-					.disableDiffuse(0, true)
-					.disableAo(0, true)
-					.find();
+			final RenderMaterial mat = er.materialFinder()
+			.vertexShader(new Identifier("renderbender", "shader/test.vert"))
+			.fragmentShader(new Identifier("renderbender", "shader/test.frag"))
+			.blendMode(BlendMode.TRANSLUCENT)
+			.condition(condition)
+			.emissive(true)
+			.disableDiffuse(true)
+			.disableAo(true)
+			.find();
 			final Sprite sprite = mb.getSprite("minecraft:block/snow");
 			mb.box(mat,
-					0x80DCEFFF, sprite,
-					0, 0, 0, 1, 1, 1);
+				0x80DCEFFF, sprite,
+				0, 0, 0, 1, 1, 1);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
-	}
-
-	private static final Identifier TEST_SHADER = new Identifier("renderbender", "test");
-
-	private static MaterialShader getTestShader(Renderer er) {
-		MaterialShader s = er.shaderById(TEST_SHADER);
-		if(s == null) {
-			s = er.shaderBuilder()
-					.vertexSource(new Identifier("renderbender", "shader/test.vert"))
-					.fragmentSource(new Identifier("renderbender", "shader/test.frag"))
-					.build();
-			er.registerShader(TEST_SHADER, s);
-		}
-		return s;
 	}
 }

@@ -1,13 +1,21 @@
-#version 120
+#include frex:shaders/api/fragment.glsl
+#include frex:shaders/lib/math.glsl
+#include frex:shaders/api/world.glsl
+
+/******************************************************
+  renderbender:shader/test.frag
+******************************************************/
 
 varying vec2 v_noise_uv;
 
-void main() {
-	float a = tnoise(v_noise_uv * 2.0, u_time);
-	float b = tnoise(v_noise_uv * 4.0, u_time * 2.0);
-	float c = tnoise(v_noise_uv * 8.0, u_time * 4.0);
+void frx_startFragment(inout frx_FragmentData data) {
+	float t = frx_renderSeconds();
+	float a = frx_noise2dt(v_noise_uv * 2.0, t);
+	float b = frx_noise2dt(v_noise_uv * 4.0, t * 2.0);
+	float c = frx_noise2dt(v_noise_uv * 8.0, t * 4.0);
 	float d = a * b * c;
 	vec4 highlight = mix(vec4(1.0, 0.7, 1.0, 1.0), vec4(0.7, 1.0, 1.0, 1.0), d);
-	float m = smootherstep(0.0, 1.0, d);
-	gl_FragColor = fog(mix(diffuseColor(), highlight, m));
+	float m = frx_smootherstep(0.0, 1.0, d);
+	data.spriteColor = mix(data.spriteColor, highlight, m);
+	data.emissivity = max(0, m - 0.5) * 2.0;
 }
