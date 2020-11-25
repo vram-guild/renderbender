@@ -22,9 +22,11 @@ dependencies {
 	compileOnly "org.apiguardian:apiguardian-api:1.0.0"
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 	
-	modImplementation ("grondag:frex-${project.mc_tag}:${project.frex_version}.+") {
-        exclude group :"grondag"
-        exclude group :"net.fabricmc.fabric-api"
+	modImplementation ("grondag:frex-${project.mc_tag}:${project.frex_version}.+") { transitive = false }
+	modImplementation ("grondag:frex-events-${project.mc_tag}:${project.frex_events_version}.+") { transitive = false }
+    
+    if (!(gradle.startParameter.taskNames.contains("publish") || gradle.startParameter.taskNames.contains("publishToMavenLocal"))) {
+    	include "grondag:frex-${project.mc_tag}:${project.frex_version}.+"
+    	include "grondag:frex-events-${project.mc_tag}:${project.frex_events_version}.+"
     }
-    include "grondag:frex-${project.mc_tag}:${project.frex_version}.+"
 }    
