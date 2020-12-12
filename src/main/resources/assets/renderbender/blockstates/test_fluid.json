@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "renderbender:block/test_fluid"
+    }
+  }
+}

@@ -15,9 +15,12 @@
   
   "license": "Apache-2.0",
   
-  "environment": "client",
+  "environment": "*",
   "entrypoints": {
     "main": [
+      "grondag.renderbender.RenderBender"
+    ],
+    "client": [
       "grondag.renderbender.RenderBender"
     ]
   },

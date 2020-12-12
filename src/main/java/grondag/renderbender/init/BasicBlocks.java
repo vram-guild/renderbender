@@ -5,9 +5,11 @@ import java.util.function.Function;
 
 import io.netty.util.internal.ThreadLocalRandom;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.FluidBlock;
 import net.minecraft.block.Material;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
@@ -74,7 +76,11 @@ public class BasicBlocks {
 		register(BE_TEST_BLOCK, "be_test", ITEM_FUNCTION_STANDARD);
 
 		Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("renderbender", "be_test"), BE_TEST_TYPE);
+
+		Registry.register(Registry.BLOCK, new Identifier("renderbender:test_fluid"), TEST_FLUID);
 	}
+
+	public static final FluidBlock TEST_FLUID = new FluidBlock(Fluids.TEST_FLUID, AbstractBlock.Settings.of(Materials.TEST_FLUID).noCollision().strength(100.0F).dropsNothing()) { };
 
 	public static final Block ITEM_TRANSFORM = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
 	public static final Block GLOW_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));

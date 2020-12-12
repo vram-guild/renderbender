@@ -21,25 +21,33 @@ import org.apache.logging.log4j.Logger;
 
 import net.minecraft.util.Identifier;
 
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 
-import grondag.frex.Frex;
 import grondag.frex.api.config.ShaderConfig;
 import grondag.renderbender.init.BasicBlocks;
 import grondag.renderbender.init.ExtendedBlocks;
+import grondag.renderbender.init.Fluids;
 import grondag.renderbender.init.ModelDispatcher;
 
-public class RenderBender implements ModInitializer {
+public class RenderBender implements ModInitializer, ClientModInitializer {
     public static final Logger LOG = LogManager.getLogger();
 
     @Override
     public void onInitialize() {
         BasicBlocks.initialize();
-        if(Frex.isAvailable()) {
-            ExtendedBlocks.initialize();
-        }
+        ExtendedBlocks.initialize();
+        Fluids.initialize();
+    }
+
+    @Override
+	@Environment(EnvType.CLIENT)
+	public void onInitializeClient() {
         ModelDispatcher.initialize();
         FrexEventTest.init();
+        Fluids.initClient();
         ShaderConfig.registerShaderConfigSupplier(new Identifier("renderbender:configtest"), () -> "#define SHADER_CONFIG_WORKS");
-    }
+	}
 }
