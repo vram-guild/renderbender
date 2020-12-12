@@ -19,9 +19,12 @@ package grondag.renderbender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.minecraft.util.Identifier;
+
 import net.fabricmc.api.ModInitializer;
 
 import grondag.frex.Frex;
+import grondag.frex.api.config.ShaderConfig;
 import grondag.renderbender.init.BasicBlocks;
 import grondag.renderbender.init.ExtendedBlocks;
 import grondag.renderbender.init.ModelDispatcher;
@@ -37,5 +40,6 @@ public class RenderBender implements ModInitializer {
         }
         ModelDispatcher.initialize();
         FrexEventTest.init();
+        ShaderConfig.registerShaderConfigSupplier(new Identifier("renderbender:configtest"), () -> "#define SHADER_CONFIG_WORKS");
     }
 }
