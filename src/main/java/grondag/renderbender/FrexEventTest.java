@@ -1,6 +1,7 @@
 package grondag.renderbender;
 
-import grondag.frex.api.event.WorldRenderEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+
 import grondag.renderbender.init.BasicBlocks;
 
 public class FrexEventTest {
