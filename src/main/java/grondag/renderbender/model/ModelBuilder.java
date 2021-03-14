@@ -6,9 +6,9 @@ import java.util.function.Function;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3f;
 
 import net.fabricmc.fabric.api.renderer.v1.Renderer;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
@@ -108,34 +108,34 @@ public class ModelBuilder {
 	 * Makes a regular icosahedron, which is a very close approximation to a sphere for most purposes.
 	 * Loosely based on http://blog.andreaskahler.com/2009/06/creating-icosphere-mesh-in-code.html
 	 */
-	public static void makeIcosahedron(Vector3f center, float radius, QuadEmitter qe, RenderMaterial material, Sprite sprite, boolean smoothNormals) {
+	public static void makeIcosahedron(Vec3f center, float radius, QuadEmitter qe, RenderMaterial material, Sprite sprite, boolean smoothNormals) {
 		/** vertex scale */
 		final float s = (float) (radius  / (2 * Math.sin(2 * Math.PI / 5)));
 
-		final Vector3f[] vertexes = new Vector3f[12];
-		Vector3f[] normals = new Vector3f[12];
+		final Vec3f[] vertexes = new Vec3f[12];
+		Vec3f[] normals = new Vec3f[12];
 		// create 12 vertices of a icosahedron
 		final float t = (float) (s * (1.0 + Math.sqrt(5.0)) / 2.0);
 		int vi = 0;
 
-		normals[vi++] = new Vector3f(-s,  t,  0);
-		normals[vi++] = new Vector3f( s,  t,  0);
-		normals[vi++] = new Vector3f(-s, -t,  0);
-		normals[vi++] = new Vector3f( s, -t,  0);
+		normals[vi++] = new Vec3f(-s,  t,  0);
+		normals[vi++] = new Vec3f( s,  t,  0);
+		normals[vi++] = new Vec3f(-s, -t,  0);
+		normals[vi++] = new Vec3f( s, -t,  0);
 
-		normals[vi++] = new Vector3f( 0, -s,  t);
-		normals[vi++] = new Vector3f( 0,  s,  t);
-		normals[vi++] = new Vector3f( 0, -s, -t);
-		normals[vi++] = new Vector3f( 0,  s, -t);
+		normals[vi++] = new Vec3f( 0, -s,  t);
+		normals[vi++] = new Vec3f( 0,  s,  t);
+		normals[vi++] = new Vec3f( 0, -s, -t);
+		normals[vi++] = new Vec3f( 0,  s, -t);
 
-		normals[vi++] = new Vector3f( t,  0, -s);
-		normals[vi++] = new Vector3f( t,  0,  s);
-		normals[vi++] = new Vector3f(-t,  0, -s);
-		normals[vi++] = new Vector3f(-t,  0,  s);
+		normals[vi++] = new Vec3f( t,  0, -s);
+		normals[vi++] = new Vec3f( t,  0,  s);
+		normals[vi++] = new Vec3f(-t,  0, -s);
+		normals[vi++] = new Vec3f(-t,  0,  s);
 
 		for(int i = 0; i < 12; i++) {
-			final Vector3f n = normals[i];
-			vertexes[i] = new Vector3f(center.getX() + n.getX(), center.getY() + n.getY(), center.getZ() + n.getZ());
+			final Vec3f n = normals[i];
+			vertexes[i] = new Vec3f(center.getX() + n.getX(), center.getY() + n.getY(), center.getZ() + n.getZ());
 
 			if(smoothNormals) {
 				float x = n.getX();
@@ -178,7 +178,7 @@ public class ModelBuilder {
 		makeIcosahedronFace(false, 3, 8, 9, vertexes, normals, qe, material, sprite);
 	}
 
-	private static void makeIcosahedronFace(boolean topHalf, int p1, int p2, int p3, Vector3f[] points, Vector3f[] normals, QuadEmitter qe, RenderMaterial material, Sprite sprite) {
+	private static void makeIcosahedronFace(boolean topHalf, int p1, int p2, int p3, Vec3f[] points, Vec3f[] normals, QuadEmitter qe, RenderMaterial material, Sprite sprite) {
 		if(topHalf) {
 			qe.pos(0, points[p1]).sprite(0, 0, 1, 1).spriteColor(0, -1, -1, -1, -1);
 			qe.pos(1, points[p2]).sprite(1, 0, 0, 1).spriteColor(0, -1, -1, -1, -1);

@@ -1,16 +1,10 @@
 package grondag.renderbender.init;
 
+import static grondag.renderbender.model.ModelBuilder.FULL_BRIGHTNESS;
+
 import java.util.HashMap;
 import java.util.Random;
 import java.util.function.Supplier;
-
-import grondag.renderbender.model.DynamicRenderer;
-import grondag.renderbender.model.MeshTransformer;
-import grondag.renderbender.model.ModelBuilder;
-import grondag.renderbender.model.SimpleModel;
-import grondag.renderbender.model.SimpleUnbakedModel;
-
-import static grondag.renderbender.model.ModelBuilder.FULL_BRIGHTNESS;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -18,12 +12,12 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.ModelIdentifier;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.BlockRenderView;
 
 import net.fabricmc.fabric.api.renderer.v1.Renderer;
@@ -34,6 +28,12 @@ import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
+
+import grondag.renderbender.model.DynamicRenderer;
+import grondag.renderbender.model.MeshTransformer;
+import grondag.renderbender.model.ModelBuilder;
+import grondag.renderbender.model.SimpleModel;
+import grondag.renderbender.model.SimpleUnbakedModel;
 
 public class BasicModels {
 
@@ -97,49 +97,49 @@ public class BasicModels {
 
 		models.put("round_hard", new SimpleUnbakedModel(mb -> {
 			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().find(), sprite, false);
+			ModelBuilder.makeIcosahedron(new Vec3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().find(), sprite, false);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_hard_diffuse", new SimpleUnbakedModel(mb -> {
 			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableAo(0, true).find(), sprite, false);
+			ModelBuilder.makeIcosahedron(new Vec3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableAo(0, true).find(), sprite, false);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_hard_diffuse_glow", new SimpleUnbakedModel(mb -> {
 			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().emissive(0, true).disableAo(0, true).find(), sprite, false);
+			ModelBuilder.makeIcosahedron(new Vec3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().emissive(0, true).disableAo(0, true).find(), sprite, false);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_hard_ao", new SimpleUnbakedModel(mb -> {
 			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableDiffuse(0, true).find(), sprite, false);
+			ModelBuilder.makeIcosahedron(new Vec3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableDiffuse(0, true).find(), sprite, false);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_soft", new SimpleUnbakedModel(mb -> {
 			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().find(), sprite, true);
+			ModelBuilder.makeIcosahedron(new Vec3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().find(), sprite, true);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_soft_diffuse", new SimpleUnbakedModel(mb -> {
 			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableAo(0, true).find(), sprite, true);
+			ModelBuilder.makeIcosahedron(new Vec3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableAo(0, true).find(), sprite, true);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_soft_diffuse_glow", new SimpleUnbakedModel(mb -> {
 			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().emissive(0, true).disableAo(0, true).find(), sprite, true);
+			ModelBuilder.makeIcosahedron(new Vec3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().emissive(0, true).disableAo(0, true).find(), sprite, true);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_soft_ao", new SimpleUnbakedModel(mb -> {
 			final Sprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableDiffuse(0, true).find(), sprite, true);
+			ModelBuilder.makeIcosahedron(new Vec3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableDiffuse(0, true).find(), sprite, true);
 			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
 		}));
 

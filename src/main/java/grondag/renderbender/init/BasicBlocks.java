@@ -26,6 +26,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 
 import grondag.renderbender.model.ModelBuilder;
@@ -144,7 +145,7 @@ public class BasicBlocks {
 	public static final Block ROUND_BLOCK_SOFT_DIFFUSE_GLOW = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
 
 	public static Block BE_TEST_BLOCK = new BeTestBlock();
-	public static final BlockEntityType<BasicBlocks.BeTestBlockEntity> BE_TEST_TYPE = BlockEntityType.Builder.create(BasicBlocks.BeTestBlockEntity::new, BE_TEST_BLOCK).build(null);
+	public static final BlockEntityType<BasicBlocks.BeTestBlockEntity> BE_TEST_TYPE = FabricBlockEntityTypeBuilder.create(BasicBlocks.BeTestBlockEntity::new, BE_TEST_BLOCK).build(null);
 
 	public static class BeTestBlock extends Block implements BlockEntityProvider {
 		public BeTestBlock() {
@@ -152,8 +153,8 @@ public class BasicBlocks {
 		}
 
 		@Override
-		public BlockEntity createBlockEntity(BlockView blockView) {
-			return new BeTestBlockEntity();
+		public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+			return new BeTestBlockEntity(pos, state);
 		}
 
 		@Override
@@ -171,8 +172,6 @@ public class BasicBlocks {
 	}
 
 	public static class BeTestBlockEntity extends BlockEntity implements RenderAttachmentBlockEntity {
-
-
 		static final int QUAD_COUNT = 6 * 14 * 14;
 		private final int[] colors = new int[QUAD_COUNT];
 
@@ -183,8 +182,8 @@ public class BasicBlocks {
 			genColors(ITEM_COLORS);
 		}
 
-		public BeTestBlockEntity() {
-			super(BE_TEST_TYPE);
+		public BeTestBlockEntity(BlockPos pos, BlockState state) {
+			super(BE_TEST_TYPE, pos, state);
 			genColors(colors);
 		}
 

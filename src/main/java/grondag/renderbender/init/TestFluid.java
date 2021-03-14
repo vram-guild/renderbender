@@ -42,7 +42,7 @@ public class TestFluid extends FlowableFluid {
 
 	@Override
 	protected void beforeBreakingBlock(WorldAccess world, BlockPos pos, BlockState state) {
-		final BlockEntity blockEntity = state.getBlock().hasBlockEntity() ? world.getBlockEntity(pos) : null;
+		final BlockEntity blockEntity = state.hasBlockEntity() ? world.getBlockEntity(pos) : null;
 		Block.dropStacks(state, world, pos, blockEntity);
 	}
 
@@ -84,7 +84,7 @@ public class TestFluid extends FlowableFluid {
 
 	@Override
 	protected BlockState toBlockState(FluidState state) {
-		return BasicBlocks.TEST_FLUID.getDefaultState().with(FluidBlock.LEVEL, method_15741(state));
+		return BasicBlocks.TEST_FLUID.getDefaultState().with(FluidBlock.LEVEL, getBlockStateLevel(state));
 	}
 
 	@Override
