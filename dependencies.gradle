@@ -14,19 +14,12 @@ repositories {
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}"
-	// mappings "grondag:cordage:${project.cordage_mappings}"
 	modApi "net.fabricmc:fabric-loader:${project.loader_version}"
 	modApi "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
-	// dev env annotation support
-	compileOnly "org.apiguardian:apiguardian-api:1.0.0"
-	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
-	
-	modImplementation ("grondag:frex-${project.mc_tag}:${project.frex_version}.+") { transitive = false }
-	modImplementation ("grondag:frex-events-${project.mc_tag}:${project.frex_events_version}.+") { transitive = false }
+	modImplementation ("grondag:frex-${project.mc_tag}:${project.frex_version}.+") { transitive = false; changing = true; }
     
     if (!(gradle.startParameter.taskNames.contains("publish") || gradle.startParameter.taskNames.contains("publishToMavenLocal"))) {
     	include "grondag:frex-${project.mc_tag}:${project.frex_version}.+"
-    	include "grondag:frex-events-${project.mc_tag}:${project.frex_events_version}.+"
     }
 }    
