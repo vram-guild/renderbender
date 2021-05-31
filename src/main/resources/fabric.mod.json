@@ -30,8 +30,5 @@
     "java": ">=16",
     "fabric": "*",
     "frex": "*"
-  },
-  "custom": {
-    "modmenu:api": false
   }
 }
