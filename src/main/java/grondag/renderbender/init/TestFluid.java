@@ -1,28 +1,20 @@
 package grondag.renderbender.init;
 
-import org.jetbrains.annotations.Nullable;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.render.model.ModelLoader;
-import net.minecraft.client.texture.Sprite;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.state.StateManager;
-import net.minecraft.util.Lazy;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
-
-import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 
 public class TestFluid extends FlowableFluid {
 	@Override
@@ -95,24 +87,5 @@ public class TestFluid extends FlowableFluid {
 	@Override
 	public int getLevel(FluidState state) {
 		return 8;
-	}
-
-	public static class Renderer implements FluidRenderHandler {
-		private static final Lazy<Sprite[]> SPRITES = new Lazy<>(() ->
-			new Sprite[] {
-				ModelLoader.WATER_OVERLAY.getSprite(),
-				ModelLoader.WATER_OVERLAY.getSprite()
-			}
-		);
-
-		@Override
-		public int getFluidColor(@Nullable BlockRenderView view, @Nullable BlockPos pos, FluidState state) {
-			return 0x887FAAFF;
-		}
-
-		@Override
-		public Sprite[] getFluidSprites(@Nullable BlockRenderView blockRenderView, @Nullable BlockPos blockPos, FluidState fluidState) {
-			return SPRITES.get();
-		}
 	}
 }

@@ -17,12 +17,8 @@
   
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "grondag.renderbender.RenderBender"
-    ],
-    "client": [
-      "grondag.renderbender.RenderBender"
-    ]
+    "main": ["grondag.renderbender.RenderBender"],
+    "client": ["grondag.renderbender.RenderBender"]
   },
   "depends": {
     "fabricloader": ">=0.11.3",

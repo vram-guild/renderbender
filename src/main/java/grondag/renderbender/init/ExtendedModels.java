@@ -2,10 +2,7 @@ package grondag.renderbender.init;
 
 import java.util.HashMap;
 
-import grondag.frex.api.Renderer;
-import grondag.frex.api.material.MaterialCondition;
-import grondag.renderbender.model.SimpleModel;
-import grondag.renderbender.model.SimpleUnbakedModel;
+import io.vram.frex.api.material.MaterialCondition;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.Sprite;
@@ -20,6 +17,10 @@ import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
+
+import grondag.frex.api.Renderer;
+import grondag.renderbender.model.SimpleModel;
+import grondag.renderbender.model.SimpleUnbakedModel;
 
 public class ExtendedModels {
 
@@ -156,8 +157,7 @@ public class ExtendedModels {
 					return false;
 				} else if(entity.world.isRaining()) {
 					return true;
-				} else if(entity instanceof LivingEntity) {
-					final LivingEntity living = (LivingEntity)entity;
+				} else if(entity instanceof final LivingEntity living) {
 					return living.getMainHandStack().getItem() == ExtendedBlocks.CONDITION_ITEM
 					|| living.getOffHandStack().getItem() == ExtendedBlocks.CONDITION_ITEM;
 				} else

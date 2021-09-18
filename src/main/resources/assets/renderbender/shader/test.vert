@@ -5,10 +5,9 @@
   renderbender:shader/test.vert
 ******************************************************/
 
-void frx_startVertex(inout frx_VertexData data) {
-	frx_var0.xy = frx_faceUv(data.vertex.xyz, data.normal.xyz);
+void frx_materialVertex() {
+#ifndef DEPTH_PASS
+	frx_var0.xy = frx_faceUv(frx_vertex.xyz, frx_vertexNormal);
+#endif
 }
 
-void frx_endVertex(inout frx_VertexData data) {
-	// NOOP
-}

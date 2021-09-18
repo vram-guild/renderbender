@@ -16,6 +16,7 @@
 
 package grondag.renderbender;
 
+import io.vram.frex.api.config.ShaderConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,7 +27,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 
-import grondag.frex.api.config.ShaderConfig;
 import grondag.renderbender.init.BasicBlocks;
 import grondag.renderbender.init.ExtendedBlocks;
 import grondag.renderbender.init.Fluids;
