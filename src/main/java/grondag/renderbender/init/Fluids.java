@@ -19,6 +19,6 @@ public class Fluids {
 
 	@Environment(EnvType.CLIENT)
 	public static void initClient() {
-		FluidAppearance.register(TEST_FLUID, FluidColorProvider.of(0x88FFAABB), FluidSpriteProvider.WATER_SPRITES);
+		FluidAppearance.register(FluidColorProvider.of(0x88FFAABB), FluidSpriteProvider.WATER_SPRITES, TEST_FLUID);
 	}
 }
