@@ -4,36 +4,33 @@ import java.util.Random;
 import java.util.function.Function;
 
 import io.netty.util.internal.ThreadLocalRandom;
-
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.Material;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import grondag.renderbender.model.ModelBuilder;
 
 public class BasicBlocks {
 	public static Item register(Block block, String name, Function<Block, Item> itemFunc) {
-		final Identifier id = new Identifier("renderbender", name);
+		final ResourceLocation id = new ResourceLocation("renderbender", name);
 		Registry.register(Registry.BLOCK, id, block);
 		final Item result = itemFunc.apply(block);
 		Registry.register(Registry.ITEM, id, result);
@@ -41,17 +38,17 @@ public class BasicBlocks {
 	}
 
 	public static final Function<Block, Item> ITEM_FUNCTION_STANDARD = block -> {
-		return new BlockItem(block, new Item.Settings()
-				.maxCount(64)
-				.group(ItemGroup.BUILDING_BLOCKS));
+		return new BlockItem(block, new Item.Properties()
+				.stacksTo(64)
+				.tab(CreativeModeTab.TAB_BUILDING_BLOCKS));
 	};
 
 	public static final Function<Block, Item> ITEM_FUNCTION_ENCHANTED = block -> {
-		return new BlockItem(block, new Item.Settings()
-				.maxCount(64)
-				.group(ItemGroup.BUILDING_BLOCKS)) {
+		return new BlockItem(block, new Item.Properties()
+				.stacksTo(64)
+				.tab(CreativeModeTab.TAB_BUILDING_BLOCKS)) {
 			@Override
-			public boolean hasGlint(ItemStack itemStack_1) {
+			public boolean isFoil(ItemStack itemStack_1) {
 				return true;
 			};
 		};
@@ -76,12 +73,12 @@ public class BasicBlocks {
 		register(ROUND_BLOCK_SOFT_DIFFUSE_GLOW, "round_soft_diffuse_glow", ITEM_FUNCTION_ENCHANTED);
 		register(BE_TEST_BLOCK, "be_test", ITEM_FUNCTION_STANDARD);
 
-		Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("renderbender", "be_test"), BE_TEST_TYPE);
+		Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation("renderbender", "be_test"), BE_TEST_TYPE);
 
-		Registry.register(Registry.BLOCK, new Identifier("renderbender:test_fluid"), TEST_FLUID);
+		Registry.register(Registry.BLOCK, new ResourceLocation("renderbender:test_fluid"), TEST_FLUID);
 	}
 
-	public static final FluidBlock TEST_FLUID = new FluidBlock(Fluids.TEST_FLUID, AbstractBlock.Settings.of(Materials.TEST_FLUID).noCollision().strength(100.0F).dropsNothing()) { };
+	public static final LiquidBlock TEST_FLUID = new LiquidBlock(Fluids.TEST_FLUID, BlockBehaviour.Properties.of(Materials.TEST_FLUID).noCollission().strength(100.0F).noDrops()) { };
 
 	public static final Block ITEM_TRANSFORM = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
 	public static final Block GLOW_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
@@ -90,46 +87,46 @@ public class BasicBlocks {
 	public static final Block GLOW_BLOCK_AO = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
 	public static final Block GLOW_BLOCK_DYNAMIC = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
 
-	public static final Block AO_TEST = new Block(FabricBlockSettings.of(Material.STONE).dynamicBounds().strength(1, 1)) {
+	public static final Block AO_TEST = new Block(FabricBlockSettings.of(Material.STONE).dynamicShape().strength(1, 1)) {
 		@Override
-		public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos pos, ShapeContext entityContext) {
+		public VoxelShape getShape(BlockState blockState, BlockGetter blockView, BlockPos pos, CollisionContext entityContext) {
 			final float height = (1 + (pos.hashCode() & 15)) / 16f;
-			return VoxelShapes.cuboid(0, 0, 0, 1, height, 1);
+			return Shapes.box(0, 0, 0, 1, height, 1);
 		}
 	};
 
 	public static final Block SHADE_TEST = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1)) {
 		@Override
-		public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos pos, ShapeContext entityContext) {
-			return VoxelShapes.cuboid(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
+		public VoxelShape getShape(BlockState blockState, BlockGetter blockView, BlockPos pos, CollisionContext entityContext) {
+			return Shapes.box(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
 		}
 		@Override
-		public int getOpacity(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
+		public int getLightBlock(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
 			return 1;
 		}
 		@Override
-		public float getAmbientOcclusionLightLevel(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
+		public float getShadeBrightness(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
 			return .4f;
 		}
 	};
 
-	public static final VoxelShape ROUND_SHAPE = Block.createCuboidShape(1.0D, 1.0D, 1.0D, 14.0D, 14.0D, 15.0D);
+	public static final VoxelShape ROUND_SHAPE = Block.box(1.0D, 1.0D, 1.0D, 14.0D, 14.0D, 15.0D);
 
 	private static class RoundBlock extends Block {
-		public RoundBlock(Settings settings) {
+		public RoundBlock(Properties settings) {
 			super(settings);
 		}
 
 		@Override
-		public VoxelShape getOutlineShape(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1, ShapeContext entityContext) {
+		public VoxelShape getShape(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1, CollisionContext entityContext) {
 			return ROUND_SHAPE;
 		}
 		@Override
-		public int getOpacity(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
+		public int getLightBlock(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
 			return 1;
 		}
 		@Override
-		public float getAmbientOcclusionLightLevel(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
+		public float getShadeBrightness(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
 			return .5f;
 		}
 	}
@@ -147,26 +144,26 @@ public class BasicBlocks {
 	public static Block BE_TEST_BLOCK = new BeTestBlock();
 	public static final BlockEntityType<BasicBlocks.BeTestBlockEntity> BE_TEST_TYPE = FabricBlockEntityTypeBuilder.create(BasicBlocks.BeTestBlockEntity::new, BE_TEST_BLOCK).build(null);
 
-	public static class BeTestBlock extends Block implements BlockEntityProvider {
+	public static class BeTestBlock extends Block implements EntityBlock {
 		public BeTestBlock() {
-			super(FabricBlockSettings.of(Material.STONE).dynamicBounds().strength(1, 1));
+			super(FabricBlockSettings.of(Material.STONE).dynamicShape().strength(1, 1));
 		}
 
 		@Override
-		public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 			return new BeTestBlockEntity(pos, state);
 		}
 
 		@Override
-		public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos pos, ShapeContext entityContext) {
-			return VoxelShapes.cuboid(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
+		public VoxelShape getShape(BlockState blockState, BlockGetter blockView, BlockPos pos, CollisionContext entityContext) {
+			return Shapes.box(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
 		}
 		@Override
-		public int getOpacity(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
+		public int getLightBlock(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
 			return 1;
 		}
 		@Override
-		public float getAmbientOcclusionLightLevel(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
+		public float getShadeBrightness(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
 			return .4f;
 		}
 	}

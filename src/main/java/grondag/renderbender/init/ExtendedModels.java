@@ -4,12 +4,12 @@ import java.util.HashMap;
 
 import io.vram.frex.api.material.MaterialCondition;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.fabricmc.fabric.api.renderer.v1.material.BlendMode;
@@ -139,9 +139,9 @@ public class ExtendedModels {
 		models.put("shader", new SimpleUnbakedModel(mb -> {
 			final Renderer er = (Renderer) RendererAccess.INSTANCE.getRenderer();
 			final RenderMaterial mat = er.materialFinder()
-			.shader(new Identifier("renderbender", "shader/test.vert"), new Identifier("renderbender", "shader/test.frag"))
+			.shader(new ResourceLocation("renderbender", "shader/test.vert"), new ResourceLocation("renderbender", "shader/test.frag"))
 			.find();
-			final Sprite sprite = mb.getSprite("minecraft:block/gray_concrete");
+			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/gray_concrete");
 			mb.box(mat,
 				-1, sprite,
 				0, 0, 0, 1, 1, 1);
@@ -152,26 +152,26 @@ public class ExtendedModels {
 			final Renderer er = (Renderer) RendererAccess.INSTANCE.getRenderer();
 			final MaterialCondition condition = er.createCondition(() -> {
 				@SuppressWarnings("resource")
-				final Entity entity = MinecraftClient.getInstance().cameraEntity;
-				if(entity == null || entity.world == null) {
+				final Entity entity = Minecraft.getInstance().cameraEntity;
+				if(entity == null || entity.level == null) {
 					return false;
-				} else if(entity.world.isRaining()) {
+				} else if(entity.level.isRaining()) {
 					return true;
 				} else if(entity instanceof final LivingEntity living) {
-					return living.getMainHandStack().getItem() == ExtendedBlocks.CONDITION_ITEM
-					|| living.getOffHandStack().getItem() == ExtendedBlocks.CONDITION_ITEM;
+					return living.getMainHandItem().getItem() == ExtendedBlocks.CONDITION_ITEM
+					|| living.getOffhandItem().getItem() == ExtendedBlocks.CONDITION_ITEM;
 				} else
 					return false;
 			}, true, true);
 			final RenderMaterial mat = er.materialFinder()
-			.shader(new Identifier("renderbender", "shader/test.vert"), new Identifier("renderbender", "shader/test.frag"))
+			.shader(new ResourceLocation("renderbender", "shader/test.vert"), new ResourceLocation("renderbender", "shader/test.frag"))
 			.blendMode(BlendMode.TRANSLUCENT)
 			.condition(condition)
 			.emissive(true)
 			.disableDiffuse(true)
 			.disableAo(true)
 			.find();
-			final Sprite sprite = mb.getSprite("minecraft:block/snow");
+			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/snow");
 			mb.box(mat,
 				0x80DCEFFF, sprite,
 				0, 0, 0, 1, 1, 1);

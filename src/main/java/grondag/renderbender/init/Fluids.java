@@ -3,16 +3,14 @@ package grondag.renderbender.init;
 import io.vram.frex.api.model.FluidAppearance;
 import io.vram.frex.api.model.FluidColorProvider;
 import io.vram.frex.api.model.FluidSpriteProvider;
-
-import net.minecraft.fluid.FlowableFluid;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.material.FlowingFluid;
 
 public class Fluids {
-	public static final FlowableFluid TEST_FLUID = Registry.register(Registry.FLUID, new Identifier("renderbender:test_fluid"), new TestFluid());
+	public static final FlowingFluid TEST_FLUID = Registry.register(Registry.FLUID, new ResourceLocation("renderbender:test_fluid"), new TestFluid());
 
 	public static void initialize() {
 	}

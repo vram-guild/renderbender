@@ -16,24 +16,23 @@
 
 package grondag.renderbender.model;
 
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.texture.Sprite;
-
 import net.fabricmc.fabric.api.renderer.v1.Renderer;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.BakedModel;
 
 public abstract class AbstractModel implements BakedModel, FabricBakedModel {
 	protected static final Renderer RENDERER = RendererAccess.INSTANCE.getRenderer();
 
-	protected final Sprite modelSprite;
-	protected final ModelTransformation transformation;
+	protected final TextureAtlasSprite modelSprite;
+	protected final ItemTransforms transformation;
 	protected final DynamicRenderer dynamicRender;
 
 	protected AbstractModel(
-			Sprite sprite,
-			ModelTransformation transformation,
+			TextureAtlasSprite sprite,
+			ItemTransforms transformation,
 			DynamicRenderer dynamicRender) {
 		modelSprite = sprite;
 		this.transformation = transformation;
@@ -46,27 +45,27 @@ public abstract class AbstractModel implements BakedModel, FabricBakedModel {
 	}
 
 	@Override
-	public boolean isSideLit() {
+	public boolean usesBlockLight() {
 		return true;
 	}
 
 	@Override
-	public boolean hasDepth() {
+	public boolean isGui3d() {
 		return true;
 	}
 
 	@Override
-	public boolean isBuiltin() {
+	public boolean isCustomRenderer() {
 		return false;
 	}
 
 	@Override
-	public Sprite getParticleSprite() {
+	public TextureAtlasSprite getParticleIcon() {
 		return modelSprite;
 	}
 
 	@Override
-	public ModelTransformation getTransformation() {
+	public ItemTransforms getTransforms() {
 		return transformation;
 	}
 }

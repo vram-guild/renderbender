@@ -1,15 +1,8 @@
 package grondag.renderbender.model;
 
+import com.mojang.math.Vector3f;
 import java.util.Random;
 import java.util.function.Function;
-
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3f;
-
 import net.fabricmc.fabric.api.renderer.v1.Renderer;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.fabricmc.fabric.api.renderer.v1.material.MaterialFinder;
@@ -17,14 +10,19 @@ import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MeshBuilder;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 
 public class ModelBuilder {
 
 	private static ModelBuilder instance;
 
-	private static Function<SpriteIdentifier, Sprite> spriteFunc;
+	private static Function<Material, TextureAtlasSprite> spriteFunc;
 
-	public static ModelBuilder prepare(Function<SpriteIdentifier, Sprite> spriteFuncIn) {
+	public static ModelBuilder prepare(Function<Material, TextureAtlasSprite> spriteFuncIn) {
 		if(instance == null) {
 			instance = new ModelBuilder();
 		}
@@ -46,13 +44,13 @@ public class ModelBuilder {
 		return finder.clear();
 	}
 
-	public Sprite getSprite(String spriteName) {
-		return spriteFunc.apply(new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier(spriteName)));
+	public TextureAtlasSprite getSprite(String spriteName) {
+		return spriteFunc.apply(new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(spriteName)));
 	}
 
 	public void box(
 	RenderMaterial material,
-	int color, Sprite sprite,
+	int color, TextureAtlasSprite sprite,
 	float minX, float minY, float minZ,
 	float maxX, float maxY, float maxZ) {
 
@@ -108,39 +106,39 @@ public class ModelBuilder {
 	 * Makes a regular icosahedron, which is a very close approximation to a sphere for most purposes.
 	 * Loosely based on http://blog.andreaskahler.com/2009/06/creating-icosphere-mesh-in-code.html
 	 */
-	public static void makeIcosahedron(Vec3f center, float radius, QuadEmitter qe, RenderMaterial material, Sprite sprite, boolean smoothNormals) {
+	public static void makeIcosahedron(Vector3f center, float radius, QuadEmitter qe, RenderMaterial material, TextureAtlasSprite sprite, boolean smoothNormals) {
 		/** vertex scale */
 		final float s = (float) (radius  / (2 * Math.sin(2 * Math.PI / 5)));
 
-		final Vec3f[] vertexes = new Vec3f[12];
-		Vec3f[] normals = new Vec3f[12];
+		final Vector3f[] vertexes = new Vector3f[12];
+		Vector3f[] normals = new Vector3f[12];
 		// create 12 vertices of a icosahedron
 		final float t = (float) (s * (1.0 + Math.sqrt(5.0)) / 2.0);
 		int vi = 0;
 
-		normals[vi++] = new Vec3f(-s,  t,  0);
-		normals[vi++] = new Vec3f( s,  t,  0);
-		normals[vi++] = new Vec3f(-s, -t,  0);
-		normals[vi++] = new Vec3f( s, -t,  0);
+		normals[vi++] = new Vector3f(-s,  t,  0);
+		normals[vi++] = new Vector3f( s,  t,  0);
+		normals[vi++] = new Vector3f(-s, -t,  0);
+		normals[vi++] = new Vector3f( s, -t,  0);
 
-		normals[vi++] = new Vec3f( 0, -s,  t);
-		normals[vi++] = new Vec3f( 0,  s,  t);
-		normals[vi++] = new Vec3f( 0, -s, -t);
-		normals[vi++] = new Vec3f( 0,  s, -t);
+		normals[vi++] = new Vector3f( 0, -s,  t);
+		normals[vi++] = new Vector3f( 0,  s,  t);
+		normals[vi++] = new Vector3f( 0, -s, -t);
+		normals[vi++] = new Vector3f( 0,  s, -t);
 
-		normals[vi++] = new Vec3f( t,  0, -s);
-		normals[vi++] = new Vec3f( t,  0,  s);
-		normals[vi++] = new Vec3f(-t,  0, -s);
-		normals[vi++] = new Vec3f(-t,  0,  s);
+		normals[vi++] = new Vector3f( t,  0, -s);
+		normals[vi++] = new Vector3f( t,  0,  s);
+		normals[vi++] = new Vector3f(-t,  0, -s);
+		normals[vi++] = new Vector3f(-t,  0,  s);
 
 		for(int i = 0; i < 12; i++) {
-			final Vec3f n = normals[i];
-			vertexes[i] = new Vec3f(center.getX() + n.getX(), center.getY() + n.getY(), center.getZ() + n.getZ());
+			final Vector3f n = normals[i];
+			vertexes[i] = new Vector3f(center.x() + n.x(), center.y() + n.y(), center.z() + n.z());
 
 			if(smoothNormals) {
-				float x = n.getX();
-				float y = n.getY();
-				float z = n.getZ();
+				float x = n.x();
+				float y = n.y();
+				float z = n.z();
 
 				final float len = (float) Math.sqrt(x * x + y * y + z * z);
 
@@ -178,7 +176,7 @@ public class ModelBuilder {
 		makeIcosahedronFace(false, 3, 8, 9, vertexes, normals, qe, material, sprite);
 	}
 
-	private static void makeIcosahedronFace(boolean topHalf, int p1, int p2, int p3, Vec3f[] points, Vec3f[] normals, QuadEmitter qe, RenderMaterial material, Sprite sprite) {
+	private static void makeIcosahedronFace(boolean topHalf, int p1, int p2, int p3, Vector3f[] points, Vector3f[] normals, QuadEmitter qe, RenderMaterial material, TextureAtlasSprite sprite) {
 		if(topHalf) {
 			qe.pos(0, points[p1]).sprite(0, 0, 1, 1).spriteColor(0, -1, -1, -1, -1);
 			qe.pos(1, points[p2]).sprite(1, 0, 0, 1).spriteColor(0, -1, -1, -1, -1);

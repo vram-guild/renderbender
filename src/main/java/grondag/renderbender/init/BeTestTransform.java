@@ -11,10 +11,10 @@ import net.fabricmc.fabric.api.renderer.v1.material.BlendMode;
 import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockRenderView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.block.state.BlockState;
 
 class BeTestTransform implements MeshTransformer {
     static RenderMaterial matSolid = RendererAccess.INSTANCE.getRenderer().materialFinder()
@@ -43,7 +43,7 @@ class BeTestTransform implements MeshTransformer {
     }
     
     @Override
-    public MeshTransformer prepare(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier) {
+    public MeshTransformer prepare(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier) {
         if(randomSupplier.get().nextInt(4) == 0) {
             mat = matTrans;
             matGlow = matTransGlow;
