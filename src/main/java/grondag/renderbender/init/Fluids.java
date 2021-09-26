@@ -1,10 +1,12 @@
 package grondag.renderbender.init;
 
-import io.vram.frex.api.model.FluidAppearance;
-import io.vram.frex.api.model.FluidColorProvider;
-import io.vram.frex.api.model.FluidSpriteProvider;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+
+import io.vram.frex.api.model.fluid.FluidAppearance;
+import io.vram.frex.api.model.fluid.FluidColorProvider;
+import io.vram.frex.api.model.fluid.FluidSpriteProvider;
+
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.FlowingFluid;
