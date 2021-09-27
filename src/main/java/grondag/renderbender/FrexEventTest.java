@@ -1,6 +1,15 @@
 package grondag.renderbender;
 
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import io.vram.frex.api.renderloop.BlockOutlineListener;
+import io.vram.frex.api.renderloop.BlockOutlinePreListener;
+import io.vram.frex.api.renderloop.DebugRenderListener;
+import io.vram.frex.api.renderloop.EntityRenderPostListener;
+import io.vram.frex.api.renderloop.EntityRenderPreListener;
+import io.vram.frex.api.renderloop.FrustumSetupListener;
+import io.vram.frex.api.renderloop.TranslucentPostListener;
+import io.vram.frex.api.renderloop.WorldRenderLastListener;
+import io.vram.frex.api.renderloop.WorldRenderPostListener;
+import io.vram.frex.api.renderloop.WorldRenderStartListener;
 
 import grondag.renderbender.init.BasicBlocks;
 
@@ -11,73 +20,73 @@ public class FrexEventTest {
 	static void init() {
 		RenderBender.LOG.info("Registering FREX event test callbacks.");
 		RenderBender.LOG.info("Should see the following messages 1X in this order when world is loaded.");
-		RenderBender.LOG.info("    WorldRenderStart");
-		RenderBender.LOG.info("    WorldRenderAfterSetup");
-		RenderBender.LOG.info("    WorldRenderBeforeEntities");
-		RenderBender.LOG.info("    WorldRenderAfterEntities");
-		RenderBender.LOG.info("    WorldRenderBeforeDebugRender");
-		RenderBender.LOG.info("    WorldRenderAfterTranslucent");
-		RenderBender.LOG.info("    WorldRenderLast");
-		RenderBender.LOG.info("    WorldRenderEnd");
+		RenderBender.LOG.info("    WorldRenderStartListener");
+		RenderBender.LOG.info("    FrustumSetupListener");
+		RenderBender.LOG.info("    EntityRenderPreListener");
+		RenderBender.LOG.info("    EntityRenderPostListener");
+		RenderBender.LOG.info("    DebugRenderListener");
+		RenderBender.LOG.info("    TranslucentPostListener");
+		RenderBender.LOG.info("    WorldRenderLastListener");
+		RenderBender.LOG.info("    WorldRenderPostListener");
 
-		WorldRenderEvents.START.register(c -> {
+		WorldRenderStartListener.register(c -> {
 			if (active) {
-				RenderBender.LOG.info("WorldRenderStart");
+				RenderBender.LOG.info("WorldRenderStartListener");
 			}
 		});
 
-		WorldRenderEvents.AFTER_SETUP.register(c -> {
+		FrustumSetupListener.register(c -> {
 			if (active) {
-				RenderBender.LOG.info("WorldRenderAfterSetup");
+				RenderBender.LOG.info("FrustumSetupListener");
 			}
 		});
 
-		WorldRenderEvents.BEFORE_ENTITIES.register(c -> {
+		EntityRenderPreListener.register(c -> {
 			if (active) {
-				RenderBender.LOG.info("WorldRenderBeforeEntities");
+				RenderBender.LOG.info("EntityRenderPreListener");
 			}
 		});
 
-		WorldRenderEvents.AFTER_ENTITIES.register(c -> {
+		EntityRenderPostListener.register(c -> {
 			if (active) {
-				RenderBender.LOG.info("WorldRenderAfterEntities");
+				RenderBender.LOG.info("EntityRenderPostListener");
 			}
 		});
 
-		WorldRenderEvents.BEFORE_BLOCK_OUTLINE.register((c, h) -> {
+		BlockOutlinePreListener.register((c, h) -> {
 			if (firstBlockOutline) {
-				RenderBender.LOG.info("WorldRenderBeforeBlockOutline");
+				RenderBender.LOG.info("BlockOutlinePreListener");
 				firstBlockOutline = false;
 			}
 
 			return true;
 		});
 
-		WorldRenderEvents.BLOCK_OUTLINE.register((c, b) -> {
+		BlockOutlineListener.register((c, b) -> {
 			return b.blockState().getBlock() != BasicBlocks.GLOW_BLOCK_DYNAMIC;
 		});
 
-		WorldRenderEvents.BEFORE_DEBUG_RENDER.register(c -> {
+		DebugRenderListener.register(c -> {
 			if (active) {
-				RenderBender.LOG.info("WorldRenderBeforeDebugRender");
+				RenderBender.LOG.info("DebugRenderListener");
 			}
 		});
 
-		WorldRenderEvents.AFTER_TRANSLUCENT.register(c -> {
+		TranslucentPostListener.register(c -> {
 			if (active) {
-				RenderBender.LOG.info("WorldRenderAfterTranslucent");
+				RenderBender.LOG.info("TranslucentPostListener");
 			}
 		});
 
-		WorldRenderEvents.LAST.register(c -> {
+		WorldRenderLastListener.register(c -> {
 			if (active) {
-				RenderBender.LOG.info("WorldRenderLast");
+				RenderBender.LOG.info("WorldRenderLastListener");
 			}
 		});
 
-		WorldRenderEvents.END.register(c -> {
+		WorldRenderPostListener.register(c -> {
 			if (active) {
-				RenderBender.LOG.info("WorldRenderEnd");
+				RenderBender.LOG.info("WorldRenderPostListener");
 				active = false;
 			}
 		});
