@@ -16,15 +16,21 @@
 
 package grondag.renderbender;
 
-import io.vram.frex.api.config.ShaderConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import net.minecraft.resources.ResourceLocation;
+
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.resources.ResourceLocation;
+
+import io.vram.frex.api.config.ShaderConfig;
+import io.vram.frex.api.world.BlockEntityRenderData;
+
 import grondag.renderbender.init.BasicBlocks;
+import grondag.renderbender.init.BasicBlocks.BeTestBlockEntity;
 import grondag.renderbender.init.ExtendedBlocks;
 import grondag.renderbender.init.Fluids;
 import grondag.renderbender.init.ModelDispatcher;
@@ -46,5 +52,6 @@ public class RenderBender implements ModInitializer, ClientModInitializer {
         FrexEventTest.init();
         Fluids.initClient();
         ShaderConfig.registerShaderConfigSupplier(new ResourceLocation("renderbender:configtest"), () -> "#define SHADER_CONFIG_WORKS");
+        BlockEntityRenderData.registerProvider(BasicBlocks.BE_TEST_TYPE, be -> ((BeTestBlockEntity) be).getRenderData());
 	}
 }

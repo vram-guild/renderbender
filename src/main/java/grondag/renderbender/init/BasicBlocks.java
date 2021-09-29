@@ -4,9 +4,7 @@ import java.util.Random;
 import java.util.function.Function;
 
 import io.netty.util.internal.ThreadLocalRandom;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -26,6 +24,10 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+
 import grondag.renderbender.model.ModelBuilder;
 
 public class BasicBlocks {
@@ -168,7 +170,7 @@ public class BasicBlocks {
 		}
 	}
 
-	public static class BeTestBlockEntity extends BlockEntity implements RenderAttachmentBlockEntity {
+	public static class BeTestBlockEntity extends BlockEntity {
 		static final int QUAD_COUNT = 6 * 14 * 14;
 		private final int[] colors = new int[QUAD_COUNT];
 
@@ -191,8 +193,7 @@ public class BasicBlocks {
 			}
 		}
 
-		@Override
-		public Object getRenderAttachmentData() {
+		public Object getRenderData() {
 			return colors;
 		}
 	}
