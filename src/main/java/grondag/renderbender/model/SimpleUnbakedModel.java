@@ -4,6 +4,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.function.Function;
+
+import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
@@ -11,7 +14,6 @@ import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
-import com.mojang.datafixers.util.Pair;
 
 public class SimpleUnbakedModel implements UnbakedModel {
 	Function<ModelBuilder, BakedModel> baker;

@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2019 grondag
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
  * of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
@@ -19,10 +19,11 @@ package grondag.renderbender.model;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
+
+import io.vram.frex.api.model.ModelRenderContext;
 
 /**
  * Encapsulates parts of baked models that can't be pre-baked and
@@ -31,5 +32,5 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 @FunctionalInterface
 public interface DynamicRenderer {
-    void render(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context);
+    void render(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, ModelRenderContext context);
 }

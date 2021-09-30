@@ -3,10 +3,6 @@ package grondag.renderbender.init;
 import static grondag.renderbender.init.BasicBlocks.ITEM_FUNCTION_STANDARD;
 import static grondag.renderbender.init.BasicBlocks.register;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,6 +13,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 
 public class ExtendedBlocks {
 	private static final Block LAYERS_BLOCK = new Block(FabricBlockSettings
@@ -63,6 +64,7 @@ public class ExtendedBlocks {
 	public static void initialize() {
 		register(LAYERS_BLOCK, "layers", ITEM_FUNCTION_STANDARD);
 
+		// WIP: remove fabric dep
 		ColorProviderRegistry.BLOCK.register((blockState, extendedBlockView, pos, colorIndex) -> {
 			return extendedBlockView != null && pos != null ? BiomeColors.getAverageFoliageColor(extendedBlockView, pos) : FoliageColor.getDefaultColor();
 		}, LAYERS_BLOCK);

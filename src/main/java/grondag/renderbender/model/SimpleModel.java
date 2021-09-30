@@ -24,9 +24,7 @@ import java.util.function.Supplier;
 
 import com.google.common.collect.ImmutableList;
 import org.jetbrains.annotations.Nullable;
-import net.fabricmc.fabric.api.renderer.v1.mesh.Mesh;
-import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
-import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
+
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -39,6 +37,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
+
+import io.vram.frex.api.mesh.Mesh;
+import io.vram.frex.api.model.ModelHelper;
+import io.vram.frex.api.model.ModelRenderContext;
 
 /**
  * Simple baked model supporting the Fabric Render API features.<p>
@@ -61,11 +63,6 @@ public class SimpleModel extends AbstractModel {
 	}
 
 	@Override
-	public boolean isVanillaAdapter() {
-		return false;
-	}
-
-	@Override
 	public List<BakedQuad> getQuads(BlockState state, Direction face, Random rand) {
 		List<BakedQuad>[] lists = quadLists == null ? null : quadLists.get();
 		if(lists == null) {
@@ -77,16 +74,16 @@ public class SimpleModel extends AbstractModel {
 	}
 
 	@Override
-	public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
-		final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(blockView, state, pos, randomSupplier);
+	public void renderAsBlock(BlockAndTintGetter blockView, BlockState state, BlockPos pos, ModelRenderContext context) {
+		final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(blockView, state, pos, context);
 		if(transform != null) {
 			context.pushTransform(transform);
 		}
 		if(mesh != null) {
-			context.meshConsumer().accept(mesh);
+			context.accept(mesh);
 		}
 		if(dynamicRender != null) {
-			dynamicRender.render(blockView, state, pos, randomSupplier, context);
+			dynamicRender.render(blockView, state, pos, context::random, context);
 		}
 		if(transform != null) {
 			context.popTransform();
@@ -110,16 +107,16 @@ public class SimpleModel extends AbstractModel {
 	}
 
 	@Override
-	public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
-		final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(stack, randomSupplier);
+	public void renderAsItem(ItemStack stack, ItemTransforms.TransformType mode, ModelRenderContext context) {
+		final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(stack, context);
 		if(transform != null) {
 			context.pushTransform(transform);
 		}
 		if(mesh != null) {
-			context.meshConsumer().accept(mesh);
+			context.accept(mesh);
 		}
 		if(dynamicRender != null) {
-			dynamicRender.render(null, null, null, randomSupplier, context);
+			dynamicRender.render(null, null, null, context::random, context);
 		}
 		if(transform != null) {
 			context.popTransform();

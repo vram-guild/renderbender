@@ -1,20 +1,21 @@
 package grondag.renderbender.model;
 
-import com.mojang.math.Vector3f;
 import java.util.Random;
 import java.util.function.Function;
-import net.fabricmc.fabric.api.renderer.v1.Renderer;
-import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
-import net.fabricmc.fabric.api.renderer.v1.material.MaterialFinder;
-import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
-import net.fabricmc.fabric.api.renderer.v1.mesh.MeshBuilder;
-import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
-import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
+
+import com.mojang.math.Vector3f;
+
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+
+import io.vram.frex.api.material.MaterialFinder;
+import io.vram.frex.api.material.RenderMaterial;
+import io.vram.frex.api.mesh.MeshBuilder;
+import io.vram.frex.api.mesh.QuadEditor;
+import io.vram.frex.api.renderer.Renderer;
 
 public class ModelBuilder {
 
@@ -35,7 +36,7 @@ public class ModelBuilder {
 	public static final int FULL_BRIGHTNESS = 15 << 20 | 15 << 4;
 
 	private ModelBuilder() {
-		final Renderer renderer = RendererAccess.INSTANCE.getRenderer();
+		final Renderer renderer = Renderer.get();
 		builder = renderer.meshBuilder();
 		finder = renderer.materialFinder();
 	}
@@ -57,44 +58,44 @@ public class ModelBuilder {
 		builder.getEmitter()
 		.material(material)
 		.square(Direction.UP, minX, minZ, maxX, maxZ, 1-maxY)
-		.spriteColor(0, color, color, color, color)
-		.spriteUnitSquare(0)
-		.spriteBake(0, sprite, MutableQuadView.BAKE_NORMALIZED)
+		.vertexColor(color, color, color, color)
+		.uvUnitSquare()
+		.spriteBake(sprite, QuadEditor.BAKE_NORMALIZED)
 		.emit()
 
 		.material(material)
 		.square(Direction.DOWN, minX, minZ, maxX, maxZ, minY)
-		.spriteColor(0, color, color, color, color)
-		.spriteUnitSquare(0)
-		.spriteBake(0, sprite, MutableQuadView.BAKE_NORMALIZED)
+		.vertexColor(color, color, color, color)
+		.uvUnitSquare()
+		.spriteBake(sprite, QuadEditor.BAKE_NORMALIZED)
 		.emit()
 
 		.material(material)
 		.square(Direction.EAST, minZ, minY, maxZ, maxY, 1-maxX)
-		.spriteColor(0, color, color, color, color)
-		.spriteUnitSquare(0)
-		.spriteBake(0, sprite, MutableQuadView.BAKE_NORMALIZED)
+		.vertexColor(color, color, color, color)
+		.uvUnitSquare()
+		.spriteBake(sprite, QuadEditor.BAKE_NORMALIZED)
 		.emit()
 
 		.material(material)
 		.square(Direction.WEST, minZ, minY, maxZ, maxY, minX)
-		.spriteColor(0, color, color, color, color)
-		.spriteUnitSquare(0)
-		.spriteBake(0, sprite, MutableQuadView.BAKE_NORMALIZED)
+		.vertexColor(color, color, color, color)
+		.uvUnitSquare()
+		.spriteBake(sprite, QuadEditor.BAKE_NORMALIZED)
 		.emit()
 
 		.material(material)
 		.square(Direction.SOUTH, minX, minY, maxX, maxY, 1-maxZ)
-		.spriteColor(0, color, color, color, color)
-		.spriteUnitSquare(0)
-		.spriteBake(0, sprite, MutableQuadView.BAKE_NORMALIZED)
+		.vertexColor(color, color, color, color)
+		.uvUnitSquare()
+		.spriteBake(sprite, QuadEditor.BAKE_NORMALIZED)
 		.emit()
 
 		.material(material)
 		.square(Direction.NORTH, minX, minY, maxX, maxY, minZ)
-		.spriteColor(0, color, color, color, color)
-		.spriteUnitSquare(0)
-		.spriteBake(0, sprite, MutableQuadView.BAKE_NORMALIZED)
+		.vertexColor(color, color, color, color)
+		.uvUnitSquare()
+		.spriteBake(sprite, QuadEditor.BAKE_NORMALIZED)
 		.emit();
 	}
 
@@ -106,7 +107,7 @@ public class ModelBuilder {
 	 * Makes a regular icosahedron, which is a very close approximation to a sphere for most purposes.
 	 * Loosely based on http://blog.andreaskahler.com/2009/06/creating-icosphere-mesh-in-code.html
 	 */
-	public static void makeIcosahedron(Vector3f center, float radius, QuadEmitter qe, RenderMaterial material, TextureAtlasSprite sprite, boolean smoothNormals) {
+	public static void makeIcosahedron(Vector3f center, float radius, QuadEditor qe, RenderMaterial material, TextureAtlasSprite sprite, boolean smoothNormals) {
 		/** vertex scale */
 		final float s = (float) (radius  / (2 * Math.sin(2 * Math.PI / 5)));
 
@@ -176,17 +177,17 @@ public class ModelBuilder {
 		makeIcosahedronFace(false, 3, 8, 9, vertexes, normals, qe, material, sprite);
 	}
 
-	private static void makeIcosahedronFace(boolean topHalf, int p1, int p2, int p3, Vector3f[] points, Vector3f[] normals, QuadEmitter qe, RenderMaterial material, TextureAtlasSprite sprite) {
+	private static void makeIcosahedronFace(boolean topHalf, int p1, int p2, int p3, Vector3f[] points, Vector3f[] normals, QuadEditor qe, RenderMaterial material, TextureAtlasSprite sprite) {
 		if(topHalf) {
-			qe.pos(0, points[p1]).sprite(0, 0, 1, 1).spriteColor(0, -1, -1, -1, -1);
-			qe.pos(1, points[p2]).sprite(1, 0, 0, 1).spriteColor(0, -1, -1, -1, -1);
-			qe.pos(2, points[p3]).sprite(2, 0, 1, 0).spriteColor(0, -1, -1, -1, -1);
-			qe.pos(3, points[p3]).sprite(3, 0, 1, 0).spriteColor(0, -1, -1, -1, -1);
+			qe.pos(0, points[p1]).uv(0, 1, 1).vertexColor(-1, -1, -1, -1);
+			qe.pos(1, points[p2]).uv(1, 0, 1).vertexColor(-1, -1, -1, -1);
+			qe.pos(2, points[p3]).uv(2, 1, 0).vertexColor(-1, -1, -1, -1);
+			qe.pos(3, points[p3]).uv(3, 1, 0).vertexColor(-1, -1, -1, -1);
 		} else {
-			qe.pos(0, points[p1]).sprite(0, 0, 0, 0).spriteColor(0, -1, -1, -1, -1);
-			qe.pos(1, points[p2]).sprite(1, 0, 1, 0).spriteColor(0, -1, -1, -1, -1);
-			qe.pos(2, points[p3]).sprite(2, 0, 0, 1).spriteColor(0, -1, -1, -1, -1);
-			qe.pos(3, points[p3]).sprite(3, 0, 0, 1).spriteColor(0, -1, -1, -1, -1);
+			qe.pos(0, points[p1]).uv(0, 0, 0).vertexColor(-1, -1, -1, -1);
+			qe.pos(1, points[p2]).uv(1, 1, 0).vertexColor(-1, -1, -1, -1);
+			qe.pos(2, points[p3]).uv(2, 0, 1).vertexColor(-1, -1, -1, -1);
+			qe.pos(3, points[p3]).uv(3, 0, 1).vertexColor(-1, -1, -1, -1);
 		}
 		if(normals != null) {
 			qe.normal(0, normals[p1]);
@@ -194,7 +195,7 @@ public class ModelBuilder {
 			qe.normal(2, normals[p3]);
 			qe.normal(3, normals[p3]);
 		}
-		qe.spriteBake(0, sprite, MutableQuadView.BAKE_NORMALIZED);
+		qe.spriteBake(sprite, QuadEditor.BAKE_NORMALIZED);
 		qe.material(material);
 		qe.emit();
 	}

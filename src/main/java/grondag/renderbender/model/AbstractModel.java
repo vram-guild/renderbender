@@ -16,15 +16,16 @@
 
 package grondag.renderbender.model;
 
-import net.fabricmc.fabric.api.renderer.v1.Renderer;
-import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
-import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 
-public abstract class AbstractModel implements BakedModel, FabricBakedModel {
-	protected static final Renderer RENDERER = RendererAccess.INSTANCE.getRenderer();
+import io.vram.frex.api.model.BlockModel;
+import io.vram.frex.api.model.ItemModel;
+import io.vram.frex.api.renderer.Renderer;
+
+public abstract class AbstractModel implements BakedModel, BlockModel, ItemModel {
+	protected static final Renderer RENDERER = Renderer.get();
 
 	protected final TextureAtlasSprite modelSprite;
 	protected final ItemTransforms transformation;

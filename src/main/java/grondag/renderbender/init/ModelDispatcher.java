@@ -2,9 +2,9 @@ package grondag.renderbender.init;
 
 import java.util.HashMap;
 
-import io.vram.frex.api.config.FrexFeature;
-
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+
+import io.vram.frex.api.config.FrexFeature;
 
 import grondag.renderbender.model.SimpleUnbakedModel;
 
@@ -22,6 +22,7 @@ public class ModelDispatcher {
     }
 
     public static void initialize() {
+    	// WIP: remove Fabric dep
         ModelLoadingRegistry.INSTANCE.registerVariantProvider(manager -> ((modelId, context) -> {
             if (modelId.getNamespace().equals("renderbender")) {
                 initModels();
