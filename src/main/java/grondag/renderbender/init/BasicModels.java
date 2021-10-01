@@ -200,16 +200,19 @@ public class BasicModels {
 								final float v = j * .25f;
 								emitter.square(face, u, v, u + .25f, v + .25f, depth)
 								.material(mat).vertexColor(-1, -1, -1, -1)
+								.colorIndex(0)
 								.spriteBake(sprite, QuadEditor.BAKE_LOCK_UV).emit();
 							}
 						}
 					} else if(face == Direction.DOWN) {
 						emitter.square(face, 0, 0, 1, 1, 0)
 						.material(mat).vertexColor(-1, -1, -1, -1)
+						.colorIndex(0)
 						.spriteBake(sprite, QuadEditor.BAKE_LOCK_UV).emit();
 					} else {
 						emitter.square(face, 0, 0, 1, height, 0)
 						.material(mat).vertexColor(-1, -1, -1, -1)
+						.colorIndex(0)
 						.spriteBake(sprite, QuadEditor.BAKE_LOCK_UV).emit();
 					}
 				}
