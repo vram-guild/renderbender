@@ -16,13 +16,9 @@
 
 package grondag.renderbender.model;
 
-import java.util.Random;
-import java.util.function.Supplier;
-
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.block.state.BlockState;
 
+import io.vram.frex.api.model.BakedInputContext;
 import io.vram.frex.api.model.ModelOuputContext;
 
 /**
@@ -32,5 +28,5 @@ import io.vram.frex.api.model.ModelOuputContext;
  */
 @FunctionalInterface
 public interface DynamicRenderer {
-    void render(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, ModelOuputContext output);
+    void render(BlockAndTintGetter blockView, BakedInputContext input, ModelOuputContext output);
 }

@@ -82,7 +82,7 @@ public class SimpleModel extends AbstractModel {
 			output.accept(mesh);
 		}
 		if(dynamicRender != null) {
-			dynamicRender.render(input.blockView(), input.blockState(), input.pos(), input::random, output);
+			dynamicRender.render(input.blockView(), input, output);
 		}
 		if(transform != null) {
 			output.popTransform();
@@ -115,7 +115,7 @@ public class SimpleModel extends AbstractModel {
 			output.accept(mesh);
 		}
 		if(dynamicRender != null) {
-			dynamicRender.render(null, null, null, input::random, output);
+			dynamicRender.render(null, input, output);
 		}
 		if(transform != null) {
 			output.popTransform();

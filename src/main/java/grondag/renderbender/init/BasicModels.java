@@ -4,7 +4,6 @@ import static grondag.renderbender.model.ModelBuilder.FULL_BRIGHTNESS;
 
 import java.util.HashMap;
 import java.util.Random;
-import java.util.function.Supplier;
 
 import com.mojang.math.Vector3f;
 
@@ -13,16 +12,15 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.block.state.BlockState;
 
 import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.mesh.MeshBuilder;
 import io.vram.frex.api.mesh.QuadEditor;
+import io.vram.frex.api.model.BakedInputContext;
 import io.vram.frex.api.model.BlockModel.BlockInputContext;
 import io.vram.frex.api.model.ItemModel.ItemInputContext;
 import io.vram.frex.api.model.ModelHelper;
@@ -48,9 +46,9 @@ public class BasicModels {
 		models.put("item_transform", new SimpleUnbakedModel(mb -> {
 			return new SimpleModel(mb.builder.build(), () -> BasicModels::hackformer, mb.getSprite("minecraft:block/cobble"), ModelHelper.MODEL_TRANSFORM_BLOCK, new DynamicRenderer() {
 				@Override
-				public void render(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, ModelOuputContext context) {
+				public void render(BlockAndTintGetter blockView, BakedInputContext input, ModelOuputContext context) {
 					final BakedModel baseModel = Minecraft.getInstance().getModelManager().getModel(new ModelResourceLocation(new ResourceLocation("minecraft", "cobble"), "inventory"));
-					context.accept(baseModel);
+					context.accept(baseModel, input);
 				}
 			});
 		}));
@@ -184,8 +182,8 @@ public class BasicModels {
 			Renderer renderer = Renderer.get();
 			RenderMaterial mat = renderer.materialFinder().disableDiffuse(true).find();
 			@Override
-			public void render(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier,ModelOuputContext context) {
-				final int hash = pos == null ? 8 : pos.hashCode();
+			public void render(BlockAndTintGetter blockView, BakedInputContext input ,ModelOuputContext context) {
+				final int hash = input.pos() == null ? 8 : input.pos().hashCode();
 				final float height = (1 + (hash & 15)) / 16f;
 				final TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(new ResourceLocation("minecraft:block/white_concrete"));
 				final MeshBuilder builder = renderer.meshBuilder();
