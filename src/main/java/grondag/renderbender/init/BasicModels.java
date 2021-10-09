@@ -17,13 +17,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 
 import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.mesh.MeshBuilder;
 import io.vram.frex.api.mesh.QuadEditor;
+import io.vram.frex.api.model.BlockModel.BlockInputContext;
+import io.vram.frex.api.model.ItemModel.ItemInputContext;
 import io.vram.frex.api.model.ModelHelper;
 import io.vram.frex.api.model.ModelRenderContext;
 import io.vram.frex.api.renderer.Renderer;
@@ -240,17 +241,16 @@ public class BasicModels {
 		}
 
 		@Override
-		public GlowTransform prepare(BlockAndTintGetter blockView, BlockState state, BlockPos pos, ModelRenderContext context) {
-			return prep(context);
+		public GlowTransform prepare(BlockInputContext input, ModelRenderContext context) {
+			return prep(input.random());
 		}
 
 		@Override
-		public GlowTransform prepare(ItemStack stack, ModelRenderContext context) {
-			return prep(context);
+		public GlowTransform prepare(ItemInputContext input, ModelRenderContext context) {
+			return prep(input.random());
 		}
 
-		private GlowTransform prep(ModelRenderContext context) {
-			final Random random = context.random();
+		private GlowTransform prep(Random random) {
 			topColor = ModelBuilder.randomPastelColor(random);
 			bottomColor = ModelBuilder.randomPastelColor(random);
 			final boolean topGlow = random.nextBoolean();

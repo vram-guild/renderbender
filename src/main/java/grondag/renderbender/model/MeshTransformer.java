@@ -16,16 +16,13 @@
 
 package grondag.renderbender.model;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.block.state.BlockState;
-
+import io.vram.frex.api.model.BlockModel.BlockInputContext;
+import io.vram.frex.api.model.ItemModel.ItemInputContext;
 import io.vram.frex.api.model.ModelRenderContext;
 import io.vram.frex.api.model.QuadTransform;
 
 public interface MeshTransformer extends QuadTransform {
-    default MeshTransformer prepare(BlockAndTintGetter blockView, BlockState state, BlockPos pos, ModelRenderContext context) { return this;}
+    default MeshTransformer prepare(BlockInputContext input, ModelRenderContext context) { return this;}
 
-    default MeshTransformer prepare(ItemStack stack, ModelRenderContext context) { return this;}
+    default MeshTransformer prepare(ItemInputContext input, ModelRenderContext context) { return this;}
 }

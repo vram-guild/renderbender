@@ -1,14 +1,11 @@
 package grondag.renderbender.init;
 
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.block.state.BlockState;
-
 import io.vram.frex.api.material.MaterialConstants;
 import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.mesh.QuadEditor;
+import io.vram.frex.api.model.BlockModel.BlockInputContext;
+import io.vram.frex.api.model.ItemModel.ItemInputContext;
 import io.vram.frex.api.model.ModelRenderContext;
 import io.vram.frex.api.renderer.Renderer;
 
@@ -42,8 +39,8 @@ class BeTestTransform implements MeshTransformer {
     }
 
     @Override
-    public MeshTransformer prepare(BlockAndTintGetter blockView, BlockState state, BlockPos pos, ModelRenderContext context) {
-        if(context.random().nextInt(4) == 0) {
+    public MeshTransformer prepare(BlockInputContext input, ModelRenderContext context) {
+        if(input.random().nextInt(4) == 0) {
             mat = matTrans;
             matGlow = matTransGlow;
             translucent = true;
@@ -52,12 +49,12 @@ class BeTestTransform implements MeshTransformer {
             matGlow = matSolidGlow;
             translucent = false;
         }
-        stupid = (int[]) context.blockEntityRenderData(pos);
+        stupid = (int[]) input.blockEntityRenderData(input.pos());
         return this;
     }
 
     @Override
-    public MeshTransformer prepare(ItemStack stack, ModelRenderContext context) {
+    public MeshTransformer prepare(ItemInputContext input, ModelRenderContext context) {
         mat = matSolid;
         matGlow = matSolidGlow;
         translucent = false;

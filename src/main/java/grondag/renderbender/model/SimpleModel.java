@@ -31,11 +31,9 @@ import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 
 import io.vram.frex.api.mesh.Mesh;
@@ -74,8 +72,9 @@ public class SimpleModel extends AbstractModel {
 	}
 
 	@Override
-	public void renderAsBlock(BlockAndTintGetter blockView, BlockState state, BlockPos pos, ModelRenderContext context) {
-		final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(blockView, state, pos, context);
+	public void renderAsBlock(BlockInputContext input, ModelRenderContext context) {
+		final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(input, context);
+
 		if(transform != null) {
 			context.pushTransform(transform);
 		}
@@ -83,7 +82,7 @@ public class SimpleModel extends AbstractModel {
 			context.accept(mesh);
 		}
 		if(dynamicRender != null) {
-			dynamicRender.render(blockView, state, pos, context::random, context);
+			dynamicRender.render(input.blockView(), input.blockState(), input.pos(), input::random, context);
 		}
 		if(transform != null) {
 			context.popTransform();
@@ -107,8 +106,8 @@ public class SimpleModel extends AbstractModel {
 	}
 
 	@Override
-	public void renderAsItem(ItemStack stack, ItemTransforms.TransformType mode, ModelRenderContext context) {
-		final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(stack, context);
+	public void renderAsItem(ItemInputContext input, ModelRenderContext context) {
+		final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(input, context);
 		if(transform != null) {
 			context.pushTransform(transform);
 		}
@@ -116,7 +115,7 @@ public class SimpleModel extends AbstractModel {
 			context.accept(mesh);
 		}
 		if(dynamicRender != null) {
-			dynamicRender.render(null, null, null, context::random, context);
+			dynamicRender.render(null, null, null, input::random, context);
 		}
 		if(transform != null) {
 			context.popTransform();
