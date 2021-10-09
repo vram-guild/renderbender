@@ -18,11 +18,11 @@ package grondag.renderbender.model;
 
 import io.vram.frex.api.model.BlockModel.BlockInputContext;
 import io.vram.frex.api.model.ItemModel.ItemInputContext;
-import io.vram.frex.api.model.ModelRenderContext;
+import io.vram.frex.api.model.ModelOuputContext;
 import io.vram.frex.api.model.QuadTransform;
 
 public interface MeshTransformer extends QuadTransform {
-    default MeshTransformer prepare(BlockInputContext input, ModelRenderContext context) { return this;}
+    default MeshTransformer prepare(BlockInputContext input, ModelOuputContext output) { return this;}
 
-    default MeshTransformer prepare(ItemInputContext input, ModelRenderContext context) { return this;}
+    default MeshTransformer prepare(ItemInputContext input, ModelOuputContext output) { return this;}
 }

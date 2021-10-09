@@ -6,7 +6,7 @@ import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.mesh.QuadEditor;
 import io.vram.frex.api.model.BlockModel.BlockInputContext;
 import io.vram.frex.api.model.ItemModel.ItemInputContext;
-import io.vram.frex.api.model.ModelRenderContext;
+import io.vram.frex.api.model.ModelOuputContext;
 import io.vram.frex.api.renderer.Renderer;
 
 import grondag.renderbender.init.BasicBlocks.BeTestBlockEntity;
@@ -39,7 +39,7 @@ class BeTestTransform implements MeshTransformer {
     }
 
     @Override
-    public MeshTransformer prepare(BlockInputContext input, ModelRenderContext context) {
+    public MeshTransformer prepare(BlockInputContext input, ModelOuputContext context) {
         if(input.random().nextInt(4) == 0) {
             mat = matTrans;
             matGlow = matTransGlow;
@@ -54,7 +54,7 @@ class BeTestTransform implements MeshTransformer {
     }
 
     @Override
-    public MeshTransformer prepare(ItemInputContext input, ModelRenderContext context) {
+    public MeshTransformer prepare(ItemInputContext input, ModelOuputContext context) {
         mat = matSolid;
         matGlow = matSolidGlow;
         translucent = false;

@@ -23,7 +23,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 
-import io.vram.frex.api.model.ModelRenderContext;
+import io.vram.frex.api.model.ModelOuputContext;
 
 /**
  * Encapsulates parts of baked models that can't be pre-baked and
@@ -32,5 +32,5 @@ import io.vram.frex.api.model.ModelRenderContext;
  */
 @FunctionalInterface
 public interface DynamicRenderer {
-    void render(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, ModelRenderContext context);
+    void render(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, ModelOuputContext output);
 }

@@ -26,7 +26,7 @@ import io.vram.frex.api.mesh.QuadEditor;
 import io.vram.frex.api.model.BlockModel.BlockInputContext;
 import io.vram.frex.api.model.ItemModel.ItemInputContext;
 import io.vram.frex.api.model.ModelHelper;
-import io.vram.frex.api.model.ModelRenderContext;
+import io.vram.frex.api.model.ModelOuputContext;
 import io.vram.frex.api.renderer.Renderer;
 
 import grondag.renderbender.model.DynamicRenderer;
@@ -48,7 +48,7 @@ public class BasicModels {
 		models.put("item_transform", new SimpleUnbakedModel(mb -> {
 			return new SimpleModel(mb.builder.build(), () -> BasicModels::hackformer, mb.getSprite("minecraft:block/cobble"), ModelHelper.MODEL_TRANSFORM_BLOCK, new DynamicRenderer() {
 				@Override
-				public void render(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, ModelRenderContext context) {
+				public void render(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, ModelOuputContext context) {
 					final BakedModel baseModel = Minecraft.getInstance().getModelManager().getModel(new ModelResourceLocation(new ResourceLocation("minecraft", "cobble"), "inventory"));
 					context.accept(baseModel);
 				}
@@ -184,7 +184,7 @@ public class BasicModels {
 			Renderer renderer = Renderer.get();
 			RenderMaterial mat = renderer.materialFinder().disableDiffuse(true).find();
 			@Override
-			public void render(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier,ModelRenderContext context) {
+			public void render(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier,ModelOuputContext context) {
 				final int hash = pos == null ? 8 : pos.hashCode();
 				final float height = (1 + (hash & 15)) / 16f;
 				final TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(new ResourceLocation("minecraft:block/white_concrete"));
@@ -241,12 +241,12 @@ public class BasicModels {
 		}
 
 		@Override
-		public GlowTransform prepare(BlockInputContext input, ModelRenderContext context) {
+		public GlowTransform prepare(BlockInputContext input, ModelOuputContext context) {
 			return prep(input.random());
 		}
 
 		@Override
-		public GlowTransform prepare(ItemInputContext input, ModelRenderContext context) {
+		public GlowTransform prepare(ItemInputContext input, ModelOuputContext context) {
 			return prep(input.random());
 		}
 

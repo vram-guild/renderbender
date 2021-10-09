@@ -38,7 +38,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import io.vram.frex.api.mesh.Mesh;
 import io.vram.frex.api.model.ModelHelper;
-import io.vram.frex.api.model.ModelRenderContext;
+import io.vram.frex.api.model.ModelOuputContext;
 
 /**
  * Simple baked model supporting the Fabric Render API features.<p>
@@ -72,20 +72,20 @@ public class SimpleModel extends AbstractModel {
 	}
 
 	@Override
-	public void renderAsBlock(BlockInputContext input, ModelRenderContext context) {
-		final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(input, context);
+	public void renderAsBlock(BlockInputContext input, ModelOuputContext output) {
+		final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(input, output);
 
 		if(transform != null) {
-			context.pushTransform(transform);
+			output.pushTransform(transform);
 		}
 		if(mesh != null) {
-			context.accept(mesh);
+			output.accept(mesh);
 		}
 		if(dynamicRender != null) {
-			dynamicRender.render(input.blockView(), input.blockState(), input.pos(), input::random, context);
+			dynamicRender.render(input.blockView(), input.blockState(), input.pos(), input::random, output);
 		}
 		if(transform != null) {
-			context.popTransform();
+			output.popTransform();
 		}
 	}
 
@@ -106,19 +106,19 @@ public class SimpleModel extends AbstractModel {
 	}
 
 	@Override
-	public void renderAsItem(ItemInputContext input, ModelRenderContext context) {
-		final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(input, context);
+	public void renderAsItem(ItemInputContext input, ModelOuputContext output) {
+		final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(input, output);
 		if(transform != null) {
-			context.pushTransform(transform);
+			output.pushTransform(transform);
 		}
 		if(mesh != null) {
-			context.accept(mesh);
+			output.accept(mesh);
 		}
 		if(dynamicRender != null) {
-			dynamicRender.render(null, null, null, input::random, context);
+			dynamicRender.render(null, null, null, input::random, output);
 		}
 		if(transform != null) {
-			context.popTransform();
+			output.popTransform();
 		}
 	}
 }
