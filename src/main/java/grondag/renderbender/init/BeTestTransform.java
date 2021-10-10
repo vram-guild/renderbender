@@ -3,7 +3,7 @@ package grondag.renderbender.init;
 
 import io.vram.frex.api.material.MaterialConstants;
 import io.vram.frex.api.material.RenderMaterial;
-import io.vram.frex.api.mesh.QuadEditor;
+import io.vram.frex.api.mesh.QuadEmitter;
 import io.vram.frex.api.model.BlockModel.BlockInputContext;
 import io.vram.frex.api.model.ItemModel.ItemInputContext;
 import io.vram.frex.api.model.ModelOuputContext;
@@ -31,7 +31,7 @@ class BeTestTransform implements MeshTransformer {
     private boolean translucent;
 
     @Override
-    public boolean transform(QuadEditor q) {
+    public boolean transform(QuadEmitter q) {
         final int s = stupid == null ? -1 : stupid[q.tag()];
         final int c = translucent ? 0x80000000 | (0xFFFFFF & s) : s;
         q.material((s & 0x3) == 0 ? matGlow : mat).vertexColor(c, c, c, c);

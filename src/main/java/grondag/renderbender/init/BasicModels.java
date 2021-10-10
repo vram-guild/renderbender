@@ -19,7 +19,7 @@ import net.minecraft.world.level.BlockAndTintGetter;
 
 import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.mesh.MeshBuilder;
-import io.vram.frex.api.mesh.QuadEditor;
+import io.vram.frex.api.mesh.QuadEmitter;
 import io.vram.frex.api.model.BakedInputContext;
 import io.vram.frex.api.model.BlockModel.BlockInputContext;
 import io.vram.frex.api.model.ItemModel.ItemInputContext;
@@ -36,10 +36,10 @@ import grondag.renderbender.model.SimpleUnbakedModel;
 
 public class BasicModels {
 
-	static boolean hackformer(QuadEditor victim) {
+	static boolean hackformer(QuadEmitter victim) {
 		final TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(new ResourceLocation("minecraft:block/white_concrete"));
 		victim.vertexColor(0xFFFF0000, 0xFFFF0000, 0xFFFF0000, 0xFFFF0000);
-		victim.spriteBake(sprite, QuadEditor.BAKE_LOCK_UV);
+		victim.spriteBake(sprite, QuadEmitter.BAKE_LOCK_UV);
 		return true;
 	}
 
@@ -158,7 +158,7 @@ public class BasicModels {
 			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			final RenderMaterial mat = mb.finder().find();
 			final float PIXEL = 1f/16f;
-			final QuadEditor qe = mb.builder.getEmitter();
+			final QuadEmitter qe = mb.builder.getEmitter();
 			int t = 0;
 			for(int d = 0; d < 6; d++) {
 				final Direction face = Direction.from3DDataValue(d);
@@ -169,7 +169,7 @@ public class BasicModels {
 						qe.tag(t++);
 						qe.material(mat).square(face, u, v, u + PIXEL, v + PIXEL, PIXEL)
 						.vertexColor(-1, -1, -1, -1)
-						.spriteBake(sprite, QuadEditor.BAKE_LOCK_UV).emit();
+						.spriteBake(sprite, QuadEmitter.BAKE_LOCK_UV).emit();
 					}
 				}
 			}
@@ -188,7 +188,7 @@ public class BasicModels {
 				final float height = (1 + (hash & 15)) / 16f;
 				final TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(new ResourceLocation("minecraft:block/white_concrete"));
 				final MeshBuilder builder = renderer.meshBuilder();
-				final QuadEditor emitter = builder.getEmitter();
+				final QuadEmitter emitter = builder.getEmitter();
 
 				for(int d = 0; d < 6; d++) {
 					final Direction face = Direction.from3DDataValue(d);
@@ -201,19 +201,19 @@ public class BasicModels {
 								emitter.square(face, u, v, u + .25f, v + .25f, depth)
 								.material(mat).vertexColor(-1, -1, -1, -1)
 								.colorIndex(0)
-								.spriteBake(sprite, QuadEditor.BAKE_LOCK_UV).emit();
+								.spriteBake(sprite, QuadEmitter.BAKE_LOCK_UV).emit();
 							}
 						}
 					} else if(face == Direction.DOWN) {
 						emitter.square(face, 0, 0, 1, 1, 0)
 						.material(mat).vertexColor(-1, -1, -1, -1)
 						.colorIndex(0)
-						.spriteBake(sprite, QuadEditor.BAKE_LOCK_UV).emit();
+						.spriteBake(sprite, QuadEmitter.BAKE_LOCK_UV).emit();
 					} else {
 						emitter.square(face, 0, 0, 1, height, 0)
 						.material(mat).vertexColor(-1, -1, -1, -1)
 						.colorIndex(0)
-						.spriteBake(sprite, QuadEditor.BAKE_LOCK_UV).emit();
+						.spriteBake(sprite, QuadEmitter.BAKE_LOCK_UV).emit();
 					}
 				}
 
@@ -229,7 +229,7 @@ public class BasicModels {
 		int bottomLight;
 
 		@Override
-		public boolean transform(QuadEditor q) {
+		public boolean transform(QuadEmitter q) {
 			for(int i = 0; i < 4; i++) {
 				if(Mth.equal(q.y(i), 0)) {
 					q.vertexColor(i, bottomColor).lightmap(i, bottomLight);
