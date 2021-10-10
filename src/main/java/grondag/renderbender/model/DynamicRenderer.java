@@ -18,8 +18,8 @@ package grondag.renderbender.model;
 
 import net.minecraft.world.level.BlockAndTintGetter;
 
+import io.vram.frex.api.buffer.QuadSink;
 import io.vram.frex.api.model.BakedInputContext;
-import io.vram.frex.api.model.ModelOuputContext;
 
 /**
  * Encapsulates parts of baked models that can't be pre-baked and
@@ -28,5 +28,5 @@ import io.vram.frex.api.model.ModelOuputContext;
  */
 @FunctionalInterface
 public interface DynamicRenderer {
-    void render(BlockAndTintGetter blockView, BakedInputContext input, ModelOuputContext output);
+    void render(BlockAndTintGetter blockView, BakedInputContext input, QuadSink output);
 }

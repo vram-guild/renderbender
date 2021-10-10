@@ -17,13 +17,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.BlockAndTintGetter;
 
+import io.vram.frex.api.buffer.QuadSink;
+import io.vram.frex.api.buffer.QuadEmitter;
 import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.mesh.MeshBuilder;
-import io.vram.frex.api.mesh.QuadEmitter;
 import io.vram.frex.api.model.BakedInputContext;
 import io.vram.frex.api.model.BlockModel.BlockInputContext;
 import io.vram.frex.api.model.ItemModel.ItemInputContext;
-import io.vram.frex.api.model.ModelOuputContext;
 import io.vram.frex.api.model.util.BakedModelUtil;
 import io.vram.frex.api.renderer.Renderer;
 import io.vram.frex.base.renderer.context.BaseFallbackConsumer;
@@ -47,7 +47,7 @@ public class BasicModels {
 		models.put("item_transform", new SimpleUnbakedModel(mb -> {
 			return new SimpleModel(mb.builder.build(), () -> BasicModels::hackformer, mb.getSprite("minecraft:block/cobble"), BakedModelUtil.MODEL_TRANSFORM_BLOCK, new DynamicRenderer() {
 				@Override
-				public void render(BlockAndTintGetter blockView, BakedInputContext input, ModelOuputContext context) {
+				public void render(BlockAndTintGetter blockView, BakedInputContext input, QuadSink context) {
 					final BakedModel baseModel = Minecraft.getInstance().getModelManager().getModel(new ModelResourceLocation(new ResourceLocation("minecraft", "cobble"), "inventory"));
 					BaseFallbackConsumer.accept(baseModel, input, context);
 				}
@@ -183,7 +183,7 @@ public class BasicModels {
 			Renderer renderer = Renderer.get();
 			RenderMaterial mat = renderer.materialFinder().disableDiffuse(true).find();
 			@Override
-			public void render(BlockAndTintGetter blockView, BakedInputContext input ,ModelOuputContext context) {
+			public void render(BlockAndTintGetter blockView, BakedInputContext input ,QuadSink context) {
 				final int hash = input.pos() == null ? 8 : input.pos().hashCode();
 				final float height = (1 + (hash & 15)) / 16f;
 				final TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(new ResourceLocation("minecraft:block/white_concrete"));
@@ -217,7 +217,7 @@ public class BasicModels {
 					}
 				}
 
-				builder.build().outputTo(context.quadEmitter());
+				builder.build().outputTo(context.asQuadEmitter());
 			}
 		};
 	}
@@ -241,12 +241,12 @@ public class BasicModels {
 		}
 
 		@Override
-		public GlowTransform prepare(BlockInputContext input, ModelOuputContext context) {
+		public GlowTransform prepare(BlockInputContext input, QuadSink context) {
 			return prep(input.random());
 		}
 
 		@Override
-		public GlowTransform prepare(ItemInputContext input, ModelOuputContext context) {
+		public GlowTransform prepare(ItemInputContext input, QuadSink context) {
 			return prep(input.random());
 		}
 

@@ -11,10 +11,10 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
+import io.vram.frex.api.buffer.QuadEmitter;
 import io.vram.frex.api.material.MaterialFinder;
 import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.mesh.MeshBuilder;
-import io.vram.frex.api.mesh.QuadEmitter;
 import io.vram.frex.api.renderer.Renderer;
 
 public class ModelBuilder {
