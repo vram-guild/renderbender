@@ -36,8 +36,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 import io.vram.frex.api.buffer.QuadSink;
+import io.vram.frex.api.buffer.QuadTransform;
 import io.vram.frex.api.mesh.Mesh;
-import io.vram.frex.api.model.QuadTransform;
 import io.vram.frex.api.model.util.BakedModelUtil;
 
 /**

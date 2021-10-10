@@ -1,11 +1,11 @@
 package grondag.renderbender.init;
 
 
+import io.vram.frex.api.buffer.QuadTransform;
 import io.vram.frex.api.material.MaterialConstants;
 import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.model.BlockModel.BlockInputContext;
 import io.vram.frex.api.model.InputContext.Type;
-import io.vram.frex.api.model.QuadTransform;
 import io.vram.frex.api.renderer.Renderer;
 
 import grondag.renderbender.init.BasicBlocks.BeTestBlockEntity;

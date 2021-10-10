@@ -18,10 +18,10 @@ import net.minecraft.world.level.BlockAndTintGetter;
 
 import io.vram.frex.api.buffer.QuadEmitter;
 import io.vram.frex.api.buffer.QuadSink;
+import io.vram.frex.api.buffer.QuadTransform;
 import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.mesh.MeshBuilder;
 import io.vram.frex.api.model.BakedInputContext;
-import io.vram.frex.api.model.QuadTransform;
 import io.vram.frex.api.model.util.BakedModelUtil;
 import io.vram.frex.api.renderer.Renderer;
 import io.vram.frex.base.renderer.context.BaseFallbackConsumer;
