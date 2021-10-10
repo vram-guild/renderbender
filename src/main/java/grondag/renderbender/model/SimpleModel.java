@@ -37,8 +37,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 import io.vram.frex.api.mesh.Mesh;
-import io.vram.frex.api.model.ModelHelper;
 import io.vram.frex.api.model.ModelOuputContext;
+import io.vram.frex.api.model.util.BakedModelUtil;
 
 /**
  * Simple baked model supporting the Fabric Render API features.<p>
@@ -64,7 +64,7 @@ public class SimpleModel extends AbstractModel {
 	public List<BakedQuad> getQuads(BlockState state, Direction face, Random rand) {
 		List<BakedQuad>[] lists = quadLists == null ? null : quadLists.get();
 		if(lists == null) {
-			lists = ModelHelper.toQuadLists(mesh);
+			lists = BakedModelUtil.toQuadLists(mesh);
 			quadLists = new WeakReference<>(lists);
 		}
 		final List<BakedQuad> result = lists[face == null ? 6 : face.get3DDataValue()];
@@ -79,7 +79,7 @@ public class SimpleModel extends AbstractModel {
 			output.pushTransform(transform);
 		}
 		if(mesh != null) {
-			output.accept(mesh);
+			mesh.outputTo(output.quadEmitter());
 		}
 		if(dynamicRender != null) {
 			dynamicRender.render(input.blockView(), input, output);
@@ -112,7 +112,7 @@ public class SimpleModel extends AbstractModel {
 			output.pushTransform(transform);
 		}
 		if(mesh != null) {
-			output.accept(mesh);
+			mesh.outputTo(output.quadEmitter());
 		}
 		if(dynamicRender != null) {
 			dynamicRender.render(null, input, output);

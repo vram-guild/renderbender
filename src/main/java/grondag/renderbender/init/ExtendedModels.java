@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import io.vram.frex.api.material.MaterialCondition;
 import io.vram.frex.api.material.MaterialConstants;
 import io.vram.frex.api.material.RenderMaterial;
-import io.vram.frex.api.model.ModelHelper;
+import io.vram.frex.api.model.util.BakedModelUtil;
 import io.vram.frex.api.renderer.Renderer;
 
 import grondag.renderbender.model.SimpleModel;
@@ -28,7 +28,7 @@ public class ExtendedModels {
 			mb.box(mat,
 				-1, sprite,
 				0, 0, 0, 1, 1, 1);
-			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("conditional", new SimpleUnbakedModel(mb -> {
@@ -58,7 +58,7 @@ public class ExtendedModels {
 			mb.box(mat,
 				0x80DCEFFF, sprite,
 				0, 0, 0, 1, 1, 1);
-			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 	}
 }

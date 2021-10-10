@@ -20,11 +20,10 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 
-import io.vram.frex.api.model.BlockModel;
-import io.vram.frex.api.model.ItemModel;
+import io.vram.frex.api.model.BlockItemModel;
 import io.vram.frex.api.renderer.Renderer;
 
-public abstract class AbstractModel implements BakedModel, BlockModel, ItemModel {
+public abstract class AbstractModel implements BakedModel, BlockItemModel {
 	protected static final Renderer RENDERER = Renderer.get();
 
 	protected final TextureAtlasSprite modelSprite;

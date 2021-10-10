@@ -23,9 +23,10 @@ import io.vram.frex.api.mesh.QuadEditor;
 import io.vram.frex.api.model.BakedInputContext;
 import io.vram.frex.api.model.BlockModel.BlockInputContext;
 import io.vram.frex.api.model.ItemModel.ItemInputContext;
-import io.vram.frex.api.model.ModelHelper;
 import io.vram.frex.api.model.ModelOuputContext;
+import io.vram.frex.api.model.util.BakedModelUtil;
 import io.vram.frex.api.renderer.Renderer;
+import io.vram.frex.base.renderer.context.BaseFallbackConsumer;
 
 import grondag.renderbender.model.DynamicRenderer;
 import grondag.renderbender.model.MeshTransformer;
@@ -44,11 +45,11 @@ public class BasicModels {
 
 	public static void initialize(HashMap<String, SimpleUnbakedModel> models) {
 		models.put("item_transform", new SimpleUnbakedModel(mb -> {
-			return new SimpleModel(mb.builder.build(), () -> BasicModels::hackformer, mb.getSprite("minecraft:block/cobble"), ModelHelper.MODEL_TRANSFORM_BLOCK, new DynamicRenderer() {
+			return new SimpleModel(mb.builder.build(), () -> BasicModels::hackformer, mb.getSprite("minecraft:block/cobble"), BakedModelUtil.MODEL_TRANSFORM_BLOCK, new DynamicRenderer() {
 				@Override
 				public void render(BlockAndTintGetter blockView, BakedInputContext input, ModelOuputContext context) {
 					final BakedModel baseModel = Minecraft.getInstance().getModelManager().getModel(new ModelResourceLocation(new ResourceLocation("minecraft", "cobble"), "inventory"));
-					context.accept(baseModel, input);
+					BaseFallbackConsumer.accept(baseModel, input, context);
 				}
 			});
 		}));
@@ -58,7 +59,7 @@ public class BasicModels {
 			mb.box(mb.finder().emissive(true).disableAo(true).disableDiffuse(true).find(),
 				-1, sprite,
 				0, 0, 0, 1, 1, 1);
-			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("glow_diffuse", new SimpleUnbakedModel(mb -> {
@@ -66,7 +67,7 @@ public class BasicModels {
 			mb.box(mb.finder().emissive(true).disableAo(true).find(),
 				-1, sprite,
 				0, 0, 0, 1, 1, 1);
-			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("glow_ao", new SimpleUnbakedModel(mb -> {
@@ -74,7 +75,7 @@ public class BasicModels {
 			mb.box(mb.finder().emissive(true).disableDiffuse(true).find(),
 				-1, sprite,
 				0, 0, 0, 1, 1, 1);
-			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("glow_shaded", new SimpleUnbakedModel(mb -> {
@@ -82,7 +83,7 @@ public class BasicModels {
 			mb.box(mb.finder().emissive(true).find(),
 				-1, sprite,
 				0, 0, 0, 1, 1, 1);
-			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("glow_dynamic", new SimpleUnbakedModel(mb -> {
@@ -90,59 +91,59 @@ public class BasicModels {
 			mb.box(mb.finder().find(),
 				-1, sprite,
 				0, 0, 0, 1, 1, 1);
-			return new SimpleModel(mb.builder.build(), glowTransform::get, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), glowTransform::get, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_hard", new SimpleUnbakedModel(mb -> {
 			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().find(), sprite, false);
-			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_hard_diffuse", new SimpleUnbakedModel(mb -> {
 			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableAo(true).find(), sprite, false);
-			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_hard_diffuse_glow", new SimpleUnbakedModel(mb -> {
 			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().emissive(true).disableAo(true).find(), sprite, false);
-			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_hard_ao", new SimpleUnbakedModel(mb -> {
 			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableDiffuse(true).find(), sprite, false);
-			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_soft", new SimpleUnbakedModel(mb -> {
 			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().find(), sprite, true);
-			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_soft_diffuse", new SimpleUnbakedModel(mb -> {
 			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableAo(true).find(), sprite, true);
-			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_soft_diffuse_glow", new SimpleUnbakedModel(mb -> {
 			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().emissive(true).disableAo(true).find(), sprite, true);
-			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_soft_ao", new SimpleUnbakedModel(mb -> {
 			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableDiffuse(true).find(), sprite, true);
-			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("ao_test", new SimpleUnbakedModel(mb -> {
-			return new SimpleModel(null, null, mb.getSprite("minecraft:block/white_concrete"), ModelHelper.MODEL_TRANSFORM_BLOCK, aoBuilder());
+			return new SimpleModel(null, null, mb.getSprite("minecraft:block/white_concrete"), BakedModelUtil.MODEL_TRANSFORM_BLOCK, aoBuilder());
 		}));
 
 		models.put("shade_test", new SimpleUnbakedModel(mb -> {
@@ -150,7 +151,7 @@ public class BasicModels {
 			mb.box(mb.finder().find(),
 				-1, sprite,
 				1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
-			return new SimpleModel(mb.builder.build(), null, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("be_test", new SimpleUnbakedModel(mb -> {
@@ -172,7 +173,7 @@ public class BasicModels {
 					}
 				}
 			}
-			return new SimpleModel(mb.builder.build(), beTestTransform::get, sprite, ModelHelper.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), beTestTransform::get, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 	}
 
@@ -215,7 +216,8 @@ public class BasicModels {
 						.spriteBake(sprite, QuadEditor.BAKE_LOCK_UV).emit();
 					}
 				}
-				context.accept(builder.build());
+
+				builder.build().outputTo(context.quadEmitter());
 			}
 		};
 	}
