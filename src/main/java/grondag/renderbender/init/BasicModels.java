@@ -3,7 +3,6 @@ package grondag.renderbender.init;
 import static grondag.renderbender.model.ModelBuilder.FULL_BRIGHTNESS;
 
 import java.util.HashMap;
-import java.util.Random;
 
 import com.mojang.math.Vector3f;
 
@@ -17,35 +16,34 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.BlockAndTintGetter;
 
-import io.vram.frex.api.buffer.QuadSink;
 import io.vram.frex.api.buffer.QuadEmitter;
+import io.vram.frex.api.buffer.QuadSink;
 import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.mesh.MeshBuilder;
 import io.vram.frex.api.model.BakedInputContext;
-import io.vram.frex.api.model.BlockModel.BlockInputContext;
-import io.vram.frex.api.model.ItemModel.ItemInputContext;
+import io.vram.frex.api.model.QuadTransform;
 import io.vram.frex.api.model.util.BakedModelUtil;
 import io.vram.frex.api.renderer.Renderer;
 import io.vram.frex.base.renderer.context.BaseFallbackConsumer;
 
 import grondag.renderbender.model.DynamicRenderer;
-import grondag.renderbender.model.MeshTransformer;
 import grondag.renderbender.model.ModelBuilder;
 import grondag.renderbender.model.SimpleModel;
 import grondag.renderbender.model.SimpleUnbakedModel;
 
 public class BasicModels {
 
-	static boolean hackformer(QuadEmitter victim) {
+	static final QuadTransform HACKFORMER = (ctx, in, out) -> {
 		final TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(new ResourceLocation("minecraft:block/white_concrete"));
-		victim.vertexColor(0xFFFF0000, 0xFFFF0000, 0xFFFF0000, 0xFFFF0000);
-		victim.spriteBake(sprite, QuadEmitter.BAKE_LOCK_UV);
-		return true;
-	}
+		in.copyTo(out);
+		out.vertexColor(0xFFFF0000, 0xFFFF0000, 0xFFFF0000, 0xFFFF0000);
+		out.spriteBake(sprite, QuadEmitter.BAKE_LOCK_UV);
+		out.emit();
+	};
 
 	public static void initialize(HashMap<String, SimpleUnbakedModel> models) {
 		models.put("item_transform", new SimpleUnbakedModel(mb -> {
-			return new SimpleModel(mb.builder.build(), () -> BasicModels::hackformer, mb.getSprite("minecraft:block/cobble"), BakedModelUtil.MODEL_TRANSFORM_BLOCK, new DynamicRenderer() {
+			return new SimpleModel(mb.builder.build(), HACKFORMER, mb.getSprite("minecraft:block/cobble"), BakedModelUtil.MODEL_TRANSFORM_BLOCK, new DynamicRenderer() {
 				@Override
 				public void render(BlockAndTintGetter blockView, BakedInputContext input, QuadSink context) {
 					final BakedModel baseModel = Minecraft.getInstance().getModelManager().getModel(new ModelResourceLocation(new ResourceLocation("minecraft", "cobble"), "inventory"));
@@ -91,7 +89,7 @@ public class BasicModels {
 			mb.box(mb.finder().find(),
 				-1, sprite,
 				0, 0, 0, 1, 1, 1);
-			return new SimpleModel(mb.builder.build(), glowTransform::get, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), GLOW_TRANSFORM, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("round_hard", new SimpleUnbakedModel(mb -> {
@@ -173,7 +171,7 @@ public class BasicModels {
 					}
 				}
 			}
-			return new SimpleModel(mb.builder.build(), beTestTransform::get, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
+			return new SimpleModel(mb.builder.build(), BeTestTransform.INSTANCE, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 	}
 
@@ -222,46 +220,23 @@ public class BasicModels {
 		};
 	}
 
-	static class GlowTransform implements MeshTransformer {
-		int topColor;
-		int bottomColor;
-		int topLight;
-		int bottomLight;
+	static final QuadTransform GLOW_TRANSFORM = (ctx, in, out) -> {
+		final var random = ctx.random();
+		final int topColor = ModelBuilder.randomPastelColor(random);
+		final int bottomColor = ModelBuilder.randomPastelColor(random);
+		final boolean topGlow = random.nextBoolean();
+		final int topLight = topGlow ? FULL_BRIGHTNESS : 0;
+		final int bottomLight = topGlow ? 0 : FULL_BRIGHTNESS;
+		in.copyTo(out);
 
-		@Override
-		public boolean transform(QuadEmitter q) {
-			for(int i = 0; i < 4; i++) {
-				if(Mth.equal(q.y(i), 0)) {
-					q.vertexColor(i, bottomColor).lightmap(i, bottomLight);
-				} else {
-					q.vertexColor(i, topColor).lightmap(i, topLight);
-				}
+		for(int i = 0; i < 4; i++) {
+			if(Mth.equal(out.y(i), 0)) {
+				out.vertexColor(i, bottomColor).lightmap(i, bottomLight);
+			} else {
+				out.vertexColor(i, topColor).lightmap(i, topLight);
 			}
-			return true;
 		}
 
-		@Override
-		public GlowTransform prepare(BlockInputContext input, QuadSink context) {
-			return prep(input.random());
-		}
-
-		@Override
-		public GlowTransform prepare(ItemInputContext input, QuadSink context) {
-			return prep(input.random());
-		}
-
-		private GlowTransform prep(Random random) {
-			topColor = ModelBuilder.randomPastelColor(random);
-			bottomColor = ModelBuilder.randomPastelColor(random);
-			final boolean topGlow = random.nextBoolean();
-			topLight = topGlow ? FULL_BRIGHTNESS : 0;
-			bottomLight = topGlow ? 0 : FULL_BRIGHTNESS;
-			return this;
-		}
-	}
-
-	static ThreadLocal<MeshTransformer> glowTransform = ThreadLocal.withInitial(GlowTransform::new);
-
-	static ThreadLocal<MeshTransformer> beTestTransform = ThreadLocal.withInitial(BeTestTransform::new);
-
+		out.emit();
+	};
 }

@@ -20,7 +20,6 @@ import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Supplier;
 
 import com.google.common.collect.ImmutableList;
 import org.jetbrains.annotations.Nullable;
@@ -38,6 +37,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import io.vram.frex.api.buffer.QuadSink;
 import io.vram.frex.api.mesh.Mesh;
+import io.vram.frex.api.model.QuadTransform;
 import io.vram.frex.api.model.util.BakedModelUtil;
 
 /**
@@ -45,19 +45,19 @@ import io.vram.frex.api.model.util.BakedModelUtil;
  */
 public class SimpleModel extends AbstractModel {
 	protected final Mesh mesh;
-	protected final Supplier<MeshTransformer> transformerFactory;
+	protected final QuadTransform transform;
 	protected WeakReference<List<BakedQuad>[]> quadLists = null;
 	protected final ItemProxy itemProxy = new ItemProxy();
 
 	public SimpleModel(
 	Mesh mesh,
-	Supplier<MeshTransformer> transformerFactory,
+	QuadTransform transform,
 	TextureAtlasSprite sprite,
 	ItemTransforms transformation,
 	DynamicRenderer dynamicRender) {
 		super(sprite, transformation, dynamicRender);
 		this.mesh = mesh;
-		this.transformerFactory = transformerFactory;
+		this.transform = transform;
 	}
 
 	@Override
@@ -73,8 +73,6 @@ public class SimpleModel extends AbstractModel {
 
 	@Override
 	public void renderAsBlock(BlockInputContext input, QuadSink output) {
-		final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(input, output);
-
 		if(transform != null) {
 			output.pushTransform(transform);
 		}
@@ -107,7 +105,6 @@ public class SimpleModel extends AbstractModel {
 
 	@Override
 	public void renderAsItem(ItemInputContext input, QuadSink output) {
-		final MeshTransformer transform = transformerFactory == null ? null : transformerFactory.get().prepare(input, output);
 		if(transform != null) {
 			output.pushTransform(transform);
 		}
