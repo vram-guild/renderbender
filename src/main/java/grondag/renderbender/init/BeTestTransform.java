@@ -3,24 +3,24 @@ package grondag.renderbender.init;
 
 import io.vram.frex.api.buffer.QuadTransform;
 import io.vram.frex.api.material.MaterialConstants;
+import io.vram.frex.api.material.MaterialFinder;
 import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.model.BlockModel.BlockInputContext;
 import io.vram.frex.api.model.InputContext.Type;
-import io.vram.frex.api.renderer.Renderer;
 
 import grondag.renderbender.init.BasicBlocks.BeTestBlockEntity;
 
 class BeTestTransform  {
-	static RenderMaterial matSolid = Renderer.get().materialFinder()
+	static RenderMaterial matSolid = MaterialFinder.threadLocal()
 			.preset(MaterialConstants.PRESET_SOLID).find();
 
-	static RenderMaterial matSolidGlow = Renderer.get().materialFinder()
+	static RenderMaterial matSolidGlow = MaterialFinder.threadLocal()
 			.preset(MaterialConstants.PRESET_SOLID).disableDiffuse(true).emissive(true).disableAo(true).find();
 
-	static RenderMaterial matTrans = Renderer.get().materialFinder()
+	static RenderMaterial matTrans = MaterialFinder.threadLocal()
 			.preset(MaterialConstants.PRESET_TRANSLUCENT).find();
 
-	static RenderMaterial matTransGlow = Renderer.get().materialFinder()
+	static RenderMaterial matTransGlow = MaterialFinder.threadLocal()
 			.preset(MaterialConstants.PRESET_TRANSLUCENT).disableDiffuse(true).emissive(true).disableAo(true).find();
 
 

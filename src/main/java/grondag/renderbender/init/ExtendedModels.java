@@ -10,9 +10,9 @@ import net.minecraft.world.entity.LivingEntity;
 
 import io.vram.frex.api.material.MaterialCondition;
 import io.vram.frex.api.material.MaterialConstants;
+import io.vram.frex.api.material.MaterialFinder;
 import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.model.util.BakedModelUtil;
-import io.vram.frex.api.renderer.Renderer;
 
 import grondag.renderbender.model.SimpleModel;
 import grondag.renderbender.model.SimpleUnbakedModel;
@@ -20,8 +20,7 @@ import grondag.renderbender.model.SimpleUnbakedModel;
 public class ExtendedModels {
 	public static void initialize(HashMap<String, SimpleUnbakedModel> models) {
 		models.put("shader", new SimpleUnbakedModel(mb -> {
-			final Renderer er = Renderer.get();
-			final RenderMaterial mat = er.materialFinder()
+			final RenderMaterial mat = MaterialFinder.threadLocal()
 			.shader(new ResourceLocation("renderbender", "shader/test.vert"), new ResourceLocation("renderbender", "shader/test.frag"))
 			.find();
 			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/gray_concrete");
@@ -32,8 +31,7 @@ public class ExtendedModels {
 		}));
 
 		models.put("conditional", new SimpleUnbakedModel(mb -> {
-			final Renderer er = Renderer.get();
-			final MaterialCondition condition = er.createCondition(() -> {
+			final MaterialCondition condition = MaterialCondition.create(() -> {
 				@SuppressWarnings("resource")
 				final Entity entity = Minecraft.getInstance().cameraEntity;
 				if(entity == null || entity.level == null) {
@@ -46,7 +44,7 @@ public class ExtendedModels {
 				} else
 					return false;
 			}, true, true);
-			final RenderMaterial mat = er.materialFinder()
+			final RenderMaterial mat = MaterialFinder.threadLocal()
 			.shader(new ResourceLocation("renderbender", "shader/test.vert"), new ResourceLocation("renderbender", "shader/test.frag"))
 			.preset(MaterialConstants.PRESET_TRANSLUCENT)
 			.condition(condition)

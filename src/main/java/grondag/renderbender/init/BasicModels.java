@@ -17,8 +17,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.BlockAndTintGetter;
 
 import io.vram.frex.api.buffer.QuadEmitter;
-import io.vram.frex.api.buffer.QuadSink;
 import io.vram.frex.api.buffer.QuadTransform;
+import io.vram.frex.api.material.MaterialFinder;
 import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.mesh.MeshBuilder;
 import io.vram.frex.api.model.BakedInputContext;
@@ -45,9 +45,9 @@ public class BasicModels {
 		models.put("item_transform", new SimpleUnbakedModel(mb -> {
 			return new SimpleModel(mb.builder.build(), HACKFORMER, mb.getSprite("minecraft:block/cobble"), BakedModelUtil.MODEL_TRANSFORM_BLOCK, new DynamicRenderer() {
 				@Override
-				public void render(BlockAndTintGetter blockView, BakedInputContext input, QuadSink context) {
+				public void render(BlockAndTintGetter blockView, BakedInputContext input, QuadEmitter output) {
 					final BakedModel baseModel = Minecraft.getInstance().getModelManager().getModel(new ModelResourceLocation(new ResourceLocation("minecraft", "cobble"), "inventory"));
-					BaseFallbackConsumer.accept(baseModel, input, context);
+					BaseFallbackConsumer.accept(baseModel, input, output);
 				}
 			});
 		}));
@@ -179,9 +179,9 @@ public class BasicModels {
 	static DynamicRenderer aoBuilder() {
 		return new DynamicRenderer() {
 			Renderer renderer = Renderer.get();
-			RenderMaterial mat = renderer.materialFinder().disableDiffuse(true).find();
+			RenderMaterial mat = MaterialFinder.threadLocal().disableDiffuse(true).find();
 			@Override
-			public void render(BlockAndTintGetter blockView, BakedInputContext input ,QuadSink context) {
+			public void render(BlockAndTintGetter blockView, BakedInputContext input, QuadEmitter output) {
 				final int hash = input.pos() == null ? 8 : input.pos().hashCode();
 				final float height = (1 + (hash & 15)) / 16f;
 				final TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(new ResourceLocation("minecraft:block/white_concrete"));
@@ -215,7 +215,7 @@ public class BasicModels {
 					}
 				}
 
-				builder.build().outputTo(context.asQuadEmitter());
+				builder.build().outputTo(output);
 			}
 		};
 	}

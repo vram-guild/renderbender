@@ -4,8 +4,6 @@ import java.util.HashMap;
 
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 
-import io.vram.frex.api.config.FrexFeature;
-
 import grondag.renderbender.model.SimpleUnbakedModel;
 
 public class ModelDispatcher {
@@ -15,9 +13,7 @@ public class ModelDispatcher {
         if(models == null) {
             models = new HashMap<>();
             BasicModels.initialize(models);
-            if(FrexFeature.isAvailable(FrexFeature.MATERIAL_SHADERS)) {
-                ExtendedModels.initialize(models);
-            }
+            ExtendedModels.initialize(models);
         }
     }
 

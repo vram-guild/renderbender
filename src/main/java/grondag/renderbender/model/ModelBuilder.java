@@ -38,7 +38,7 @@ public class ModelBuilder {
 	private ModelBuilder() {
 		final Renderer renderer = Renderer.get();
 		builder = renderer.meshBuilder();
-		finder = renderer.materialFinder();
+		finder = MaterialFinder.newInstance();
 	}
 
 	public MaterialFinder finder() {

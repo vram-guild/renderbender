@@ -35,6 +35,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
+import io.vram.frex.api.buffer.QuadEmitter;
 import io.vram.frex.api.buffer.QuadSink;
 import io.vram.frex.api.buffer.QuadTransform;
 import io.vram.frex.api.mesh.Mesh;
@@ -73,17 +74,22 @@ public class SimpleModel extends AbstractModel {
 
 	@Override
 	public void renderAsBlock(BlockInputContext input, QuadSink output) {
+		QuadEmitter emitter = output.asEmitter();
+
 		if(transform != null) {
-			output.pushTransform(transform);
+			emitter = emitter.withTransform(input, transform);
 		}
+
 		if(mesh != null) {
-			mesh.outputTo(output.asQuadEmitter());
+			mesh.outputTo(emitter);
 		}
+
 		if(dynamicRender != null) {
-			dynamicRender.render(input.blockView(), input, output);
+			dynamicRender.render(input.blockView(), input, emitter);
 		}
+
 		if(transform != null) {
-			output.popTransform();
+			emitter.close();
 		}
 	}
 
@@ -105,17 +111,21 @@ public class SimpleModel extends AbstractModel {
 
 	@Override
 	public void renderAsItem(ItemInputContext input, QuadSink output) {
+		QuadEmitter emitter = output.asEmitter();
+
 		if(transform != null) {
-			output.pushTransform(transform);
+			emitter = emitter.withTransform(input, transform);
 		}
+
 		if(mesh != null) {
-			mesh.outputTo(output.asQuadEmitter());
+			mesh.outputTo(emitter);
 		}
 		if(dynamicRender != null) {
-			dynamicRender.render(null, input, output);
+			dynamicRender.render(null, input, emitter);
 		}
+
 		if(transform != null) {
-			output.popTransform();
+			emitter.close();
 		}
 	}
 }
