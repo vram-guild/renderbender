@@ -74,10 +74,10 @@ public class SimpleModel extends AbstractModel {
 
 	@Override
 	public void renderAsBlock(BlockInputContext input, QuadSink output) {
-		QuadEmitter emitter = output.asEmitter();
+		QuadEmitter emitter = output.asQuadEmitter();
 
 		if(transform != null) {
-			emitter = emitter.withTransform(input, transform);
+			emitter = emitter.withTransformQuad(input, transform);
 		}
 
 		if(mesh != null) {
@@ -111,10 +111,10 @@ public class SimpleModel extends AbstractModel {
 
 	@Override
 	public void renderAsItem(ItemInputContext input, QuadSink output) {
-		QuadEmitter emitter = output.asEmitter();
+		QuadEmitter emitter = output.asQuadEmitter();
 
 		if(transform != null) {
-			emitter = emitter.withTransform(input, transform);
+			emitter = emitter.withTransformQuad(input, transform);
 		}
 
 		if(mesh != null) {
