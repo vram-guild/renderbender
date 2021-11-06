@@ -24,7 +24,7 @@ import io.vram.frex.api.mesh.MeshBuilder;
 import io.vram.frex.api.model.BakedInputContext;
 import io.vram.frex.api.model.util.BakedModelUtil;
 import io.vram.frex.api.renderer.Renderer;
-import io.vram.frex.base.renderer.context.BaseFallbackConsumer;
+import io.vram.frex.base.renderer.util.BakedModelTranscoder;
 
 import grondag.renderbender.model.DynamicRenderer;
 import grondag.renderbender.model.ModelBuilder;
@@ -47,7 +47,7 @@ public class BasicModels {
 				@Override
 				public void render(BlockAndTintGetter blockView, BakedInputContext input, QuadEmitter output) {
 					final BakedModel baseModel = Minecraft.getInstance().getModelManager().getModel(new ModelResourceLocation(new ResourceLocation("minecraft", "cobble"), "inventory"));
-					BaseFallbackConsumer.accept(baseModel, input, output);
+					BakedModelTranscoder.accept(baseModel, input, output);
 				}
 			});
 		}));

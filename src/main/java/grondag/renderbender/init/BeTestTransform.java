@@ -27,10 +27,20 @@ class BeTestTransform  {
 	public static final QuadTransform INSTANCE = (ctx, in, out) -> {
 		RenderMaterial mat = null;
 		RenderMaterial matGlow = null;
-		int stupid[];
+		int stupid[] = null;
 		boolean translucent;
 
 		if (ctx.type() == Type.BLOCK) {
+			final var bctx = (BlockInputContext) ctx;
+			stupid = (int[]) bctx.blockEntityRenderData(bctx.pos());
+		}
+
+		if (stupid == null) {
+			mat = matSolid;
+			matGlow = matSolidGlow;
+			translucent = false;
+			stupid = BeTestBlockEntity.ITEM_COLORS;
+		} else {
 			if(ctx.random().nextInt(4) == 0) {
 				mat = matTrans;
 				matGlow = matTransGlow;
@@ -40,14 +50,6 @@ class BeTestTransform  {
 				matGlow = matSolidGlow;
 				translucent = false;
 			}
-
-			final var bctx = (BlockInputContext) ctx;
-			stupid = (int[]) bctx.blockEntityRenderData(bctx.pos());
-		} else {
-			mat = matSolid;
-			matGlow = matSolidGlow;
-			translucent = false;
-			stupid = BeTestBlockEntity.ITEM_COLORS;
 		}
 
 		in.copyTo(out);

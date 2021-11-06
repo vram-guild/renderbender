@@ -22,6 +22,7 @@ public class ExtendedModels {
 		models.put("shader", new SimpleUnbakedModel(mb -> {
 			final RenderMaterial mat = MaterialFinder.threadLocal()
 			.shader(new ResourceLocation("renderbender", "shader/test.vert"), new ResourceLocation("renderbender", "shader/test.frag"))
+			.castShadows(false)
 			.find();
 			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/gray_concrete");
 			mb.box(mat,
