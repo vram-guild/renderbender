@@ -13,7 +13,7 @@ import io.vram.frex.api.renderloop.WorldRenderStartListener;
 
 import grondag.renderbender.init.BasicBlocks;
 
-public class FrexEventTest {
+public class RenderLoopTest {
 	private static boolean active = true;
 	private static boolean firstBlockOutline = true;
 

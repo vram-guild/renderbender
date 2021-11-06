@@ -47,13 +47,14 @@ public class RenderBender implements ModInitializer, ClientModInitializer {
         BasicBlocks.initialize();
         ExtendedBlocks.initialize();
         Fluids.initialize();
+        BakeListenerTest.initialize();
     }
 
     @Override
 	@Environment(EnvType.CLIENT)
 	public void onInitializeClient() {
         ModelDispatcher.initialize();
-        FrexEventTest.init();
+        RenderLoopTest.init();
         Fluids.initClient();
         ShaderConfig.registerShaderConfigSupplier(new ResourceLocation("renderbender:configtest"), () -> "#define SHADER_CONFIG_WORKS");
         BlockEntityRenderData.registerProvider(BasicBlocks.BE_TEST_TYPE, be -> ((BeTestBlockEntity) be).getRenderData());
