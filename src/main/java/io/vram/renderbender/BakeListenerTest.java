@@ -18,7 +18,7 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package grondag.renderbender;
+package io.vram.renderbender;
 
 import java.util.function.Predicate;
 

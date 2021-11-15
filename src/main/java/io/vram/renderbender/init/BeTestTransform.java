@@ -18,7 +18,7 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package grondag.renderbender.init;
+package io.vram.renderbender.init;
 
 import io.vram.frex.api.buffer.QuadTransform;
 import io.vram.frex.api.material.MaterialConstants;
@@ -26,8 +26,7 @@ import io.vram.frex.api.material.MaterialFinder;
 import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.model.BlockModel.BlockInputContext;
 import io.vram.frex.api.model.InputContext.Type;
-
-import grondag.renderbender.init.BasicBlocks.BeTestBlockEntity;
+import io.vram.renderbender.init.BasicBlocks.BeTestBlockEntity;
 
 class BeTestTransform {
 	static RenderMaterial matSolid = MaterialFinder.threadLocal()

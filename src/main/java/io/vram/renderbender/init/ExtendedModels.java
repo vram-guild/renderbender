@@ -18,7 +18,7 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package grondag.renderbender.init;
+package io.vram.renderbender.init;
 
 import java.util.HashMap;
 
@@ -33,9 +33,8 @@ import io.vram.frex.api.material.MaterialConstants;
 import io.vram.frex.api.material.MaterialFinder;
 import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.model.util.BakedModelUtil;
-
-import grondag.renderbender.model.SimpleModel;
-import grondag.renderbender.model.SimpleUnbakedModel;
+import io.vram.renderbender.model.SimpleModel;
+import io.vram.renderbender.model.SimpleUnbakedModel;
 
 public class ExtendedModels {
 	public static void initialize(HashMap<String, SimpleUnbakedModel> models) {

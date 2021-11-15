@@ -18,7 +18,7 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package grondag.renderbender;
+package io.vram.renderbender;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,12 +36,11 @@ import io.vram.frex.api.config.ShaderConfig;
 import io.vram.frex.api.world.BlockColorRegistry;
 import io.vram.frex.api.world.BlockEntityRenderData;
 import io.vram.frex.api.world.ItemColorRegistry;
-
-import grondag.renderbender.init.BasicBlocks;
-import grondag.renderbender.init.BasicBlocks.BeTestBlockEntity;
-import grondag.renderbender.init.ExtendedBlocks;
-import grondag.renderbender.init.ModelDispatcher;
-import grondag.renderbender.init.SimpleMaterials;
+import io.vram.renderbender.init.BasicBlocks;
+import io.vram.renderbender.init.ExtendedBlocks;
+import io.vram.renderbender.init.ModelDispatcher;
+import io.vram.renderbender.init.SimpleMaterials;
+import io.vram.renderbender.init.BasicBlocks.BeTestBlockEntity;
 
 public class RenderBender implements ModInitializer, ClientModInitializer {
 	public static final Logger LOG = LogManager.getLogger();

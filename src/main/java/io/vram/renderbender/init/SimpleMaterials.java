@@ -18,7 +18,7 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package grondag.renderbender.init;
+package io.vram.renderbender.init;
 
 import io.vram.frex.api.model.provider.ModelProviderRegistry;
 import io.vram.frex.base.client.model.MeshFactory;

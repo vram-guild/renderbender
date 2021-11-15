@@ -18,9 +18,9 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package grondag.renderbender.init;
+package io.vram.renderbender.init;
 
-import static grondag.renderbender.model.ModelBuilder.FULL_BRIGHTNESS;
+import static io.vram.renderbender.model.ModelBuilder.FULL_BRIGHTNESS;
 
 import java.util.HashMap;
 
@@ -45,11 +45,10 @@ import io.vram.frex.api.model.BakedInputContext;
 import io.vram.frex.api.model.util.BakedModelUtil;
 import io.vram.frex.api.renderer.Renderer;
 import io.vram.frex.base.renderer.util.BakedModelTranscoder;
-
-import grondag.renderbender.model.DynamicRenderer;
-import grondag.renderbender.model.ModelBuilder;
-import grondag.renderbender.model.SimpleModel;
-import grondag.renderbender.model.SimpleUnbakedModel;
+import io.vram.renderbender.model.DynamicRenderer;
+import io.vram.renderbender.model.ModelBuilder;
+import io.vram.renderbender.model.SimpleModel;
+import io.vram.renderbender.model.SimpleUnbakedModel;
 
 public class BasicModels {
 	static final QuadTransform HACKFORMER = (ctx, in, out) -> {

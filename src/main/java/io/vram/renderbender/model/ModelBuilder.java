@@ -18,7 +18,7 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package grondag.renderbender.model;
+package io.vram.renderbender.model;
 
 import java.util.Random;
 import java.util.function.Function;

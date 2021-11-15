@@ -18,7 +18,7 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package grondag.renderbender;
+package io.vram.renderbender;
 
 import io.vram.frex.api.renderloop.BlockOutlineListener;
 import io.vram.frex.api.renderloop.BlockOutlinePreListener;
@@ -30,8 +30,7 @@ import io.vram.frex.api.renderloop.TranslucentPostListener;
 import io.vram.frex.api.renderloop.WorldRenderLastListener;
 import io.vram.frex.api.renderloop.WorldRenderPostListener;
 import io.vram.frex.api.renderloop.WorldRenderStartListener;
-
-import grondag.renderbender.init.BasicBlocks;
+import io.vram.renderbender.init.BasicBlocks;
 
 public class RenderLoopTest {
 	private static boolean active = true;

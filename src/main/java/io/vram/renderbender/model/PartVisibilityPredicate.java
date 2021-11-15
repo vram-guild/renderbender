@@ -18,19 +18,25 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package grondag.renderbender.model;
+package io.vram.renderbender.model;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockAndTintGetter;
-
-import io.vram.frex.api.buffer.QuadEmitter;
-import io.vram.frex.api.model.BakedInputContext;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * Encapsulates parts of baked models that can't be pre-baked and
- * must be generated at render time. Allows packed models to include
- * dynamic elements via composition instead of sub-typing.
+ * Used to control visibility of multi-part model parts.
  */
 @FunctionalInterface
-public interface DynamicRenderer {
-	void render(BlockAndTintGetter blockView, BakedInputContext input, QuadEmitter output);
+public interface PartVisibilityPredicate {
+	PartVisibilityPredicate ALWAYS = (v, s, p) -> true;
+
+	/**
+	 * Note the block view and position parameters will be null
+	 * if the model is being converted to vanilla baked quads.
+	 * Recommendation is to use reasonable defaults for a damage
+	 * model in that case. Future API versions will probably provide
+	 * better support for dynamic damage models.
+	 */
+	boolean apply(BlockAndTintGetter blockView, BlockState state, BlockPos pos);
 }

@@ -18,25 +18,8 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package grondag.renderbender.model;
+package io.vram.renderbender;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.block.state.BlockState;
-
-/**
- * Used to control visibility of multi-part model parts.
- */
-@FunctionalInterface
-public interface PartVisibilityPredicate {
-	PartVisibilityPredicate ALWAYS = (v, s, p) -> true;
-
-	/**
-	 * Note the block view and position parameters will be null
-	 * if the model is being converted to vanilla baked quads.
-	 * Recommendation is to use reasonable defaults for a damage
-	 * model in that case. Future API versions will probably provide
-	 * better support for dynamic damage models.
-	 */
-	boolean apply(BlockAndTintGetter blockView, BlockState state, BlockPos pos);
+public class BiomeInputTest {
+	// TODO: implement to test BockInputContext.getBiome()
 }

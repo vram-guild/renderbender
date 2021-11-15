@@ -18,8 +18,19 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package grondag.renderbender;
+package io.vram.renderbender.model;
 
-public class BiomeInputTest {
-	// TODO: implement to test BockInputContext.getBiome()
+import net.minecraft.world.level.BlockAndTintGetter;
+
+import io.vram.frex.api.buffer.QuadEmitter;
+import io.vram.frex.api.model.BakedInputContext;
+
+/**
+ * Encapsulates parts of baked models that can't be pre-baked and
+ * must be generated at render time. Allows packed models to include
+ * dynamic elements via composition instead of sub-typing.
+ */
+@FunctionalInterface
+public interface DynamicRenderer {
+	void render(BlockAndTintGetter blockView, BakedInputContext input, QuadEmitter output);
 }

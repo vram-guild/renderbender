@@ -18,7 +18,7 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package grondag.renderbender.model;
+package io.vram.renderbender.model;
 
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

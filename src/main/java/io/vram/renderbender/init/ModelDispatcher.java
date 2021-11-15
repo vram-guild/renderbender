@@ -18,14 +18,14 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package grondag.renderbender.init;
+package io.vram.renderbender.init;
 
 import java.util.HashMap;
 
 //WIP: remove Fabric deps
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 
-import grondag.renderbender.model.SimpleUnbakedModel;
+import io.vram.renderbender.model.SimpleUnbakedModel;
 
 public class ModelDispatcher {
 	private static HashMap<String, SimpleUnbakedModel> models;

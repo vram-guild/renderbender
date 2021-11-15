@@ -18,10 +18,10 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package grondag.renderbender.init;
+package io.vram.renderbender.init;
 
-import static grondag.renderbender.init.BasicBlocks.ITEM_FUNCTION_STANDARD;
-import static grondag.renderbender.init.BasicBlocks.register;
+import static io.vram.renderbender.init.BasicBlocks.ITEM_FUNCTION_STANDARD;
+import static io.vram.renderbender.init.BasicBlocks.register;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

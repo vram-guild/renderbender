@@ -18,7 +18,7 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package grondag.renderbender.init;
+package io.vram.renderbender.init;
 
 import java.util.Random;
 import java.util.function.Function;
@@ -44,7 +44,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import grondag.renderbender.model.ModelBuilder;
+import io.vram.renderbender.model.ModelBuilder;
 
 public class BasicBlocks {
 	public static Item register(Block block, String name, Function<Block, Item> itemFunc) {
