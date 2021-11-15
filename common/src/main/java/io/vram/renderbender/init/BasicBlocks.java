@@ -21,17 +21,12 @@
 package io.vram.renderbender.init;
 
 import java.util.Random;
-import java.util.function.Function;
 
 import io.netty.util.internal.ThreadLocalRandom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -44,61 +39,29 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import io.vram.renderbender.RenderBender;
 import io.vram.renderbender.model.ModelBuilder;
 
 public class BasicBlocks {
-	public static Item register(Block block, String name, Function<Block, Item> itemFunc) {
-		final ResourceLocation id = new ResourceLocation("renderbender", name);
-		Registry.register(Registry.BLOCK, id, block);
-		final Item result = itemFunc.apply(block);
-		Registry.register(Registry.ITEM, id, result);
-		return result;
-	}
-
-	public static final Function<Block, Item> ITEM_FUNCTION_STANDARD = block -> {
-		return new BlockItem(block, new Item.Properties()
-				.stacksTo(64)
-				.tab(CreativeModeTab.TAB_BUILDING_BLOCKS));
-	};
-
-	public static final Function<Block, Item> ITEM_FUNCTION_ENCHANTED = block -> {
-		return new BlockItem(block, new Item.Properties()
-				.stacksTo(64)
-				.tab(CreativeModeTab.TAB_BUILDING_BLOCKS)) {
-			@Override
-			public boolean isFoil(ItemStack itemStack_1) {
-				return true;
-			};
-		};
-	};
-
 	public static void initialize() {
-		register(ITEM_TRANSFORM, "item_transform", ITEM_FUNCTION_STANDARD);
-		register(GLOW_BLOCK, "glow", ITEM_FUNCTION_STANDARD);
-		register(GLOW_BLOCK_DIFFUSE, "glow_diffuse", ITEM_FUNCTION_STANDARD);
-		register(GLOW_BLOCK_AO, "glow_ao", ITEM_FUNCTION_STANDARD);
-		register(GLOW_BLOCK_SHADED, "glow_shaded", ITEM_FUNCTION_STANDARD);
-		register(GLOW_BLOCK_DYNAMIC, "glow_dynamic", ITEM_FUNCTION_STANDARD);
-		register(AO_TEST, "ao_test", ITEM_FUNCTION_STANDARD);
-		register(SHADE_TEST, "shade_test", ITEM_FUNCTION_STANDARD);
-		register(ROUND_BLOCK_HARD, "round_hard", ITEM_FUNCTION_ENCHANTED);
-		register(ROUND_BLOCK_HARD_AO, "round_hard_ao", ITEM_FUNCTION_ENCHANTED);
-		register(ROUND_BLOCK_HARD_DIFFUSE, "round_hard_diffuse", ITEM_FUNCTION_ENCHANTED);
-		register(ROUND_BLOCK_HARD_DIFFUSE_GLOW, "round_hard_diffuse_glow", ITEM_FUNCTION_ENCHANTED);
-		register(ROUND_BLOCK_SOFT, "round_soft", ITEM_FUNCTION_ENCHANTED);
-		register(ROUND_BLOCK_SOFT_AO, "round_soft_ao", ITEM_FUNCTION_ENCHANTED);
-		register(ROUND_BLOCK_SOFT_DIFFUSE, "round_soft_diffuse", ITEM_FUNCTION_ENCHANTED);
-		register(ROUND_BLOCK_SOFT_DIFFUSE_GLOW, "round_soft_diffuse_glow", ITEM_FUNCTION_ENCHANTED);
-		register(BE_TEST_BLOCK, "be_test", ITEM_FUNCTION_STANDARD);
+		RenderBender.registerBlock(ITEM_TRANSFORM, "item_transform", RenderBender.ITEM_FACTORY_STANDARD);
+		RenderBender.registerBlock(GLOW_BLOCK_DYNAMIC, "glow_dynamic", RenderBender.ITEM_FACTORY_STANDARD);
+		RenderBender.registerBlock(AO_TEST, "ao_test", RenderBender.ITEM_FACTORY_STANDARD);
+		RenderBender.registerBlock(SHADE_TEST, "shade_test", RenderBender.ITEM_FACTORY_STANDARD);
+		RenderBender.registerBlock(ROUND_BLOCK_HARD, "round_hard", RenderBender.ITEM_FACTORY_ENCHANTED);
+		RenderBender.registerBlock(ROUND_BLOCK_HARD_AO, "round_hard_ao", RenderBender.ITEM_FACTORY_ENCHANTED);
+		RenderBender.registerBlock(ROUND_BLOCK_HARD_DIFFUSE, "round_hard_diffuse", RenderBender.ITEM_FACTORY_ENCHANTED);
+		RenderBender.registerBlock(ROUND_BLOCK_HARD_DIFFUSE_GLOW, "round_hard_diffuse_glow", RenderBender.ITEM_FACTORY_ENCHANTED);
+		RenderBender.registerBlock(ROUND_BLOCK_SOFT, "round_soft", RenderBender.ITEM_FACTORY_ENCHANTED);
+		RenderBender.registerBlock(ROUND_BLOCK_SOFT_AO, "round_soft_ao", RenderBender.ITEM_FACTORY_ENCHANTED);
+		RenderBender.registerBlock(ROUND_BLOCK_SOFT_DIFFUSE, "round_soft_diffuse", RenderBender.ITEM_FACTORY_ENCHANTED);
+		RenderBender.registerBlock(ROUND_BLOCK_SOFT_DIFFUSE_GLOW, "round_soft_diffuse_glow", RenderBender.ITEM_FACTORY_ENCHANTED);
+		RenderBender.registerBlock(BE_TEST_BLOCK, "be_test", RenderBender.ITEM_FACTORY_STANDARD);
 
 		Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation("renderbender", "be_test"), BE_TEST_TYPE);
 	}
 
 	public static final Block ITEM_TRANSFORM = new Block(Properties.of(Material.STONE).strength(1, 1));
-	public static final Block GLOW_BLOCK = new Block(Properties.of(Material.STONE).strength(1, 1));
-	public static final Block GLOW_BLOCK_SHADED = new Block(Properties.of(Material.STONE).strength(1, 1));
-	public static final Block GLOW_BLOCK_DIFFUSE = new Block(Properties.of(Material.STONE).strength(1, 1));
-	public static final Block GLOW_BLOCK_AO = new Block(Properties.of(Material.STONE).strength(1, 1));
 	public static final Block GLOW_BLOCK_DYNAMIC = new Block(Properties.of(Material.STONE).strength(1, 1));
 
 	public static final Block AO_TEST = new Block(Properties.of(Material.STONE).dynamicShape().strength(1, 1)) {

@@ -27,7 +27,7 @@ import io.vram.renderbender.init.ExtendedBlocks;
 public class CommonInit {
 	public static void initialize() {
 		if (RenderBender.customFluid) FluidsCommon.initialize();
-
+		if (RenderBender.simpleMaterials) SimpleMaterialsCommon.initialize();
 		BasicBlocks.initialize();
 		ExtendedBlocks.initialize();
 	}

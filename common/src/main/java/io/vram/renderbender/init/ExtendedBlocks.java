@@ -20,9 +20,6 @@
 
 package io.vram.renderbender.init;
 
-import static io.vram.renderbender.init.BasicBlocks.ITEM_FUNCTION_STANDARD;
-import static io.vram.renderbender.init.BasicBlocks.register;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
@@ -32,6 +29,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+
+import io.vram.renderbender.RenderBender;
 
 public class ExtendedBlocks {
 	private static final Block SHADER_BLOCK = new Block(Properties
@@ -68,8 +67,8 @@ public class ExtendedBlocks {
 	public static Item CONDITION_ITEM;
 
 	public static void initialize() {
-		register(SHADER_BLOCK, "shader", ITEM_FUNCTION_STANDARD);
+		RenderBender.registerBlock(SHADER_BLOCK, "shader", RenderBender.ITEM_FACTORY_STANDARD);
 
-		CONDITION_ITEM = register(CONDITIONAL_BLOCK, "conditional", ITEM_FUNCTION_STANDARD);
+		CONDITION_ITEM = RenderBender.registerBlock(CONDITIONAL_BLOCK, "conditional", RenderBender.ITEM_FACTORY_STANDARD);
 	}
 }

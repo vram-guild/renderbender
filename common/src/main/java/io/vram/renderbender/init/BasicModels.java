@@ -70,38 +70,6 @@ public class BasicModels {
 			});
 		}));
 
-		//		models.put("glow", new SimpleUnbakedModel(mb -> {
-		//			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
-		//			mb.box(mb.finder().emissive(true).disableAo(true).disableDiffuse(true).find(),
-		//				-1, sprite,
-		//				0, 0, 0, 1, 1, 1);
-		//			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
-		//		}));
-
-		models.put("glow_diffuse", new SimpleUnbakedModel(mb -> {
-			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			mb.box(mb.finder().emissive(true).disableAo(true).find(),
-				-1, sprite,
-				0, 0, 0, 1, 1, 1);
-			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
-		}));
-
-		models.put("glow_ao", new SimpleUnbakedModel(mb -> {
-			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			mb.box(mb.finder().emissive(true).disableDiffuse(true).find(),
-				-1, sprite,
-				0, 0, 0, 1, 1, 1);
-			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
-		}));
-
-		models.put("glow_shaded", new SimpleUnbakedModel(mb -> {
-			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			mb.box(mb.finder().emissive(true).find(),
-				-1, sprite,
-				0, 0, 0, 1, 1, 1);
-			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
-		}));
-
 		models.put("glow_dynamic", new SimpleUnbakedModel(mb -> {
 			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
 			mb.box(mb.finder().find(),

@@ -20,8 +20,18 @@
 
 package io.vram.renderbender;
 
+import java.util.function.Function;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 
 public class RenderBender {
 	public static final Logger LOG = LogManager.getLogger("RenderBender");
@@ -29,4 +39,30 @@ public class RenderBender {
 	public static boolean customFluid = true;
 	public static boolean regionBakeListener = true;
 	public static boolean renderLoopListener = true;
+	public static boolean simpleMaterials = true;
+
+	public static Item registerBlock(Block block, String name, Function<Block, Item> itemFactory) {
+		final ResourceLocation id = new ResourceLocation("renderbender", name);
+		Registry.register(Registry.BLOCK, id, block);
+		final Item result = itemFactory.apply(block);
+		Registry.register(Registry.ITEM, id, result);
+		return result;
+	}
+
+	public static final Function<Block, Item> ITEM_FACTORY_STANDARD = block -> {
+		return new BlockItem(block, new Item.Properties()
+				.stacksTo(64)
+				.tab(CreativeModeTab.TAB_BUILDING_BLOCKS));
+	};
+
+	public static final Function<Block, Item> ITEM_FACTORY_ENCHANTED = block -> {
+		return new BlockItem(block, new Item.Properties()
+				.stacksTo(64)
+				.tab(CreativeModeTab.TAB_BUILDING_BLOCKS)) {
+			@Override
+			public boolean isFoil(ItemStack itemStack_1) {
+				return true;
+			};
+		};
+	};
 }

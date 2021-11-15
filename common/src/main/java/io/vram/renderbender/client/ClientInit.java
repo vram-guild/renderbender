@@ -32,16 +32,15 @@ import io.vram.renderbender.RenderBender;
 import io.vram.renderbender.init.BasicBlocks;
 import io.vram.renderbender.init.BasicBlocks.BeTestBlockEntity;
 import io.vram.renderbender.init.ModelDispatcher;
-import io.vram.renderbender.init.SimpleMaterials;
 
 public class ClientInit {
 	public static void initialize() {
 		if (RenderBender.customFluid) Fluids.initialize();
 		if (RenderBender.regionBakeListener) RegionBakeListener.initialize();
 		if (RenderBender.renderLoopListener) RenderLoopListener.initialize();
+		if (RenderBender.simpleMaterials) SimpleMaterials.initialize();
 
 		ModelDispatcher.initialize();
-		SimpleMaterials.initialize();
 
 		ShaderConfig.registerShaderConfigSupplier(new ResourceLocation("renderbender:configtest"), () -> "#define SHADER_CONFIG_WORKS");
 		BlockEntityRenderData.registerProvider(BasicBlocks.BE_TEST_TYPE, be -> ((BeTestBlockEntity) be).getRenderData());
