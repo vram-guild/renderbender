@@ -18,7 +18,7 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package io.vram.renderbender;
+package io.vram.renderbender.client;
 
 import java.util.function.Predicate;
 
@@ -33,7 +33,7 @@ import io.vram.frex.api.world.RenderRegionBakeListener.RenderRegionContext;
 import io.vram.frex.base.client.world.ForwardingBlockView;
 
 // TODO: add compatibility test for corresponding Fabric API
-public class BakeListenerTest {
+public class RegionBakeListener {
 	private static final RenderRegionBakeListener listener = new RenderRegionBakeListener() {
 		@Override
 		public void bake(RenderRegionContext<BlockAndTintGetter> context, BlockStateRenderer blockStateRenderer) {

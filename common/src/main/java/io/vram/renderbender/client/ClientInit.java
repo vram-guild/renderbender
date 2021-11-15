@@ -28,7 +28,7 @@ import io.vram.frex.api.config.ShaderConfig;
 import io.vram.frex.api.world.BlockColorRegistry;
 import io.vram.frex.api.world.BlockEntityRenderData;
 import io.vram.frex.api.world.ItemColorRegistry;
-import io.vram.renderbender.RenderLoopTest;
+import io.vram.renderbender.RenderBender;
 import io.vram.renderbender.init.BasicBlocks;
 import io.vram.renderbender.init.BasicBlocks.BeTestBlockEntity;
 import io.vram.renderbender.init.ModelDispatcher;
@@ -36,9 +36,11 @@ import io.vram.renderbender.init.SimpleMaterials;
 
 public class ClientInit {
 	public static void initialize() {
+		if (RenderBender.customFluid) Fluids.initialize();
+		if (RenderBender.regionBakeListener) RegionBakeListener.initialize();
+		if (RenderBender.renderLoopListener) RenderLoopListener.initialize();
+
 		ModelDispatcher.initialize();
-		RenderLoopTest.initialize();
-		FluidsClient.initialize();
 		SimpleMaterials.initialize();
 
 		ShaderConfig.registerShaderConfigSupplier(new ResourceLocation("renderbender:configtest"), () -> "#define SHADER_CONFIG_WORKS");

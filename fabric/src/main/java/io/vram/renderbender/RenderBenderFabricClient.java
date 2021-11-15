@@ -20,9 +20,13 @@
 
 package io.vram.renderbender;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import net.fabricmc.api.ClientModInitializer;
 
-public class RenderBenderLog {
-	public static final Logger LOG = LogManager.getLogger("RenderBender");
+import io.vram.renderbender.client.ClientInit;
+
+public class RenderBenderFabricClient implements ClientModInitializer {
+	@Override
+	public void onInitializeClient() {
+		ClientInit.initialize();
+	}
 }

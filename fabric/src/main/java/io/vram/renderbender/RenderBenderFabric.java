@@ -20,13 +20,13 @@
 
 package io.vram.renderbender;
 
-import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.ModInitializer;
 
-import io.vram.renderbender.client.ClientInit;
+import io.vram.renderbender.common.CommonInit;
 
-public class RenderBenderClient implements ClientModInitializer {
+public class RenderBenderFabric implements ModInitializer {
 	@Override
-	public void onInitializeClient() {
-		ClientInit.initialize();
+	public void onInitialize() {
+		CommonInit.initialize();
 	}
 }

@@ -16,8 +16,8 @@
   "license": "LGPL-3.0",
   "environment": "*",
   "entrypoints": {
-    "main": ["io.vram.renderbender.RenderBender"],
-    "client": ["io.vram.renderbender.RenderBenderClient"]
+    "main": ["io.vram.renderbender.RenderBenderFabric"],
+    "client": ["io.vram.renderbender.RenderBenderFabricClient"]
   },
   "depends": {
     "fabricloader": ">=0.11.5",

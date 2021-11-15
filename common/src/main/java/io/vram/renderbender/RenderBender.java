@@ -20,13 +20,13 @@
 
 package io.vram.renderbender;
 
-import net.fabricmc.api.ModInitializer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import io.vram.renderbender.common.CommonInit;
+public class RenderBender {
+	public static final Logger LOG = LogManager.getLogger("RenderBender");
 
-public class RenderBender implements ModInitializer {
-	@Override
-	public void onInitialize() {
-		CommonInit.initialize();
-	}
+	public static boolean customFluid = true;
+	public static boolean regionBakeListener = true;
+	public static boolean renderLoopListener = true;
 }

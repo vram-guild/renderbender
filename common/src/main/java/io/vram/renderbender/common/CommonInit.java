@@ -20,15 +20,15 @@
 
 package io.vram.renderbender.common;
 
-import io.vram.renderbender.BakeListenerTest;
+import io.vram.renderbender.RenderBender;
 import io.vram.renderbender.init.BasicBlocks;
 import io.vram.renderbender.init.ExtendedBlocks;
 
 public class CommonInit {
 	public static void initialize() {
+		if (RenderBender.customFluid) FluidsCommon.initialize();
+
 		BasicBlocks.initialize();
 		ExtendedBlocks.initialize();
-		Fluids.initialize();
-		BakeListenerTest.initialize();
 	}
 }

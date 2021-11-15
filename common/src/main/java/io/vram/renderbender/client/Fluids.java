@@ -18,8 +18,19 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package io.vram.renderbender;
+package io.vram.renderbender.client;
 
-public class BiomeInputTest {
-	// TODO: implement to test BockInputContext.getBiome()
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+
+import io.vram.frex.api.model.fluid.FluidAppearance;
+import io.vram.frex.api.model.fluid.FluidColorProvider;
+import io.vram.frex.api.model.fluid.FluidSpriteProvider;
+import io.vram.renderbender.common.FluidsCommon;
+
+public class Fluids {
+	public static void initialize() {
+		Registry.register(Registry.BLOCK, new ResourceLocation("renderbender:test_fluid"), FluidsCommon.TEST_FLUID_BLOCK);
+		FluidAppearance.register(FluidColorProvider.of(0x88FFAABB), FluidSpriteProvider.WATER_SPRITES, FluidsCommon.TEST_FLUID);
+	}
 }

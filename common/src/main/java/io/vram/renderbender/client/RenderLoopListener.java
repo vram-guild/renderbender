@@ -18,7 +18,7 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package io.vram.renderbender;
+package io.vram.renderbender.client;
 
 import io.vram.frex.api.renderloop.BlockOutlineListener;
 import io.vram.frex.api.renderloop.BlockOutlinePreListener;
@@ -30,51 +30,52 @@ import io.vram.frex.api.renderloop.TranslucentPostListener;
 import io.vram.frex.api.renderloop.WorldRenderLastListener;
 import io.vram.frex.api.renderloop.WorldRenderPostListener;
 import io.vram.frex.api.renderloop.WorldRenderStartListener;
+import io.vram.renderbender.RenderBender;
 import io.vram.renderbender.init.BasicBlocks;
 
-public class RenderLoopTest {
+public class RenderLoopListener {
 	private static boolean active = true;
 	private static boolean firstBlockOutline = true;
 
 	public static void initialize() {
-		RenderBenderLog.LOG.info("Registering FREX event test callbacks.");
-		RenderBenderLog.LOG.info("Should see the following messages 1X in this order when world is loaded.");
-		RenderBenderLog.LOG.info("    WorldRenderStartListener");
-		RenderBenderLog.LOG.info("    FrustumSetupListener");
-		RenderBenderLog.LOG.info("    EntityRenderPreListener");
-		RenderBenderLog.LOG.info("    EntityRenderPostListener");
-		RenderBenderLog.LOG.info("    DebugRenderListener");
-		RenderBenderLog.LOG.info("    TranslucentPostListener");
-		RenderBenderLog.LOG.info("    WorldRenderLastListener");
-		RenderBenderLog.LOG.info("    WorldRenderPostListener");
+		RenderBender.LOG.info("Registering FREX event test callbacks.");
+		RenderBender.LOG.info("Should see the following messages 1X in this order when world is loaded.");
+		RenderBender.LOG.info("    WorldRenderStartListener");
+		RenderBender.LOG.info("    FrustumSetupListener");
+		RenderBender.LOG.info("    EntityRenderPreListener");
+		RenderBender.LOG.info("    EntityRenderPostListener");
+		RenderBender.LOG.info("    DebugRenderListener");
+		RenderBender.LOG.info("    TranslucentPostListener");
+		RenderBender.LOG.info("    WorldRenderLastListener");
+		RenderBender.LOG.info("    WorldRenderPostListener");
 
 		WorldRenderStartListener.register(c -> {
 			if (active) {
-				RenderBenderLog.LOG.info("WorldRenderStartListener");
+				RenderBender.LOG.info("WorldRenderStartListener");
 			}
 		});
 
 		FrustumSetupListener.register(c -> {
 			if (active) {
-				RenderBenderLog.LOG.info("FrustumSetupListener");
+				RenderBender.LOG.info("FrustumSetupListener");
 			}
 		});
 
 		EntityRenderPreListener.register(c -> {
 			if (active) {
-				RenderBenderLog.LOG.info("EntityRenderPreListener");
+				RenderBender.LOG.info("EntityRenderPreListener");
 			}
 		});
 
 		EntityRenderPostListener.register(c -> {
 			if (active) {
-				RenderBenderLog.LOG.info("EntityRenderPostListener");
+				RenderBender.LOG.info("EntityRenderPostListener");
 			}
 		});
 
 		BlockOutlinePreListener.register((c, h) -> {
 			if (firstBlockOutline) {
-				RenderBenderLog.LOG.info("BlockOutlinePreListener");
+				RenderBender.LOG.info("BlockOutlinePreListener");
 				firstBlockOutline = false;
 			}
 
@@ -87,25 +88,25 @@ public class RenderLoopTest {
 
 		DebugRenderListener.register(c -> {
 			if (active) {
-				RenderBenderLog.LOG.info("DebugRenderListener");
+				RenderBender.LOG.info("DebugRenderListener");
 			}
 		});
 
 		TranslucentPostListener.register(c -> {
 			if (active) {
-				RenderBenderLog.LOG.info("TranslucentPostListener");
+				RenderBender.LOG.info("TranslucentPostListener");
 			}
 		});
 
 		WorldRenderLastListener.register(c -> {
 			if (active) {
-				RenderBenderLog.LOG.info("WorldRenderLastListener");
+				RenderBender.LOG.info("WorldRenderLastListener");
 			}
 		});
 
 		WorldRenderPostListener.register(c -> {
 			if (active) {
-				RenderBenderLog.LOG.info("WorldRenderPostListener");
+				RenderBender.LOG.info("WorldRenderPostListener");
 				active = false;
 			}
 		});

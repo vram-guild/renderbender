@@ -42,10 +42,10 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
 
-public class Fluids {
+public class FluidsCommon {
 	public static final Material TEST_FLUID_MATERIAL = new Material(MaterialColor.COLOR_LIGHT_BLUE, true, false, false, false, false, true, PushReaction.DESTROY);
 	public static final FlowingFluid TEST_FLUID = Registry.register(Registry.FLUID, new ResourceLocation("renderbender:test_fluid"), new TestFluid());
-	public static final LiquidBlock TEST_FLUID_BLOCK = new LiquidBlock(Fluids.TEST_FLUID, BlockBehaviour.Properties.of(TEST_FLUID_MATERIAL).noCollission().strength(100.0F).noDrops()) { };
+	public static final LiquidBlock TEST_FLUID_BLOCK = new LiquidBlock(FluidsCommon.TEST_FLUID, BlockBehaviour.Properties.of(TEST_FLUID_MATERIAL).noCollission().strength(100.0F).noDrops()) { };
 
 	static void initialize() {
 	}
@@ -53,12 +53,12 @@ public class Fluids {
 	public static class TestFluid extends FlowingFluid {
 		@Override
 		public Fluid getFlowing() {
-			return Fluids.TEST_FLUID;
+			return FluidsCommon.TEST_FLUID;
 		}
 
 		@Override
 		public Fluid getSource() {
-			return Fluids.TEST_FLUID;
+			return FluidsCommon.TEST_FLUID;
 		}
 
 		@Override
@@ -110,7 +110,7 @@ public class Fluids {
 
 		@Override
 		protected BlockState createLegacyBlock(FluidState state) {
-			return Fluids.TEST_FLUID_BLOCK.defaultBlockState().setValue(LiquidBlock.LEVEL, getLegacyLevel(state));
+			return FluidsCommon.TEST_FLUID_BLOCK.defaultBlockState().setValue(LiquidBlock.LEVEL, getLegacyLevel(state));
 		}
 
 		@Override
