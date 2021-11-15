@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import io.vram.frex.api.world.RenderRegionBakeListener;
 import io.vram.frex.api.world.RenderRegionBakeListener.RenderRegionContext;
-import io.vram.frex.base.client.ForwardingBlockView;
+import io.vram.frex.base.client.world.ForwardingBlockView;
 
 // TODO: add compatibility test for corresponding Fabric API
 public class BakeListenerTest {

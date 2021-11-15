@@ -36,7 +36,7 @@ import io.vram.frex.api.world.ItemColorRegistry;
 import grondag.renderbender.init.BasicBlocks;
 import grondag.renderbender.init.BasicBlocks.BeTestBlockEntity;
 import grondag.renderbender.init.ExtendedBlocks;
-import grondag.renderbender.init.Fluids;
+import grondag.renderbender.init.SimpleMaterials;
 import grondag.renderbender.init.ModelDispatcher;
 
 public class RenderBender implements ModInitializer, ClientModInitializer {
@@ -56,6 +56,8 @@ public class RenderBender implements ModInitializer, ClientModInitializer {
         ModelDispatcher.initialize();
         RenderLoopTest.init();
         Fluids.initClient();
+        SimpleMaterials.initialize();
+
         ShaderConfig.registerShaderConfigSupplier(new ResourceLocation("renderbender:configtest"), () -> "#define SHADER_CONFIG_WORKS");
         BlockEntityRenderData.registerProvider(BasicBlocks.BE_TEST_TYPE, be -> ((BeTestBlockEntity) be).getRenderData());
 

@@ -8,23 +8,20 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-
 public class ExtendedBlocks {
-	private static final Block SHADER_BLOCK = new Block(FabricBlockSettings
+	private static final Block SHADER_BLOCK = new Block(Properties
 			.of(Material.STONE).strength(1, 1)
 			.color(MaterialColor.COLOR_CYAN)
 			.isValidSpawn((s,v,p,o) -> false)
 			.isRedstoneConductor((s,v,p) -> false)
 			.isSuffocating((s,v,p) -> false));
 
-	private static final Block CONDITIONAL_BLOCK = new Block(FabricBlockSettings
+	private static final Block CONDITIONAL_BLOCK = new Block(Properties
 			.of(Material.GLASS).strength(1, 1)
 			.color(MaterialColor.COLOR_CYAN)
 			.noCollission()
@@ -32,7 +29,6 @@ public class ExtendedBlocks {
 			.isRedstoneConductor((s,v,p) -> false)
 			.isSuffocating((s,v,p) -> false)) {
 
-		@Environment(EnvType.CLIENT)
 		@Override
 		public boolean skipRendering(BlockState blockState_1, BlockState blockState_2, Direction direction_1) {
 			return blockState_2.getBlock() == this ? true : super.skipRendering(blockState_1, blockState_2, direction_1);

@@ -2,6 +2,7 @@ package grondag.renderbender.init;
 
 import java.util.HashMap;
 
+//WIP: remove Fabric deps
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 
 import grondag.renderbender.model.SimpleUnbakedModel;

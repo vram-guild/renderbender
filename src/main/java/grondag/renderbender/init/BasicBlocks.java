@@ -15,18 +15,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 
 import grondag.renderbender.model.ModelBuilder;
 
@@ -76,20 +72,16 @@ public class BasicBlocks {
 		register(BE_TEST_BLOCK, "be_test", ITEM_FUNCTION_STANDARD);
 
 		Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation("renderbender", "be_test"), BE_TEST_TYPE);
-
-		Registry.register(Registry.BLOCK, new ResourceLocation("renderbender:test_fluid"), TEST_FLUID);
 	}
 
-	public static final LiquidBlock TEST_FLUID = new LiquidBlock(Fluids.TEST_FLUID, BlockBehaviour.Properties.of(Materials.TEST_FLUID).noCollission().strength(100.0F).noDrops()) { };
+	public static final Block ITEM_TRANSFORM = new Block(Properties.of(Material.STONE).strength(1, 1));
+	public static final Block GLOW_BLOCK = new Block(Properties.of(Material.STONE).strength(1, 1));
+	public static final Block GLOW_BLOCK_SHADED = new Block(Properties.of(Material.STONE).strength(1, 1));
+	public static final Block GLOW_BLOCK_DIFFUSE = new Block(Properties.of(Material.STONE).strength(1, 1));
+	public static final Block GLOW_BLOCK_AO = new Block(Properties.of(Material.STONE).strength(1, 1));
+	public static final Block GLOW_BLOCK_DYNAMIC = new Block(Properties.of(Material.STONE).strength(1, 1));
 
-	public static final Block ITEM_TRANSFORM = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
-	public static final Block GLOW_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
-	public static final Block GLOW_BLOCK_SHADED = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
-	public static final Block GLOW_BLOCK_DIFFUSE = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
-	public static final Block GLOW_BLOCK_AO = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
-	public static final Block GLOW_BLOCK_DYNAMIC = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1));
-
-	public static final Block AO_TEST = new Block(FabricBlockSettings.of(Material.STONE).dynamicShape().strength(1, 1)) {
+	public static final Block AO_TEST = new Block(Properties.of(Material.STONE).dynamicShape().strength(1, 1)) {
 		@Override
 		public VoxelShape getShape(BlockState blockState, BlockGetter blockView, BlockPos pos, CollisionContext entityContext) {
 			final float height = (1 + (pos.hashCode() & 15)) / 16f;
@@ -97,7 +89,7 @@ public class BasicBlocks {
 		}
 	};
 
-	public static final Block SHADE_TEST = new Block(FabricBlockSettings.of(Material.STONE).strength(1, 1)) {
+	public static final Block SHADE_TEST = new Block(Properties.of(Material.STONE).strength(1, 1)) {
 		@Override
 		public VoxelShape getShape(BlockState blockState, BlockGetter blockView, BlockPos pos, CollisionContext entityContext) {
 			return Shapes.box(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
@@ -133,22 +125,22 @@ public class BasicBlocks {
 		}
 	}
 
-	public static final Block ROUND_BLOCK_HARD = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
-	public static final Block ROUND_BLOCK_HARD_AO = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
-	public static final Block ROUND_BLOCK_HARD_DIFFUSE = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
-	public static final Block ROUND_BLOCK_HARD_DIFFUSE_GLOW = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
+	public static final Block ROUND_BLOCK_HARD = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
+	public static final Block ROUND_BLOCK_HARD_AO = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
+	public static final Block ROUND_BLOCK_HARD_DIFFUSE = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
+	public static final Block ROUND_BLOCK_HARD_DIFFUSE_GLOW = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
 
-	public static final Block ROUND_BLOCK_SOFT = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
-	public static final Block ROUND_BLOCK_SOFT_AO = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
-	public static final Block ROUND_BLOCK_SOFT_DIFFUSE = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
-	public static final Block ROUND_BLOCK_SOFT_DIFFUSE_GLOW = new RoundBlock(FabricBlockSettings.of(Material.STONE).strength(1, 1));
+	public static final Block ROUND_BLOCK_SOFT = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
+	public static final Block ROUND_BLOCK_SOFT_AO = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
+	public static final Block ROUND_BLOCK_SOFT_DIFFUSE = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
+	public static final Block ROUND_BLOCK_SOFT_DIFFUSE_GLOW = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
 
 	public static Block BE_TEST_BLOCK = new BeTestBlock();
-	public static final BlockEntityType<BasicBlocks.BeTestBlockEntity> BE_TEST_TYPE = FabricBlockEntityTypeBuilder.create(BasicBlocks.BeTestBlockEntity::new, BE_TEST_BLOCK).build(null);
+	public static final BlockEntityType<BasicBlocks.BeTestBlockEntity> BE_TEST_TYPE = BlockEntityType.Builder.of(BasicBlocks.BeTestBlockEntity::new, BE_TEST_BLOCK).build(null);
 
 	public static class BeTestBlock extends Block implements EntityBlock {
 		public BeTestBlock() {
-			super(FabricBlockSettings.of(Material.STONE).dynamicShape().strength(1, 1));
+			super(Properties.of(Material.STONE).dynamicShape().strength(1, 1));
 		}
 
 		@Override
