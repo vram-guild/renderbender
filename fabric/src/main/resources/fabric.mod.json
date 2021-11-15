@@ -14,17 +14,15 @@
   },
   
   "license": "LGPL-3.0",
-  
   "environment": "*",
   "entrypoints": {
-    "main": ["grondag.renderbender.RenderBender"],
-    "client": ["grondag.renderbender.RenderBender"]
+    "main": ["io.vram.renderbender.RenderBender"],
+    "client": ["io.vram.renderbender.RenderBenderClient"]
   },
   "depends": {
-    "fabricloader": ">=0.11.3",
+    "fabricloader": ">=0.11.5",
     "minecraft": "1.17.x",
     "java": ">=16",
-    "fabric": "*",
     "frex": "*"
   },
   "accessWidener": "renderbender.accesswidener"

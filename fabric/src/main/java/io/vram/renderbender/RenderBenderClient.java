@@ -28,33 +28,20 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.FoliageColor;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.api.ModInitializer;
 
 import io.vram.frex.api.config.ShaderConfig;
 import io.vram.frex.api.world.BlockColorRegistry;
 import io.vram.frex.api.world.BlockEntityRenderData;
 import io.vram.frex.api.world.ItemColorRegistry;
 import io.vram.renderbender.init.BasicBlocks;
-import io.vram.renderbender.init.ExtendedBlocks;
+import io.vram.renderbender.init.BasicBlocks.BeTestBlockEntity;
 import io.vram.renderbender.init.ModelDispatcher;
 import io.vram.renderbender.init.SimpleMaterials;
-import io.vram.renderbender.init.BasicBlocks.BeTestBlockEntity;
 
-public class RenderBender implements ModInitializer, ClientModInitializer {
+public class RenderBenderClient implements ClientModInitializer {
 	public static final Logger LOG = LogManager.getLogger();
 
 	@Override
-	public void onInitialize() {
-		BasicBlocks.initialize();
-		ExtendedBlocks.initialize();
-		Fluids.initialize();
-		BakeListenerTest.initialize();
-	}
-
-	@Override
-	@Environment(EnvType.CLIENT)
 	public void onInitializeClient() {
 		ModelDispatcher.initialize();
 		RenderLoopTest.init();
