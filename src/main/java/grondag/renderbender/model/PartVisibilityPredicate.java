@@ -29,14 +29,14 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 @FunctionalInterface
 public interface PartVisibilityPredicate {
-    PartVisibilityPredicate ALWAYS = (v,s,p) -> true;
+	PartVisibilityPredicate ALWAYS = (v, s, p) -> true;
 
-    /**
-     * Note the block view and position parameters will be null
-     * if the model is being converted to vanilla baked quads.
-     * Recommendation is to use reasonable defaults for a damage
-     * model in that case. Future API versions will probably provide
-     * better support for dynamic damage models.
-     */
-    boolean apply(BlockAndTintGetter blockView, BlockState state, BlockPos pos);
+	/**
+	 * Note the block view and position parameters will be null
+	 * if the model is being converted to vanilla baked quads.
+	 * Recommendation is to use reasonable defaults for a damage
+	 * model in that case. Future API versions will probably provide
+	 * better support for dynamic damage models.
+	 */
+	boolean apply(BlockAndTintGetter blockView, BlockState state, BlockPos pos);
 }

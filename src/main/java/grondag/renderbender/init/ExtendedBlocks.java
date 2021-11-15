@@ -37,18 +37,18 @@ public class ExtendedBlocks {
 	private static final Block SHADER_BLOCK = new Block(Properties
 			.of(Material.STONE).strength(1, 1)
 			.color(MaterialColor.COLOR_CYAN)
-			.isValidSpawn((s,v,p,o) -> false)
-			.isRedstoneConductor((s,v,p) -> false)
-			.isSuffocating((s,v,p) -> false));
+			.isValidSpawn((s, v, p, o) -> false)
+			.isRedstoneConductor((s, v, p) -> false)
+			.isSuffocating((s, v, p) -> false));
 
 	private static final Block CONDITIONAL_BLOCK = new Block(Properties
 			.of(Material.GLASS).strength(1, 1)
 			.color(MaterialColor.COLOR_CYAN)
 			.noCollission()
-			.isValidSpawn((s,v,p,o) -> false)
-			.isRedstoneConductor((s,v,p) -> false)
-			.isSuffocating((s,v,p) -> false)) {
-
+			.isValidSpawn((s, v, p, o) -> false)
+			.isRedstoneConductor((s, v, p) -> false)
+			.isSuffocating((s, v, p) -> false)
+	) {
 		@Override
 		public boolean skipRendering(BlockState blockState_1, BlockState blockState_2, Direction direction_1) {
 			return blockState_2.getBlock() == this ? true : super.skipRendering(blockState_1, blockState_2, direction_1);

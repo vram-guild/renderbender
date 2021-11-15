@@ -44,28 +44,28 @@ import grondag.renderbender.init.ModelDispatcher;
 import grondag.renderbender.init.SimpleMaterials;
 
 public class RenderBender implements ModInitializer, ClientModInitializer {
-    public static final Logger LOG = LogManager.getLogger();
+	public static final Logger LOG = LogManager.getLogger();
 
-    @Override
-    public void onInitialize() {
-        BasicBlocks.initialize();
-        ExtendedBlocks.initialize();
-        Fluids.initialize();
-        BakeListenerTest.initialize();
-    }
+	@Override
+	public void onInitialize() {
+		BasicBlocks.initialize();
+		ExtendedBlocks.initialize();
+		Fluids.initialize();
+		BakeListenerTest.initialize();
+	}
 
-    @Override
+	@Override
 	@Environment(EnvType.CLIENT)
 	public void onInitializeClient() {
-        ModelDispatcher.initialize();
-        RenderLoopTest.init();
-        Fluids.initClient();
-        SimpleMaterials.initialize();
+		ModelDispatcher.initialize();
+		RenderLoopTest.init();
+		Fluids.initClient();
+		SimpleMaterials.initialize();
 
-        ShaderConfig.registerShaderConfigSupplier(new ResourceLocation("renderbender:configtest"), () -> "#define SHADER_CONFIG_WORKS");
-        BlockEntityRenderData.registerProvider(BasicBlocks.BE_TEST_TYPE, be -> ((BeTestBlockEntity) be).getRenderData());
+		ShaderConfig.registerShaderConfigSupplier(new ResourceLocation("renderbender:configtest"), () -> "#define SHADER_CONFIG_WORKS");
+		BlockEntityRenderData.registerProvider(BasicBlocks.BE_TEST_TYPE, be -> ((BeTestBlockEntity) be).getRenderData());
 
-        BlockColorRegistry.register((blockState, extendedBlockView, pos, colorIndex) -> {
+		BlockColorRegistry.register((blockState, extendedBlockView, pos, colorIndex) -> {
 			return extendedBlockView != null && pos != null ? BiomeColors.getAverageFoliageColor(extendedBlockView, pos) : FoliageColor.getDefaultColor();
 		}, BasicBlocks.AO_TEST);
 

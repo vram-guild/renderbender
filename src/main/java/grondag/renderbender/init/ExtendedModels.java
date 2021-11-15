@@ -41,9 +41,9 @@ public class ExtendedModels {
 	public static void initialize(HashMap<String, SimpleUnbakedModel> models) {
 		models.put("shader", new SimpleUnbakedModel(mb -> {
 			final RenderMaterial mat = MaterialFinder.threadLocal()
-			.shader(new ResourceLocation("renderbender", "shader/test.vert"), new ResourceLocation("renderbender", "shader/test.frag"))
-			.castShadows(false)
-			.find();
+				.shader(new ResourceLocation("renderbender", "shader/test.vert"), new ResourceLocation("renderbender", "shader/test.frag"))
+				.castShadows(false)
+				.find();
 			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/gray_concrete");
 			mb.box(mat,
 				-1, sprite,
@@ -55,24 +55,27 @@ public class ExtendedModels {
 			final MaterialCondition condition = MaterialCondition.create(() -> {
 				@SuppressWarnings("resource")
 				final Entity entity = Minecraft.getInstance().cameraEntity;
-				if(entity == null || entity.level == null) {
+
+				if (entity == null || entity.level == null) {
 					return false;
-				} else if(entity.level.isRaining()) {
+				} else if (entity.level.isRaining()) {
 					return true;
-				} else if(entity instanceof final LivingEntity living) {
+				} else if (entity instanceof final LivingEntity living) {
 					return living.getMainHandItem().getItem() == ExtendedBlocks.CONDITION_ITEM
-					|| living.getOffhandItem().getItem() == ExtendedBlocks.CONDITION_ITEM;
-				} else
+							|| living.getOffhandItem().getItem() == ExtendedBlocks.CONDITION_ITEM;
+				} else {
 					return false;
+				}
 			}, true, true);
+
 			final RenderMaterial mat = MaterialFinder.threadLocal()
-			.shader(new ResourceLocation("renderbender", "shader/test.vert"), new ResourceLocation("renderbender", "shader/test.frag"))
-			.preset(MaterialConstants.PRESET_TRANSLUCENT)
-			.condition(condition)
-			.emissive(true)
-			.disableDiffuse(true)
-			.disableAo(true)
-			.find();
+				.shader(new ResourceLocation("renderbender", "shader/test.vert"), new ResourceLocation("renderbender", "shader/test.frag"))
+				.preset(MaterialConstants.PRESET_TRANSLUCENT)
+				.condition(condition)
+				.emissive(true)
+				.disableDiffuse(true)
+				.disableAo(true)
+				.find();
 			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/snow");
 			mb.box(mat,
 				0x80DCEFFF, sprite,

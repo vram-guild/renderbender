@@ -46,7 +46,7 @@ import io.vram.frex.api.mesh.Mesh;
 import io.vram.frex.api.model.util.BakedModelUtil;
 
 /**
- * Simple baked model supporting the Fabric Render API features.<p>
+ * Simple baked model supporting the Fabric Render API features.
  */
 public class SimpleModel extends AbstractModel {
 	protected final Mesh mesh;
@@ -55,11 +55,11 @@ public class SimpleModel extends AbstractModel {
 	protected final ItemProxy itemProxy = new ItemProxy();
 
 	public SimpleModel(
-	Mesh mesh,
-	QuadTransform transform,
-	TextureAtlasSprite sprite,
-	ItemTransforms transformation,
-	DynamicRenderer dynamicRender) {
+			Mesh mesh,
+			QuadTransform transform,
+			TextureAtlasSprite sprite,
+			ItemTransforms transformation,
+			DynamicRenderer dynamicRender) {
 		super(sprite, transformation, dynamicRender);
 		this.mesh = mesh;
 		this.transform = transform;
@@ -68,10 +68,12 @@ public class SimpleModel extends AbstractModel {
 	@Override
 	public List<BakedQuad> getQuads(BlockState state, Direction face, Random rand) {
 		List<BakedQuad>[] lists = quadLists == null ? null : quadLists.get();
-		if(lists == null) {
+
+		if (lists == null) {
 			lists = BakedModelUtil.toQuadLists(mesh);
 			quadLists = new WeakReference<>(lists);
 		}
+
 		final List<BakedQuad> result = lists[face == null ? 6 : face.get3DDataValue()];
 		return result == null ? ImmutableList.of() : result;
 	}
@@ -80,19 +82,19 @@ public class SimpleModel extends AbstractModel {
 	public void renderAsBlock(BlockInputContext input, QuadSink output) {
 		QuadEmitter emitter = output.asQuadEmitter();
 
-		if(transform != null) {
+		if (transform != null) {
 			emitter = emitter.withTransformQuad(input, transform);
 		}
 
-		if(mesh != null) {
+		if (mesh != null) {
 			mesh.outputTo(emitter);
 		}
 
-		if(dynamicRender != null) {
+		if (dynamicRender != null) {
 			dynamicRender.render(input.blockView(), input, emitter);
 		}
 
-		if(transform != null) {
+		if (transform != null) {
 			emitter.close();
 		}
 	}
@@ -117,18 +119,19 @@ public class SimpleModel extends AbstractModel {
 	public void renderAsItem(ItemInputContext input, QuadSink output) {
 		QuadEmitter emitter = output.asQuadEmitter();
 
-		if(transform != null) {
+		if (transform != null) {
 			emitter = emitter.withTransformQuad(input, transform);
 		}
 
-		if(mesh != null) {
+		if (mesh != null) {
 			mesh.outputTo(emitter);
 		}
-		if(dynamicRender != null) {
+
+		if (dynamicRender != null) {
 			dynamicRender.render(null, input, emitter);
 		}
 
-		if(transform != null) {
+		if (transform != null) {
 			emitter.close();
 		}
 	}

@@ -20,7 +20,6 @@
 
 package grondag.renderbender.init;
 
-
 import io.vram.frex.api.buffer.QuadTransform;
 import io.vram.frex.api.material.MaterialConstants;
 import io.vram.frex.api.material.MaterialFinder;
@@ -30,7 +29,7 @@ import io.vram.frex.api.model.InputContext.Type;
 
 import grondag.renderbender.init.BasicBlocks.BeTestBlockEntity;
 
-class BeTestTransform  {
+class BeTestTransform {
 	static RenderMaterial matSolid = MaterialFinder.threadLocal()
 			.preset(MaterialConstants.PRESET_SOLID).find();
 
@@ -43,11 +42,10 @@ class BeTestTransform  {
 	static RenderMaterial matTransGlow = MaterialFinder.threadLocal()
 			.preset(MaterialConstants.PRESET_TRANSLUCENT).disableDiffuse(true).emissive(true).disableAo(true).find();
 
-
 	public static final QuadTransform INSTANCE = (ctx, in, out) -> {
 		RenderMaterial mat = null;
 		RenderMaterial matGlow = null;
-		int stupid[] = null;
+		int[] stupid = null;
 		boolean translucent;
 
 		if (ctx.type() == Type.BLOCK) {
@@ -61,7 +59,7 @@ class BeTestTransform  {
 			translucent = false;
 			stupid = BeTestBlockEntity.ITEM_COLORS;
 		} else {
-			if(ctx.random().nextInt(4) == 0) {
+			if (ctx.random().nextInt(4) == 0) {
 				mat = matTrans;
 				matGlow = matTransGlow;
 				translucent = true;

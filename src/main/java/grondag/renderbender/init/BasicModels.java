@@ -52,7 +52,6 @@ import grondag.renderbender.model.SimpleModel;
 import grondag.renderbender.model.SimpleUnbakedModel;
 
 public class BasicModels {
-
 	static final QuadTransform HACKFORMER = (ctx, in, out) -> {
 		final TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(new ResourceLocation("minecraft:block/white_concrete"));
 		in.copyTo(out);
@@ -178,11 +177,14 @@ public class BasicModels {
 			final float PIXEL = 1f/16f;
 			final QuadEmitter qe = mb.builder.getEmitter();
 			int t = 0;
-			for(int d = 0; d < 6; d++) {
+
+			for (int d = 0; d < 6; d++) {
 				final Direction face = Direction.from3DDataValue(d);
-				for(int i = 0; i < 14; i++) {
+
+				for (int i = 0; i < 14; i++) {
 					final float u = PIXEL + PIXEL * i;
-					for(int j = 0; j < 14; j++) {
+
+					for (int j = 0; j < 14; j++) {
 						final float v = PIXEL + PIXEL * j;
 						qe.tag(t++);
 						qe.material(mat).square(face, u, v, u + PIXEL, v + PIXEL, PIXEL)
@@ -191,6 +193,7 @@ public class BasicModels {
 					}
 				}
 			}
+
 			return new SimpleModel(mb.builder.build(), BeTestTransform.INSTANCE, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 	}
@@ -208,12 +211,14 @@ public class BasicModels {
 				final MeshBuilder builder = renderer.meshBuilder();
 				final QuadEmitter emitter = builder.getEmitter();
 
-				for(int d = 0; d < 6; d++) {
+				for (int d = 0; d < 6; d++) {
 					final Direction face = Direction.from3DDataValue(d);
-					if(face == Direction.UP) {
+
+					if (face == Direction.UP) {
 						final float depth = face == Direction.UP ? 1 - height : 0;
-						for(int i = 0; i < 4; i++) {
-							for(int j = 0; j < 4; j++) {
+
+						for (int i = 0; i < 4; i++) {
+							for (int j = 0; j < 4; j++) {
 								final float u = i * .25f;
 								final float v = j * .25f;
 								emitter.square(face, u, v, u + .25f, v + .25f, depth)
@@ -222,7 +227,7 @@ public class BasicModels {
 								.spriteBake(sprite, QuadEmitter.BAKE_LOCK_UV).emit();
 							}
 						}
-					} else if(face == Direction.DOWN) {
+					} else if (face == Direction.DOWN) {
 						emitter.square(face, 0, 0, 1, 1, 0)
 						.material(mat).vertexColor(-1, -1, -1, -1)
 						.colorIndex(0)
@@ -249,8 +254,8 @@ public class BasicModels {
 		final int bottomLight = topGlow ? 0 : FULL_BRIGHTNESS;
 		in.copyTo(out);
 
-		for(int i = 0; i < 4; i++) {
-			if(Mth.equal(out.y(i), 0)) {
+		for (int i = 0; i < 4; i++) {
+			if (Mth.equal(out.y(i), 0)) {
 				out.vertexColor(i, bottomColor).lightmap(i, bottomLight);
 			} else {
 				out.vertexColor(i, topColor).lightmap(i, topLight);

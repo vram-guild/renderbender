@@ -38,15 +38,15 @@ import io.vram.frex.api.mesh.MeshBuilder;
 import io.vram.frex.api.renderer.Renderer;
 
 public class ModelBuilder {
-
 	private static ModelBuilder instance;
 
 	private static Function<Material, TextureAtlasSprite> spriteFunc;
 
 	public static ModelBuilder prepare(Function<Material, TextureAtlasSprite> spriteFuncIn) {
-		if(instance == null) {
+		if (instance == null) {
 			instance = new ModelBuilder();
 		}
+
 		spriteFunc = spriteFuncIn;
 		return instance;
 	}
@@ -70,11 +70,11 @@ public class ModelBuilder {
 	}
 
 	public void box(
-	RenderMaterial material,
-	int color, TextureAtlasSprite sprite,
-	float minX, float minY, float minZ,
-	float maxX, float maxY, float maxZ) {
-
+		RenderMaterial material,
+		int color, TextureAtlasSprite sprite,
+		float minX, float minY, float minZ,
+		float maxX, float maxY, float maxZ
+	) {
 		builder.getEmitter()
 		.material(material)
 		.square(Direction.UP, minX, minZ, maxX, maxZ, 1-maxY)
@@ -116,7 +116,7 @@ public class ModelBuilder {
 		.vertexColor(color, color, color, color)
 		.uvUnitSquare()
 		.spriteBake(sprite, QuadEmitter.BAKE_NORMALIZED)
-		.emit();
+			.emit();
 	}
 
 	public static int randomPastelColor(Random random) {
@@ -129,7 +129,7 @@ public class ModelBuilder {
 	 */
 	public static void makeIcosahedron(Vector3f center, float radius, QuadEmitter qe, RenderMaterial material, TextureAtlasSprite sprite, boolean smoothNormals) {
 		/** vertex scale */
-		final float s = (float) (radius  / (2 * Math.sin(2 * Math.PI / 5)));
+		final float s = (float) (radius / (2 * Math.sin(2 * Math.PI / 5)));
 
 		final Vector3f[] vertexes = new Vector3f[12];
 		Vector3f[] normals = new Vector3f[12];
@@ -137,26 +137,26 @@ public class ModelBuilder {
 		final float t = (float) (s * (1.0 + Math.sqrt(5.0)) / 2.0);
 		int vi = 0;
 
-		normals[vi++] = new Vector3f(-s,  t,  0);
-		normals[vi++] = new Vector3f( s,  t,  0);
-		normals[vi++] = new Vector3f(-s, -t,  0);
-		normals[vi++] = new Vector3f( s, -t,  0);
+		normals[vi++] = new Vector3f(-s, t, 0);
+		normals[vi++] = new Vector3f(s, t, 0);
+		normals[vi++] = new Vector3f(-s, -t, 0);
+		normals[vi++] = new Vector3f(s, -t, 0);
 
-		normals[vi++] = new Vector3f( 0, -s,  t);
-		normals[vi++] = new Vector3f( 0,  s,  t);
-		normals[vi++] = new Vector3f( 0, -s, -t);
-		normals[vi++] = new Vector3f( 0,  s, -t);
+		normals[vi++] = new Vector3f(0, -s, t);
+		normals[vi++] = new Vector3f(0, s, t);
+		normals[vi++] = new Vector3f(0, -s, -t);
+		normals[vi++] = new Vector3f(0, s, -t);
 
-		normals[vi++] = new Vector3f( t,  0, -s);
-		normals[vi++] = new Vector3f( t,  0,  s);
-		normals[vi++] = new Vector3f(-t,  0, -s);
-		normals[vi++] = new Vector3f(-t,  0,  s);
+		normals[vi++] = new Vector3f(t, 0, -s);
+		normals[vi++] = new Vector3f(t, 0, s);
+		normals[vi++] = new Vector3f(-t, 0, -s);
+		normals[vi++] = new Vector3f(-t, 0, s);
 
-		for(int i = 0; i < 12; i++) {
+		for (int i = 0; i < 12; i++) {
 			final Vector3f n = normals[i];
 			vertexes[i] = new Vector3f(center.x() + n.x(), center.y() + n.y(), center.z() + n.z());
 
-			if(smoothNormals) {
+			if (smoothNormals) {
 				float x = n.x();
 				float y = n.y();
 				float z = n.z();
@@ -170,7 +170,7 @@ public class ModelBuilder {
 			}
 		}
 
-		if(!smoothNormals) {
+		if (!smoothNormals) {
 			normals = null;
 		}
 
@@ -179,7 +179,7 @@ public class ModelBuilder {
 		makeIcosahedronFace(false, 4, 5, 11, vertexes, normals, qe, material, sprite);
 		makeIcosahedronFace(true, 0, 5, 1, vertexes, normals, qe, material, sprite);
 		makeIcosahedronFace(false, 9, 1, 5, vertexes, normals, qe, material, sprite);
-		makeIcosahedronFace(true,  0, 1, 7, vertexes, normals, qe, material, sprite);
+		makeIcosahedronFace(true, 0, 1, 7, vertexes, normals, qe, material, sprite);
 		makeIcosahedronFace(false, 8, 7, 1, vertexes, normals, qe, material, sprite);
 		makeIcosahedronFace(true, 0, 7, 10, vertexes, normals, qe, material, sprite);
 		makeIcosahedronFace(false, 6, 10, 7, vertexes, normals, qe, material, sprite);
@@ -198,7 +198,7 @@ public class ModelBuilder {
 	}
 
 	private static void makeIcosahedronFace(boolean topHalf, int p1, int p2, int p3, Vector3f[] points, Vector3f[] normals, QuadEmitter qe, RenderMaterial material, TextureAtlasSprite sprite) {
-		if(topHalf) {
+		if (topHalf) {
 			qe.pos(0, points[p1]).uv(0, 1, 1).vertexColor(-1, -1, -1, -1);
 			qe.pos(1, points[p2]).uv(1, 0, 1).vertexColor(-1, -1, -1, -1);
 			qe.pos(2, points[p3]).uv(2, 1, 0).vertexColor(-1, -1, -1, -1);
@@ -209,12 +209,14 @@ public class ModelBuilder {
 			qe.pos(2, points[p3]).uv(2, 0, 1).vertexColor(-1, -1, -1, -1);
 			qe.pos(3, points[p3]).uv(3, 0, 1).vertexColor(-1, -1, -1, -1);
 		}
-		if(normals != null) {
+
+		if (normals != null) {
 			qe.normal(0, normals[p1]);
 			qe.normal(1, normals[p2]);
 			qe.normal(2, normals[p3]);
 			qe.normal(3, normals[p3]);
 		}
+
 		qe.spriteBake(sprite, QuadEmitter.BAKE_NORMALIZED);
 		qe.material(material);
 		qe.emit();

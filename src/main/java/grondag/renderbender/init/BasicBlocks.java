@@ -114,10 +114,12 @@ public class BasicBlocks {
 		public VoxelShape getShape(BlockState blockState, BlockGetter blockView, BlockPos pos, CollisionContext entityContext) {
 			return Shapes.box(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
 		}
+
 		@Override
 		public int getLightBlock(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
 			return 1;
 		}
+
 		@Override
 		public float getShadeBrightness(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
 			return .4f;
@@ -127,7 +129,7 @@ public class BasicBlocks {
 	public static final VoxelShape ROUND_SHAPE = Block.box(1.0D, 1.0D, 1.0D, 14.0D, 14.0D, 15.0D);
 
 	private static class RoundBlock extends Block {
-		public RoundBlock(Properties settings) {
+		RoundBlock(Properties settings) {
 			super(settings);
 		}
 
@@ -135,10 +137,12 @@ public class BasicBlocks {
 		public VoxelShape getShape(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1, CollisionContext entityContext) {
 			return ROUND_SHAPE;
 		}
+
 		@Override
 		public int getLightBlock(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
 			return 1;
 		}
+
 		@Override
 		public float getShadeBrightness(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
 			return .5f;
@@ -172,10 +176,12 @@ public class BasicBlocks {
 		public VoxelShape getShape(BlockState blockState, BlockGetter blockView, BlockPos pos, CollisionContext entityContext) {
 			return Shapes.box(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
 		}
+
 		@Override
 		public int getLightBlock(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
 			return 1;
 		}
+
 		@Override
 		public float getShadeBrightness(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
 			return .4f;
@@ -200,7 +206,8 @@ public class BasicBlocks {
 
 		static void genColors(int[] data) {
 			final Random r = ThreadLocalRandom.current();
-			for(int i = 0; i < QUAD_COUNT; i++) {
+
+			for (int i = 0; i < QUAD_COUNT; i++) {
 				data[i] = ModelBuilder.randomPastelColor(r);
 			}
 		}
