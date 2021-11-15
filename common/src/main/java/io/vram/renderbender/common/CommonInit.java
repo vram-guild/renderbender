@@ -18,15 +18,17 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package io.vram.renderbender;
+package io.vram.renderbender.common;
 
-import net.fabricmc.api.ModInitializer;
+import io.vram.renderbender.BakeListenerTest;
+import io.vram.renderbender.init.BasicBlocks;
+import io.vram.renderbender.init.ExtendedBlocks;
 
-import io.vram.renderbender.common.CommonInit;
-
-public class RenderBender implements ModInitializer {
-	@Override
-	public void onInitialize() {
-		CommonInit.initialize();
+public class CommonInit {
+	public static void initialize() {
+		BasicBlocks.initialize();
+		ExtendedBlocks.initialize();
+		Fluids.initialize();
+		BakeListenerTest.initialize();
 	}
 }

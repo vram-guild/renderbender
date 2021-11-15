@@ -18,15 +18,19 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package io.vram.renderbender;
+package io.vram.renderbender.client;
 
-import net.fabricmc.api.ModInitializer;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 
-import io.vram.renderbender.common.CommonInit;
+import io.vram.frex.api.model.fluid.FluidAppearance;
+import io.vram.frex.api.model.fluid.FluidColorProvider;
+import io.vram.frex.api.model.fluid.FluidSpriteProvider;
+import io.vram.renderbender.common.Fluids;
 
-public class RenderBender implements ModInitializer {
-	@Override
-	public void onInitialize() {
-		CommonInit.initialize();
+public class FluidsClient {
+	public static void initialize() {
+		Registry.register(Registry.BLOCK, new ResourceLocation("renderbender:test_fluid"), Fluids.TEST_FLUID_BLOCK);
+		FluidAppearance.register(FluidColorProvider.of(0x88FFAABB), FluidSpriteProvider.WATER_SPRITES, Fluids.TEST_FLUID);
 	}
 }

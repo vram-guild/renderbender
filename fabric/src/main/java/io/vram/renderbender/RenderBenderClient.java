@@ -20,43 +20,13 @@
 
 package io.vram.renderbender;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.FoliageColor;
-
 import net.fabricmc.api.ClientModInitializer;
 
-import io.vram.frex.api.config.ShaderConfig;
-import io.vram.frex.api.world.BlockColorRegistry;
-import io.vram.frex.api.world.BlockEntityRenderData;
-import io.vram.frex.api.world.ItemColorRegistry;
-import io.vram.renderbender.init.BasicBlocks;
-import io.vram.renderbender.init.BasicBlocks.BeTestBlockEntity;
-import io.vram.renderbender.init.ModelDispatcher;
-import io.vram.renderbender.init.SimpleMaterials;
+import io.vram.renderbender.client.ClientInit;
 
 public class RenderBenderClient implements ClientModInitializer {
-	public static final Logger LOG = LogManager.getLogger();
-
 	@Override
 	public void onInitializeClient() {
-		ModelDispatcher.initialize();
-		RenderLoopTest.init();
-		Fluids.initClient();
-		SimpleMaterials.initialize();
-
-		ShaderConfig.registerShaderConfigSupplier(new ResourceLocation("renderbender:configtest"), () -> "#define SHADER_CONFIG_WORKS");
-		BlockEntityRenderData.registerProvider(BasicBlocks.BE_TEST_TYPE, be -> ((BeTestBlockEntity) be).getRenderData());
-
-		BlockColorRegistry.register((blockState, extendedBlockView, pos, colorIndex) -> {
-			return extendedBlockView != null && pos != null ? BiomeColors.getAverageFoliageColor(extendedBlockView, pos) : FoliageColor.getDefaultColor();
-		}, BasicBlocks.AO_TEST);
-
-		ItemColorRegistry.register((stack, colorIndex) -> {
-			return FoliageColor.getDefaultColor();
-		}, BasicBlocks.AO_TEST);
+		ClientInit.initialize();
 	}
 }

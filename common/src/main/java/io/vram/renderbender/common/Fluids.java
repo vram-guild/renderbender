@@ -18,7 +18,7 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package io.vram.renderbender;
+package io.vram.renderbender.common;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -42,21 +42,12 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
 
-import io.vram.frex.api.model.fluid.FluidAppearance;
-import io.vram.frex.api.model.fluid.FluidColorProvider;
-import io.vram.frex.api.model.fluid.FluidSpriteProvider;
-
 public class Fluids {
 	public static final Material TEST_FLUID_MATERIAL = new Material(MaterialColor.COLOR_LIGHT_BLUE, true, false, false, false, false, true, PushReaction.DESTROY);
 	public static final FlowingFluid TEST_FLUID = Registry.register(Registry.FLUID, new ResourceLocation("renderbender:test_fluid"), new TestFluid());
 	public static final LiquidBlock TEST_FLUID_BLOCK = new LiquidBlock(Fluids.TEST_FLUID, BlockBehaviour.Properties.of(TEST_FLUID_MATERIAL).noCollission().strength(100.0F).noDrops()) { };
 
-	public static void initialize() {
-	}
-
-	public static void initClient() {
-		Registry.register(Registry.BLOCK, new ResourceLocation("renderbender:test_fluid"), TEST_FLUID_BLOCK);
-		FluidAppearance.register(FluidColorProvider.of(0x88FFAABB), FluidSpriteProvider.WATER_SPRITES, TEST_FLUID);
+	static void initialize() {
 	}
 
 	public static class TestFluid extends FlowingFluid {
