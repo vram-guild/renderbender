@@ -28,6 +28,7 @@ public class CommonInit {
 	public static void initialize() {
 		if (RenderBender.customFluid) FluidsCommon.initialize();
 		if (RenderBender.simpleMaterials) SimpleMaterialsCommon.initialize();
+		if (RenderBender.nonCubics) NonCubicsCommon.initialize();
 		BasicBlocks.initialize();
 		ExtendedBlocks.initialize();
 	}

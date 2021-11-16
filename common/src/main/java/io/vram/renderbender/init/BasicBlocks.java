@@ -48,14 +48,6 @@ public class BasicBlocks {
 		RenderBender.registerBlock(GLOW_BLOCK_DYNAMIC, "glow_dynamic", RenderBender.ITEM_FACTORY_STANDARD);
 		RenderBender.registerBlock(AO_TEST, "ao_test", RenderBender.ITEM_FACTORY_STANDARD);
 		RenderBender.registerBlock(SHADE_TEST, "shade_test", RenderBender.ITEM_FACTORY_STANDARD);
-		RenderBender.registerBlock(ROUND_BLOCK_HARD, "round_hard", RenderBender.ITEM_FACTORY_ENCHANTED);
-		RenderBender.registerBlock(ROUND_BLOCK_HARD_AO, "round_hard_ao", RenderBender.ITEM_FACTORY_ENCHANTED);
-		RenderBender.registerBlock(ROUND_BLOCK_HARD_DIFFUSE, "round_hard_diffuse", RenderBender.ITEM_FACTORY_ENCHANTED);
-		RenderBender.registerBlock(ROUND_BLOCK_HARD_DIFFUSE_GLOW, "round_hard_diffuse_glow", RenderBender.ITEM_FACTORY_ENCHANTED);
-		RenderBender.registerBlock(ROUND_BLOCK_SOFT, "round_soft", RenderBender.ITEM_FACTORY_ENCHANTED);
-		RenderBender.registerBlock(ROUND_BLOCK_SOFT_AO, "round_soft_ao", RenderBender.ITEM_FACTORY_ENCHANTED);
-		RenderBender.registerBlock(ROUND_BLOCK_SOFT_DIFFUSE, "round_soft_diffuse", RenderBender.ITEM_FACTORY_ENCHANTED);
-		RenderBender.registerBlock(ROUND_BLOCK_SOFT_DIFFUSE_GLOW, "round_soft_diffuse_glow", RenderBender.ITEM_FACTORY_ENCHANTED);
 		RenderBender.registerBlock(BE_TEST_BLOCK, "be_test", RenderBender.ITEM_FACTORY_STANDARD);
 
 		Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation("renderbender", "be_test"), BE_TEST_TYPE);
@@ -88,39 +80,6 @@ public class BasicBlocks {
 			return .4f;
 		}
 	};
-
-	public static final VoxelShape ROUND_SHAPE = Block.box(1.0D, 1.0D, 1.0D, 14.0D, 14.0D, 15.0D);
-
-	private static class RoundBlock extends Block {
-		RoundBlock(Properties settings) {
-			super(settings);
-		}
-
-		@Override
-		public VoxelShape getShape(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1, CollisionContext entityContext) {
-			return ROUND_SHAPE;
-		}
-
-		@Override
-		public int getLightBlock(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
-			return 1;
-		}
-
-		@Override
-		public float getShadeBrightness(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
-			return .5f;
-		}
-	}
-
-	public static final Block ROUND_BLOCK_HARD = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
-	public static final Block ROUND_BLOCK_HARD_AO = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
-	public static final Block ROUND_BLOCK_HARD_DIFFUSE = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
-	public static final Block ROUND_BLOCK_HARD_DIFFUSE_GLOW = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
-
-	public static final Block ROUND_BLOCK_SOFT = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
-	public static final Block ROUND_BLOCK_SOFT_AO = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
-	public static final Block ROUND_BLOCK_SOFT_DIFFUSE = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
-	public static final Block ROUND_BLOCK_SOFT_DIFFUSE_GLOW = new RoundBlock(Properties.of(Material.STONE).strength(1, 1));
 
 	public static Block BE_TEST_BLOCK = new BeTestBlock();
 	public static final BlockEntityType<BasicBlocks.BeTestBlockEntity> BE_TEST_TYPE = BlockEntityType.Builder.of(BasicBlocks.BeTestBlockEntity::new, BE_TEST_BLOCK).build(null);

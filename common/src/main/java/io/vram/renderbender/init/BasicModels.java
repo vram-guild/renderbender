@@ -24,8 +24,6 @@ import static io.vram.renderbender.model.ModelBuilder.FULL_BRIGHTNESS;
 
 import java.util.HashMap;
 
-import com.mojang.math.Vector3f;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -76,54 +74,6 @@ public class BasicModels {
 				-1, sprite,
 				0, 0, 0, 1, 1, 1);
 			return new SimpleModel(mb.builder.build(), GLOW_TRANSFORM, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
-		}));
-
-		models.put("round_hard", new SimpleUnbakedModel(mb -> {
-			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().find(), sprite, false);
-			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
-		}));
-
-		models.put("round_hard_diffuse", new SimpleUnbakedModel(mb -> {
-			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableAo(true).find(), sprite, false);
-			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
-		}));
-
-		models.put("round_hard_diffuse_glow", new SimpleUnbakedModel(mb -> {
-			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().emissive(true).disableAo(true).find(), sprite, false);
-			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
-		}));
-
-		models.put("round_hard_ao", new SimpleUnbakedModel(mb -> {
-			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableDiffuse(true).find(), sprite, false);
-			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
-		}));
-
-		models.put("round_soft", new SimpleUnbakedModel(mb -> {
-			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().find(), sprite, true);
-			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
-		}));
-
-		models.put("round_soft_diffuse", new SimpleUnbakedModel(mb -> {
-			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableAo(true).find(), sprite, true);
-			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
-		}));
-
-		models.put("round_soft_diffuse_glow", new SimpleUnbakedModel(mb -> {
-			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().emissive(true).disableAo(true).find(), sprite, true);
-			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
-		}));
-
-		models.put("round_soft_ao", new SimpleUnbakedModel(mb -> {
-			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			ModelBuilder.makeIcosahedron(new Vector3f(0.5f, 0.5f, 0.5f), 0.5f, mb.builder.getEmitter(), mb.finder().disableDiffuse(true).find(), sprite, true);
-			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("ao_test", new SimpleUnbakedModel(mb -> {

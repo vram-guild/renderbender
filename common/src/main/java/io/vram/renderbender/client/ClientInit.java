@@ -39,6 +39,7 @@ public class ClientInit {
 		if (RenderBender.regionBakeListener) RegionBakeListener.initialize();
 		if (RenderBender.renderLoopListener) RenderLoopListener.initialize();
 		if (RenderBender.simpleMaterials) SimpleMaterials.initialize();
+		if (RenderBender.nonCubics) NonCubics.initialize();
 
 		ModelDispatcher.initialize();
 
