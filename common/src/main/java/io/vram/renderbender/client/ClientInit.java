@@ -37,9 +37,10 @@ public class ClientInit {
 	public static void initialize() {
 		if (RenderBender.customFluid) Fluids.initialize();
 		if (RenderBender.regionBakeListener) RegionBakeListener.initialize();
-		if (RenderBender.renderLoopListener) RenderLoopListener.initialize();
+		if (RenderBender.renderLoopListener) RenderLoop.initialize();
 		if (RenderBender.simpleMaterials) SimpleMaterials.initialize();
 		if (RenderBender.nonCubics) NonCubics.initialize();
+		if (RenderBender.dynamicModels) Dynamic.initialize();
 
 		ModelDispatcher.initialize();
 

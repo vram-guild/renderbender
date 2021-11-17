@@ -20,8 +20,6 @@
 
 package io.vram.renderbender.init;
 
-import static io.vram.renderbender.model.ModelBuilder.FULL_BRIGHTNESS;
-
 import java.util.HashMap;
 
 import net.minecraft.client.Minecraft;
@@ -31,7 +29,6 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.BlockAndTintGetter;
 
 import io.vram.frex.api.buffer.QuadEmitter;
@@ -44,7 +41,6 @@ import io.vram.frex.api.model.util.BakedModelUtil;
 import io.vram.frex.api.renderer.Renderer;
 import io.vram.frex.base.renderer.util.BakedModelTranscoder;
 import io.vram.renderbender.model.DynamicRenderer;
-import io.vram.renderbender.model.ModelBuilder;
 import io.vram.renderbender.model.SimpleModel;
 import io.vram.renderbender.model.SimpleUnbakedModel;
 
@@ -66,14 +62,6 @@ public class BasicModels {
 					BakedModelTranscoder.accept(baseModel, input, output);
 				}
 			});
-		}));
-
-		models.put("glow_dynamic", new SimpleUnbakedModel(mb -> {
-			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			mb.box(mb.finder().find(),
-				-1, sprite,
-				0, 0, 0, 1, 1, 1);
-			return new SimpleModel(mb.builder.build(), GLOW_TRANSFORM, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
 
 		models.put("ao_test", new SimpleUnbakedModel(mb -> {
@@ -161,24 +149,4 @@ public class BasicModels {
 			}
 		};
 	}
-
-	static final QuadTransform GLOW_TRANSFORM = (ctx, in, out) -> {
-		final var random = ctx.random();
-		final int topColor = ModelBuilder.randomPastelColor(random);
-		final int bottomColor = ModelBuilder.randomPastelColor(random);
-		final boolean topGlow = random.nextBoolean();
-		final int topLight = topGlow ? FULL_BRIGHTNESS : 0;
-		final int bottomLight = topGlow ? 0 : FULL_BRIGHTNESS;
-		in.copyTo(out);
-
-		for (int i = 0; i < 4; i++) {
-			if (Mth.equal(out.y(i), 0)) {
-				out.vertexColor(i, bottomColor).lightmap(i, bottomLight);
-			} else {
-				out.vertexColor(i, topColor).lightmap(i, topLight);
-			}
-		}
-
-		out.emit();
-	};
 }

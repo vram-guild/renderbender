@@ -40,12 +40,11 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import io.vram.renderbender.RenderBender;
-import io.vram.renderbender.model.ModelBuilder;
+import io.vram.renderbender.client.Dynamic;
 
 public class BasicBlocks {
 	public static void initialize() {
 		RenderBender.registerBlock(ITEM_TRANSFORM, "item_transform", RenderBender.ITEM_FACTORY_STANDARD);
-		RenderBender.registerBlock(GLOW_BLOCK_DYNAMIC, "glow_dynamic", RenderBender.ITEM_FACTORY_STANDARD);
 		RenderBender.registerBlock(AO_TEST, "ao_test", RenderBender.ITEM_FACTORY_STANDARD);
 		RenderBender.registerBlock(SHADE_TEST, "shade_test", RenderBender.ITEM_FACTORY_STANDARD);
 		RenderBender.registerBlock(BE_TEST_BLOCK, "be_test", RenderBender.ITEM_FACTORY_STANDARD);
@@ -54,7 +53,6 @@ public class BasicBlocks {
 	}
 
 	public static final Block ITEM_TRANSFORM = new Block(Properties.of(Material.STONE).strength(1, 1));
-	public static final Block GLOW_BLOCK_DYNAMIC = new Block(Properties.of(Material.STONE).strength(1, 1));
 
 	public static final Block AO_TEST = new Block(Properties.of(Material.STONE).dynamicShape().strength(1, 1)) {
 		@Override
@@ -130,7 +128,7 @@ public class BasicBlocks {
 			final Random r = ThreadLocalRandom.current();
 
 			for (int i = 0; i < QUAD_COUNT; i++) {
-				data[i] = ModelBuilder.randomPastelColor(r);
+				data[i] = Dynamic.randomPastelColor(r);
 			}
 		}
 

@@ -20,6 +20,8 @@
 
 package io.vram.renderbender.client;
 
+import net.minecraft.client.renderer.texture.TextureAtlas;
+
 import io.vram.frex.api.renderloop.BlockOutlineListener;
 import io.vram.frex.api.renderloop.BlockOutlinePreListener;
 import io.vram.frex.api.renderloop.DebugRenderListener;
@@ -30,14 +32,19 @@ import io.vram.frex.api.renderloop.TranslucentPostListener;
 import io.vram.frex.api.renderloop.WorldRenderLastListener;
 import io.vram.frex.api.renderloop.WorldRenderPostListener;
 import io.vram.frex.api.renderloop.WorldRenderStartListener;
+import io.vram.frex.api.texture.SpriteInjector;
+import io.vram.frex.base.client.model.StaticModel;
 import io.vram.renderbender.RenderBender;
-import io.vram.renderbender.init.BasicBlocks;
+import io.vram.renderbender.common.RenderLoopCommon;
 
-public class RenderLoopListener {
+public class RenderLoop {
 	private static boolean active = true;
 	private static boolean firstBlockOutline = true;
 
 	public static void initialize() {
+		SpriteInjector.injectAlways(TextureAtlas.LOCATION_BLOCKS, "renderbender:no_outline");
+		StaticModel.registerSimpleCubeModel("renderbender:no_outline", "renderbender:no_outline", -1, f -> f.find());
+
 		RenderBender.LOG.info("Registering FREX event test callbacks.");
 		RenderBender.LOG.info("Should see the following messages 1X in this order when world is loaded.");
 		RenderBender.LOG.info("    WorldRenderStartListener");
@@ -83,7 +90,7 @@ public class RenderLoopListener {
 		});
 
 		BlockOutlineListener.register((c, b) -> {
-			return b.blockState().getBlock() != BasicBlocks.GLOW_BLOCK_DYNAMIC;
+			return b.blockState().getBlock() != RenderLoopCommon.noOutlineBlock();
 		});
 
 		DebugRenderListener.register(c -> {

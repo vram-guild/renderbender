@@ -20,7 +20,6 @@
 
 package io.vram.renderbender.model;
 
-import java.util.Random;
 import java.util.function.Function;
 
 import net.minecraft.client.renderer.texture.TextureAtlas;
@@ -51,8 +50,6 @@ public class ModelBuilder {
 
 	public final MeshBuilder builder;
 	private final MaterialFinder finder;
-	public static final int FULL_BRIGHTNESS = 15 << 20 | 15 << 4;
-
 	private ModelBuilder() {
 		final Renderer renderer = Renderer.get();
 		builder = renderer.meshBuilder();
@@ -115,9 +112,5 @@ public class ModelBuilder {
 		.uvUnitSquare()
 		.spriteBake(sprite, QuadEmitter.BAKE_NORMALIZED)
 			.emit();
-	}
-
-	public static int randomPastelColor(Random random) {
-		return 0xFF000000 | ((random.nextInt(127) + 127) << 16) | ((random.nextInt(127) + 127) << 8) | (random.nextInt(127) + 127);
 	}
 }
