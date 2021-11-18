@@ -33,32 +33,32 @@ import io.vram.frex.base.client.model.TransformingModel;
 
 public class Dynamic {
 	public static void initialize() {
-		TransformingModel.registerTransformingModel(
-			"renderbender:dynamic_glow",
+		final QuadTransform transform = (ctx, in, out) -> {
+			final var random = ctx.random();
+			final int topColor = Dynamic.randomPastelColor(random);
+			final int bottomColor = Dynamic.randomPastelColor(random);
+			final boolean topGlow = random.nextBoolean();
+			final int topLight = topGlow ? ColorUtil.FULL_BRIGHTNESS : 0;
+			final int bottomLight = topGlow ? 0 : ColorUtil.FULL_BRIGHTNESS;
+			in.copyTo(out);
+
+			for (int i = 0; i < 4; i++) {
+				if (Mth.equal(out.y(i), 0)) {
+					out.vertexColor(i, bottomColor).lightmap(i, bottomLight);
+				} else {
+					out.vertexColor(i, topColor).lightmap(i, topLight);
+				}
+			}
+
+			out.emit();
+		};
+
+		TransformingModel.createAndRegisterProvider(
 			b -> b.defaultParticleSprite("minecraft:block/white_concrete_powder"),
 			() -> (BlockItemModel) BlockModel.get(Blocks.WHITE_CONCRETE_POWDER.defaultBlockState()),
-			GLOW_TRANSFORM);
+			transform,
+			"renderbender:dynamic_glow");
 	}
-
-	private static final QuadTransform GLOW_TRANSFORM = (ctx, in, out) -> {
-		final var random = ctx.random();
-		final int topColor = Dynamic.randomPastelColor(random);
-		final int bottomColor = Dynamic.randomPastelColor(random);
-		final boolean topGlow = random.nextBoolean();
-		final int topLight = topGlow ? ColorUtil.FULL_BRIGHTNESS : 0;
-		final int bottomLight = topGlow ? 0 : ColorUtil.FULL_BRIGHTNESS;
-		in.copyTo(out);
-
-		for (int i = 0; i < 4; i++) {
-			if (Mth.equal(out.y(i), 0)) {
-				out.vertexColor(i, bottomColor).lightmap(i, bottomLight);
-			} else {
-				out.vertexColor(i, topColor).lightmap(i, topLight);
-			}
-		}
-
-		out.emit();
-	};
 
 	public static int randomPastelColor(Random random) {
 		return 0xFF000000 | ((random.nextInt(127) + 127) << 16) | ((random.nextInt(127) + 127) << 8) | (random.nextInt(127) + 127);

@@ -26,11 +26,9 @@ import net.minecraft.world.level.FoliageColor;
 
 import io.vram.frex.api.config.ShaderConfig;
 import io.vram.frex.api.world.BlockColorRegistry;
-import io.vram.frex.api.world.BlockEntityRenderData;
 import io.vram.frex.api.world.ItemColorRegistry;
 import io.vram.renderbender.RenderBender;
 import io.vram.renderbender.init.BasicBlocks;
-import io.vram.renderbender.init.BasicBlocks.BeTestBlockEntity;
 import io.vram.renderbender.init.ModelDispatcher;
 
 public class ClientInit {
@@ -41,11 +39,11 @@ public class ClientInit {
 		if (RenderBender.simpleMaterials) SimpleMaterials.initialize();
 		if (RenderBender.nonCubics) NonCubics.initialize();
 		if (RenderBender.dynamicModels) Dynamic.initialize();
+		if (RenderBender.blockEntityData) BlockEntityData.initialize();
 
 		ModelDispatcher.initialize();
 
 		ShaderConfig.registerShaderConfigSupplier(new ResourceLocation("renderbender:configtest"), () -> "#define SHADER_CONFIG_WORKS");
-		BlockEntityRenderData.registerProvider(BasicBlocks.BE_TEST_TYPE, be -> ((BeTestBlockEntity) be).getRenderData());
 
 		BlockColorRegistry.register((blockState, extendedBlockView, pos, colorIndex) -> {
 			return extendedBlockView != null && pos != null ? BiomeColors.getAverageFoliageColor(extendedBlockView, pos) : FoliageColor.getDefaultColor();

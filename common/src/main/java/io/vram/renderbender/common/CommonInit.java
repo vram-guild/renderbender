@@ -31,6 +31,7 @@ public class CommonInit {
 		if (RenderBender.simpleMaterials) SimpleMaterialsCommon.initialize();
 		if (RenderBender.nonCubics) NonCubicsCommon.initialize();
 		if (RenderBender.dynamicModels) DynamicCommon.initialize();
+		if (RenderBender.blockEntityData) BlockEntityDataCommon.initialize();
 
 		BasicBlocks.initialize();
 		ExtendedBlocks.initialize();

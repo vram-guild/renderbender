@@ -31,7 +31,7 @@ import io.vram.frex.api.material.MaterialFinder;
 import io.vram.frex.api.material.RenderMaterial;
 import io.vram.frex.api.model.provider.ModelProviderRegistry;
 import io.vram.frex.base.client.model.MeshFactory;
-import io.vram.frex.base.client.model.StaticModel;
+import io.vram.frex.base.client.model.StaticMeshModel;
 
 public class NonCubics {
 	public static void initialize() {
@@ -59,7 +59,7 @@ public class NonCubics {
 			return meshBuilder.build();
 		};
 
-		ModelProviderRegistry.registerBlockItemProvider(StaticModel.createProviderFunction(b -> b.defaultParticleSprite("minecraft:block/white_concrete"), meshFactory), blockPath);
+		ModelProviderRegistry.registerBlockItemProvider(StaticMeshModel.createProvider(b -> b.defaultParticleSprite("minecraft:block/white_concrete"), meshFactory), blockPath);
 	}
 
 	/**

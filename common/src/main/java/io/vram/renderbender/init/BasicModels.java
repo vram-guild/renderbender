@@ -75,32 +75,6 @@ public class BasicModels {
 				1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
 			return new SimpleModel(mb.builder.build(), null, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
 		}));
-
-		models.put("be_test", new SimpleUnbakedModel(mb -> {
-			final TextureAtlasSprite sprite = mb.getSprite("minecraft:block/white_concrete");
-			final RenderMaterial mat = mb.finder().find();
-			final float PIXEL = 1f/16f;
-			final QuadEmitter qe = mb.builder.getEmitter();
-			int t = 0;
-
-			for (int d = 0; d < 6; d++) {
-				final Direction face = Direction.from3DDataValue(d);
-
-				for (int i = 0; i < 14; i++) {
-					final float u = PIXEL + PIXEL * i;
-
-					for (int j = 0; j < 14; j++) {
-						final float v = PIXEL + PIXEL * j;
-						qe.tag(t++);
-						qe.material(mat).square(face, u, v, u + PIXEL, v + PIXEL, PIXEL)
-						.vertexColor(-1, -1, -1, -1)
-						.spriteBake(sprite, QuadEmitter.BAKE_LOCK_UV).emit();
-					}
-				}
-			}
-
-			return new SimpleModel(mb.builder.build(), BeTestTransform.INSTANCE, sprite, BakedModelUtil.MODEL_TRANSFORM_BLOCK, null);
-		}));
 	}
 
 	// this is NOT the way to handle this...

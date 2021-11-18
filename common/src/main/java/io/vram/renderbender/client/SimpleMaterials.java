@@ -21,48 +21,48 @@
 package io.vram.renderbender.client;
 
 import io.vram.frex.api.material.MaterialConstants;
-import io.vram.frex.base.client.model.StaticModel;
+import io.vram.frex.base.client.model.StaticMeshModel;
 
 public class SimpleMaterials {
 	public static void initialize() {
-		StaticModel.registerSimpleCubeModel("renderbender:mat_default", "minecraft:block/white_concrete", -1, f -> f.find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_no_ao", "minecraft:block/white_concrete", -1, f -> f.disableAo(true).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_no_diffuse", "minecraft:block/white_concrete", -1, f -> f.disableDiffuse(true).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_no_shading", "minecraft:block/white_concrete", -1, f -> f.disableAo(true).disableDiffuse(true).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_default", "minecraft:block/white_concrete", -1, f -> f.find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_no_ao", "minecraft:block/white_concrete", -1, f -> f.disableAo(true).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_no_diffuse", "minecraft:block/white_concrete", -1, f -> f.disableDiffuse(true).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_no_shading", "minecraft:block/white_concrete", -1, f -> f.disableAo(true).disableDiffuse(true).find());
 
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive", "minecraft:block/white_concrete", -1, f -> f.emissive(true).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive_no_ao", "minecraft:block/white_concrete", -1, f -> f.emissive(true).disableAo(true).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive_no_diffuse", "minecraft:block/white_concrete", -1, f -> f.emissive(true).disableDiffuse(true).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive_no_shading", "minecraft:block/white_concrete", -1, f -> f.emissive(true).disableAo(true).disableDiffuse(true).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive", "minecraft:block/white_concrete", -1, f -> f.emissive(true).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive_no_ao", "minecraft:block/white_concrete", -1, f -> f.emissive(true).disableAo(true).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive_no_diffuse", "minecraft:block/white_concrete", -1, f -> f.emissive(true).disableDiffuse(true).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive_no_shading", "minecraft:block/white_concrete", -1, f -> f.emissive(true).disableAo(true).disableDiffuse(true).find());
 
-		StaticModel.registerSimpleCubeModel("renderbender:mat_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.preset(MaterialConstants.PRESET_TRANSLUCENT).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_no_ao_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.disableAo(true).preset(MaterialConstants.PRESET_TRANSLUCENT).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_no_diffuse_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.disableDiffuse(true).preset(MaterialConstants.PRESET_TRANSLUCENT).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_no_shading_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.disableAo(true).disableDiffuse(true).preset(MaterialConstants.PRESET_TRANSLUCENT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.preset(MaterialConstants.PRESET_TRANSLUCENT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_no_ao_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.disableAo(true).preset(MaterialConstants.PRESET_TRANSLUCENT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_no_diffuse_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.disableDiffuse(true).preset(MaterialConstants.PRESET_TRANSLUCENT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_no_shading_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.disableAo(true).disableDiffuse(true).preset(MaterialConstants.PRESET_TRANSLUCENT).find());
 
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.emissive(true).preset(MaterialConstants.PRESET_TRANSLUCENT).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive_no_ao_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.emissive(true).disableAo(true).preset(MaterialConstants.PRESET_TRANSLUCENT).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive_no_diffuse_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.emissive(true).disableDiffuse(true).preset(MaterialConstants.PRESET_TRANSLUCENT).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive_no_shading_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.emissive(true).disableAo(true).disableDiffuse(true).preset(MaterialConstants.PRESET_TRANSLUCENT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.emissive(true).preset(MaterialConstants.PRESET_TRANSLUCENT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive_no_ao_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.emissive(true).disableAo(true).preset(MaterialConstants.PRESET_TRANSLUCENT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive_no_diffuse_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.emissive(true).disableDiffuse(true).preset(MaterialConstants.PRESET_TRANSLUCENT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive_no_shading_trans", "minecraft:block/white_concrete", 0x80FFFFFF, f -> f.emissive(true).disableAo(true).disableDiffuse(true).preset(MaterialConstants.PRESET_TRANSLUCENT).find());
 
-		StaticModel.registerSimpleCubeModel("renderbender:mat_cutout", "minecraft:block/oak_leaves", -1, f -> f.preset(MaterialConstants.PRESET_CUTOUT).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_no_ao_cutout", "minecraft:block/oak_leaves", -1, f -> f.disableAo(true).preset(MaterialConstants.PRESET_CUTOUT).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_no_diffuse_cutout", "minecraft:block/oak_leaves", -1, f -> f.disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_no_shading_cutout", "minecraft:block/oak_leaves", -1, f -> f.disableAo(true).disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_cutout", "minecraft:block/oak_leaves", -1, f -> f.preset(MaterialConstants.PRESET_CUTOUT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_no_ao_cutout", "minecraft:block/oak_leaves", -1, f -> f.disableAo(true).preset(MaterialConstants.PRESET_CUTOUT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_no_diffuse_cutout", "minecraft:block/oak_leaves", -1, f -> f.disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_no_shading_cutout", "minecraft:block/oak_leaves", -1, f -> f.disableAo(true).disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT).find());
 
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive_cutout", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).preset(MaterialConstants.PRESET_CUTOUT).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive_no_ao_cutout", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).disableAo(true).preset(MaterialConstants.PRESET_CUTOUT).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive_no_diffuse_cutout", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive_no_shading_cutout", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).disableAo(true).disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive_cutout", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).preset(MaterialConstants.PRESET_CUTOUT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive_no_ao_cutout", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).disableAo(true).preset(MaterialConstants.PRESET_CUTOUT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive_no_diffuse_cutout", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive_no_shading_cutout", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).disableAo(true).disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT).find());
 
-		StaticModel.registerSimpleCubeModel("renderbender:mat_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_no_ao_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.disableAo(true).preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_no_diffuse_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_no_shading_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.disableAo(true).disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_no_ao_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.disableAo(true).preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_no_diffuse_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_no_shading_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.disableAo(true).disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
 
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive_no_ao_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).disableAo(true).preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive_no_diffuse_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
-		StaticModel.registerSimpleCubeModel("renderbender:mat_emissive_no_shading_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).disableAo(true).disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive_no_ao_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).disableAo(true).preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive_no_diffuse_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
+		StaticMeshModel.createAndRegisterCube("renderbender:mat_emissive_no_shading_cutout_mipped", "minecraft:block/oak_leaves", -1, f -> f.emissive(true).disableAo(true).disableDiffuse(true).preset(MaterialConstants.PRESET_CUTOUT_MIPPED).find());
 	}
 }
