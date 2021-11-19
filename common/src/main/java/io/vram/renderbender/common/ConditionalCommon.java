@@ -18,7 +18,7 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package io.vram.renderbender.init;
+package io.vram.renderbender.common;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -32,13 +32,12 @@ import net.minecraft.world.level.material.MaterialColor;
 
 import io.vram.renderbender.RenderBender;
 
-public class ExtendedBlocks {
-	private static final Block SHADER_BLOCK = new Block(Properties
-			.of(Material.STONE).strength(1, 1)
-			.color(MaterialColor.COLOR_CYAN)
-			.isValidSpawn((s, v, p, o) -> false)
-			.isRedstoneConductor((s, v, p) -> false)
-			.isSuffocating((s, v, p) -> false));
+public class ConditionalCommon {
+	public static void initialize() {
+		CONDITION_ITEM = RenderBender.registerBlock(CONDITIONAL_BLOCK, "conditional", RenderBender.ITEM_FACTORY_STANDARD);
+	}
+
+	public static Item CONDITION_ITEM;
 
 	private static final Block CONDITIONAL_BLOCK = new Block(Properties
 			.of(Material.GLASS).strength(1, 1)
@@ -63,12 +62,4 @@ public class ExtendedBlocks {
 			return 0;
 		}
 	};
-
-	public static Item CONDITION_ITEM;
-
-	public static void initialize() {
-		RenderBender.registerBlock(SHADER_BLOCK, "shader", RenderBender.ITEM_FACTORY_STANDARD);
-
-		CONDITION_ITEM = RenderBender.registerBlock(CONDITIONAL_BLOCK, "conditional", RenderBender.ITEM_FACTORY_STANDARD);
-	}
 }

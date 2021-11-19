@@ -18,7 +18,7 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package io.vram.renderbender.init;
+package io.vram.renderbender.client;
 
 public class BiomeInputTest {
 	// TODO: implement to test BockInputContext.getBiome()

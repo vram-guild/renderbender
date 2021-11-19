@@ -24,7 +24,6 @@ import net.minecraft.resources.ResourceLocation;
 
 import io.vram.frex.api.config.ShaderConfig;
 import io.vram.renderbender.RenderBender;
-import io.vram.renderbender.init.ModelDispatcher;
 
 public class ClientInit {
 	public static void initialize() {
@@ -39,8 +38,8 @@ public class ClientInit {
 		if (RenderBender.subcubicShading) Subcubic.initialize();
 		if (RenderBender.itemTransform) ItemTransform.initialize();
 		if (RenderBender.aoTest) AoTest.initialize();
-
-		ModelDispatcher.initialize();
+		if (RenderBender.conditional) Conditional.initialize();
+		if (RenderBender.shader) Shader.initialize();
 
 		ShaderConfig.registerShaderConfigSupplier(new ResourceLocation("renderbender:configtest"), () -> "#define SHADER_CONFIG_WORKS");
 	}

@@ -18,25 +18,27 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package io.vram.renderbender.model;
+package io.vram.renderbender.common;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 
-/**
- * Used to control visibility of multi-part model parts.
- */
-@FunctionalInterface
-public interface PartVisibilityPredicate {
-	PartVisibilityPredicate ALWAYS = (v, s, p) -> true;
+import io.vram.renderbender.RenderBender;
 
-	/**
-	 * Note the block view and position parameters will be null
-	 * if the model is being converted to vanilla baked quads.
-	 * Recommendation is to use reasonable defaults for a damage
-	 * model in that case. Future API versions will probably provide
-	 * better support for dynamic damage models.
-	 */
-	boolean apply(BlockAndTintGetter blockView, BlockState state, BlockPos pos);
+public class ShaderCommon {
+	public static void initialize() {
+		RenderBender.registerBlock(SHADER_BLOCK, "shader", RenderBender.ITEM_FACTORY_STANDARD);
+	}
+
+	public static Item CONDITION_ITEM;
+
+	private static final Block SHADER_BLOCK = new Block(Properties
+			.of(Material.STONE).strength(1, 1)
+			.color(MaterialColor.COLOR_CYAN)
+			.isValidSpawn((s, v, p, o) -> false)
+			.isRedstoneConductor((s, v, p) -> false)
+			.isSuffocating((s, v, p) -> false));
 }

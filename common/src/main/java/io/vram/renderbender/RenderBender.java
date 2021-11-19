@@ -46,6 +46,8 @@ public class RenderBender {
 	public static boolean subcubicShading = true;
 	public static boolean itemTransform = true;
 	public static boolean aoTest = true;
+	public static boolean conditional = true;
+	public static boolean shader = true;
 
 	public static Item registerBlock(Block block, String name, Function<Block, Item> itemFactory) {
 		final ResourceLocation id = new ResourceLocation("renderbender", name);

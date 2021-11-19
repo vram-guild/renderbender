@@ -21,7 +21,6 @@
 package io.vram.renderbender.common;
 
 import io.vram.renderbender.RenderBender;
-import io.vram.renderbender.init.ExtendedBlocks;
 
 public class CommonInit {
 	public static void initialize() {
@@ -34,7 +33,7 @@ public class CommonInit {
 		if (RenderBender.subcubicShading) SubcubicCommon.initialize();
 		if (RenderBender.itemTransform) ItemTransformCommon.initialize();
 		if (RenderBender.aoTest) AoTestCommon.initialize();
-
-		ExtendedBlocks.initialize();
+		if (RenderBender.conditional) ConditionalCommon.initialize();
+		if (RenderBender.shader) ShaderCommon.initialize();
 	}
 }
