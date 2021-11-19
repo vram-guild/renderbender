@@ -41,8 +41,11 @@ public class RenderBender {
 	public static boolean renderLoopListener = true;
 	public static boolean simpleMaterials = true;
 	public static boolean nonCubics = true;
-	public static boolean dynamicModels = true;
+	public static boolean dynamicGlow = true;
 	public static boolean blockEntityData = true;
+	public static boolean subcubicShading = true;
+	public static boolean itemTransform = true;
+	public static boolean aoTest = true;
 
 	public static Item registerBlock(Block block, String name, Function<Block, Item> itemFactory) {
 		final ResourceLocation id = new ResourceLocation("renderbender", name);

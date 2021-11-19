@@ -18,7 +18,7 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package io.vram.renderbender.init;
+package io.vram.renderbender.common;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -32,37 +32,16 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import io.vram.renderbender.RenderBender;
 
-public class BasicBlocks {
+public class AoTestCommon {
 	public static void initialize() {
-		RenderBender.registerBlock(ITEM_TRANSFORM, "item_transform", RenderBender.ITEM_FACTORY_STANDARD);
 		RenderBender.registerBlock(AO_TEST, "ao_test", RenderBender.ITEM_FACTORY_STANDARD);
-		RenderBender.registerBlock(SHADE_TEST, "shade_test", RenderBender.ITEM_FACTORY_STANDARD);
 	}
-
-	public static final Block ITEM_TRANSFORM = new Block(Properties.of(Material.STONE).strength(1, 1));
 
 	public static final Block AO_TEST = new Block(Properties.of(Material.STONE).dynamicShape().strength(1, 1)) {
 		@Override
 		public VoxelShape getShape(BlockState blockState, BlockGetter blockView, BlockPos pos, CollisionContext entityContext) {
 			final float height = (1 + (pos.hashCode() & 15)) / 16f;
 			return Shapes.box(0, 0, 0, 1, height, 1);
-		}
-	};
-
-	public static final Block SHADE_TEST = new Block(Properties.of(Material.STONE).strength(1, 1)) {
-		@Override
-		public VoxelShape getShape(BlockState blockState, BlockGetter blockView, BlockPos pos, CollisionContext entityContext) {
-			return Shapes.box(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
-		}
-
-		@Override
-		public int getLightBlock(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
-			return 1;
-		}
-
-		@Override
-		public float getShadeBrightness(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
-			return .4f;
 		}
 	};
 }

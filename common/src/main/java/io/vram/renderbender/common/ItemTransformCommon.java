@@ -20,21 +20,14 @@
 
 package io.vram.renderbender.common;
 
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.level.material.Material;
+
 import io.vram.renderbender.RenderBender;
-import io.vram.renderbender.init.ExtendedBlocks;
 
-public class CommonInit {
+public class ItemTransformCommon {
 	public static void initialize() {
-		if (RenderBender.renderLoopListener) RenderLoopCommon.initialize();
-		if (RenderBender.customFluid) FluidsCommon.initialize();
-		if (RenderBender.simpleMaterials) SimpleMaterialsCommon.initialize();
-		if (RenderBender.nonCubics) NonCubicsCommon.initialize();
-		if (RenderBender.dynamicGlow) DynamicGlowCommon.initialize();
-		if (RenderBender.blockEntityData) BlockEntityDataCommon.initialize();
-		if (RenderBender.subcubicShading) SubcubicCommon.initialize();
-		if (RenderBender.itemTransform) ItemTransformCommon.initialize();
-		if (RenderBender.aoTest) AoTestCommon.initialize();
-
-		ExtendedBlocks.initialize();
+		RenderBender.registerBlock(new Block(Properties.of(Material.STONE).strength(1, 1)), "item_transform", RenderBender.ITEM_FACTORY_STANDARD);
 	}
 }

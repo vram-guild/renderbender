@@ -33,7 +33,6 @@ public class ModelDispatcher {
 	private static void initModels() {
 		if (models == null) {
 			models = new HashMap<>();
-			BasicModels.initialize(models);
 			ExtendedModels.initialize(models);
 		}
 	}

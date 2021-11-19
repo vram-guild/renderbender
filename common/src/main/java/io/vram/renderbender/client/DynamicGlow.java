@@ -31,12 +31,12 @@ import io.vram.frex.api.model.BlockModel;
 import io.vram.frex.api.model.util.ColorUtil;
 import io.vram.frex.base.client.model.TransformingModel;
 
-public class Dynamic {
+public class DynamicGlow {
 	public static void initialize() {
 		final QuadTransform transform = (ctx, in, out) -> {
 			final var random = ctx.random();
-			final int topColor = Dynamic.randomPastelColor(random);
-			final int bottomColor = Dynamic.randomPastelColor(random);
+			final int topColor = DynamicGlow.randomPastelColor(random);
+			final int bottomColor = DynamicGlow.randomPastelColor(random);
 			final boolean topGlow = random.nextBoolean();
 			final int topLight = topGlow ? ColorUtil.FULL_BRIGHTNESS : 0;
 			final int bottomLight = topGlow ? 0 : ColorUtil.FULL_BRIGHTNESS;

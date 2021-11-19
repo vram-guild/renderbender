@@ -20,18 +20,10 @@
 
 package io.vram.renderbender.common;
 
-import java.util.Random;
-
-import io.netty.util.internal.ThreadLocalRandom;
-
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -39,27 +31,13 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import io.vram.renderbender.RenderBender;
-import io.vram.renderbender.client.DynamicGlow;
 
-public class BlockEntityDataCommon {
+public class SubcubicCommon {
 	public static void initialize() {
-		RenderBender.registerBlock(BE_TEST_BLOCK, "be_data", RenderBender.ITEM_FACTORY_STANDARD);
-		Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation("renderbender", "be_data"), BE_TEST_TYPE);
+		RenderBender.registerBlock(SHADE_TEST, "subcubic", RenderBender.ITEM_FACTORY_STANDARD);
 	}
 
-	public static Block BE_TEST_BLOCK = new BeTestBlock();
-	public static final BlockEntityType<BeTestBlockEntity> BE_TEST_TYPE = BlockEntityType.Builder.of(BeTestBlockEntity::new, BE_TEST_BLOCK).build(null);
-
-	public static class BeTestBlock extends Block implements EntityBlock {
-		public BeTestBlock() {
-			super(Properties.of(Material.STONE).dynamicShape().strength(1, 1));
-		}
-
-		@Override
-		public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-			return new BeTestBlockEntity(pos, state);
-		}
-
+	public static final Block SHADE_TEST = new Block(Properties.of(Material.STONE).strength(1, 1)) {
 		@Override
 		public VoxelShape getShape(BlockState blockState, BlockGetter blockView, BlockPos pos, CollisionContext entityContext) {
 			return Shapes.box(1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f);
@@ -74,34 +52,5 @@ public class BlockEntityDataCommon {
 		public float getShadeBrightness(BlockState blockState_1, BlockGetter blockView_1, BlockPos blockPos_1) {
 			return .4f;
 		}
-	}
-
-	public static class BeTestBlockEntity extends BlockEntity {
-		static final int QUAD_COUNT = 6 * 14 * 14;
-		private final int[] colors = new int[QUAD_COUNT];
-
-		public static final int[] ITEM_COLORS;
-
-		static {
-			ITEM_COLORS = new int[QUAD_COUNT];
-			genColors(ITEM_COLORS);
-		}
-
-		public BeTestBlockEntity(BlockPos pos, BlockState state) {
-			super(BE_TEST_TYPE, pos, state);
-			genColors(colors);
-		}
-
-		static void genColors(int[] data) {
-			final Random r = ThreadLocalRandom.current();
-
-			for (int i = 0; i < QUAD_COUNT; i++) {
-				data[i] = DynamicGlow.randomPastelColor(r);
-			}
-		}
-
-		public Object getRenderData() {
-			return colors;
-		}
-	}
+	};
 }

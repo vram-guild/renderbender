@@ -20,15 +20,10 @@
 
 package io.vram.renderbender.client;
 
-import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.FoliageColor;
 
 import io.vram.frex.api.config.ShaderConfig;
-import io.vram.frex.api.world.BlockColorRegistry;
-import io.vram.frex.api.world.ItemColorRegistry;
 import io.vram.renderbender.RenderBender;
-import io.vram.renderbender.init.BasicBlocks;
 import io.vram.renderbender.init.ModelDispatcher;
 
 public class ClientInit {
@@ -38,19 +33,15 @@ public class ClientInit {
 		if (RenderBender.renderLoopListener) RenderLoop.initialize();
 		if (RenderBender.simpleMaterials) SimpleMaterials.initialize();
 		if (RenderBender.nonCubics) NonCubics.initialize();
-		if (RenderBender.dynamicModels) Dynamic.initialize();
+		if (RenderBender.dynamicGlow) DynamicGlow.initialize();
 		if (RenderBender.blockEntityData) BlockEntityData.initialize();
+		if (RenderBender.itemTransform) ItemTransform.initialize();
+		if (RenderBender.subcubicShading) Subcubic.initialize();
+		if (RenderBender.itemTransform) ItemTransform.initialize();
+		if (RenderBender.aoTest) AoTest.initialize();
 
 		ModelDispatcher.initialize();
 
 		ShaderConfig.registerShaderConfigSupplier(new ResourceLocation("renderbender:configtest"), () -> "#define SHADER_CONFIG_WORKS");
-
-		BlockColorRegistry.register((blockState, extendedBlockView, pos, colorIndex) -> {
-			return extendedBlockView != null && pos != null ? BiomeColors.getAverageFoliageColor(extendedBlockView, pos) : FoliageColor.getDefaultColor();
-		}, BasicBlocks.AO_TEST);
-
-		ItemColorRegistry.register((stack, colorIndex) -> {
-			return FoliageColor.getDefaultColor();
-		}, BasicBlocks.AO_TEST);
 	}
 }

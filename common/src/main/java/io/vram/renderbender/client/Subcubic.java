@@ -18,16 +18,16 @@
  * included from other projects. For more information, see ATTRIBUTION.md.
  */
 
-package io.vram.renderbender.common;
+package io.vram.renderbender.client;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-import net.minecraft.world.level.material.Material;
+import io.vram.frex.base.client.model.MeshFactory;
+import io.vram.frex.base.client.model.StaticMeshModel;
 
-import io.vram.renderbender.RenderBender;
-
-public class DynamicCommon {
+public class Subcubic {
 	public static void initialize() {
-		RenderBender.registerBlock(new Block(Properties.of(Material.STONE).strength(1, 1)), "dynamic_glow", RenderBender.ITEM_FACTORY_STANDARD);
+		final MeshFactory meshFactory = MeshFactory.shared((meshBuilder, materialFinder, spriteFunc) ->
+			meshBuilder.box(materialFinder.find(), -1, spriteFunc.getSprite("minecraft:block/white_concrete"), 1f/16f, 1f/16f, 1f/16f, 15f/16f, 15f/16f, 15f/16f).build());
+
+		StaticMeshModel.createAndRegisterProvider(b -> b.defaultParticleSprite("minecraft:block/white_concrete"), meshFactory, "renderbender:subcubic");
 	}
 }
