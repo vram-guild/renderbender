@@ -1,0 +1,24 @@
+dependencies {
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	modIncludeImplementation("io.vram:frex-fabric-mc117:6.0.195")
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ['../common/src/main/java', 'src/main/java']
+			include '**/*'
+			exclude '*.DS_Store'
+		}
+		resources {
+			srcDirs = ['../src/main/resources', 'src/main/resources']
+			include '**/*'
+			exclude '*.DS_Store'
+		}
+	}
+	test {
+		java {
+			exclude '**/*'
+		}
+	}
+}

@@ -20,8 +20,8 @@
     "client": ["io.vram.renderbender.RenderBenderFabricClient"]
   },
   "depends": {
-    "fabricloader": ">=0.11.5",
-    "minecraft": "1.17.x",
+    "fabricloader": ">=0.12.8",
+    "minecraft": "1.17.1",
     "java": ">=16",
     "frex": "*"
   },
