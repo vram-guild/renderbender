@@ -35,12 +35,12 @@ import io.vram.frex.api.mesh.MeshBuilder;
 import io.vram.frex.api.renderer.Renderer;
 import io.vram.frex.api.world.BlockColorRegistry;
 import io.vram.frex.api.world.ItemColorRegistry;
-import io.vram.frex.base.client.model.DynamicModel;
+import io.vram.frex.base.client.model.CachedMeshModel;
 import io.vram.renderbender.common.AoTestCommon;
 
 public class AoTest {
 	public static void initialize() {
-		DynamicModel.createAndRegisterProvider(
+		CachedMeshModel.createAndRegisterProvider(
 			b -> b.defaultParticleSprite("minecraft:block/white_concrete")
 			.keyCount(16)
 			.blockKeyFunction(input -> 1 + ((input.pos() == null ? 8 : input.pos().hashCode()) & 15))
