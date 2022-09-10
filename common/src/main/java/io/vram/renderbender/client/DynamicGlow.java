@@ -20,9 +20,8 @@
 
 package io.vram.renderbender.client;
 
-import java.util.Random;
-
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 
 import io.vram.frex.api.buffer.QuadTransform;
@@ -60,7 +59,7 @@ public class DynamicGlow {
 			"renderbender:dynamic_glow");
 	}
 
-	public static int randomPastelColor(Random random) {
+	public static int randomPastelColor(RandomSource random) {
 		return 0xFF000000 | ((random.nextInt(127) + 127) << 16) | ((random.nextInt(127) + 127) << 8) | (random.nextInt(127) + 127);
 	}
 }

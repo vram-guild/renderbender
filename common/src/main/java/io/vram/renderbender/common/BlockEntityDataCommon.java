@@ -20,13 +20,10 @@
 
 package io.vram.renderbender.common;
 
-import java.util.Random;
-
-import io.netty.util.internal.ThreadLocalRandom;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -79,6 +76,7 @@ public class BlockEntityDataCommon {
 	public static class BeTestBlockEntity extends BlockEntity {
 		static final int QUAD_COUNT = 6 * 14 * 14;
 		private final int[] colors = new int[QUAD_COUNT];
+		private static final RandomSource randomSource = RandomSource.createNewThreadLocalInstance();
 
 		public static final int[] ITEM_COLORS;
 
@@ -92,11 +90,10 @@ public class BlockEntityDataCommon {
 			genColors(colors);
 		}
 
-		static void genColors(int[] data) {
-			final Random r = ThreadLocalRandom.current();
 
+		static void genColors(int[] data) {
 			for (int i = 0; i < QUAD_COUNT; i++) {
-				data[i] = DynamicGlow.randomPastelColor(r);
+				data[i] = DynamicGlow.randomPastelColor(randomSource);
 			}
 		}
 

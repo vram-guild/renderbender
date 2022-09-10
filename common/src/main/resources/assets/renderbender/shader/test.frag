@@ -15,7 +15,7 @@ void frx_materialFragment() {
 	float d = a * b * c;
 	vec4 highlight = mix(vec4(1.0, 0.7, 1.0, 1.0), vec4(0.7, 1.0, 1.0, 1.0), d);
 	float m = frx_smootherstep(0.0, 1.0, d);
-	frx_fragColor = mix(frx_sampleColor, highlight, m);
+	frx_fragColor = mix(frx_fragColor, highlight, m);
 	frx_fragEmissive = max(0, m - 0.5) * 2.0;
 #endif
 }

@@ -45,7 +45,7 @@ import net.minecraft.world.level.material.PushReaction;
 public class FluidsCommon {
 	public static final Material TEST_FLUID_MATERIAL = new Material(MaterialColor.COLOR_LIGHT_BLUE, true, false, false, false, false, true, PushReaction.DESTROY);
 	public static final FlowingFluid TEST_FLUID = Registry.register(Registry.FLUID, new ResourceLocation("renderbender:test_fluid"), new TestFluid());
-	public static final LiquidBlock TEST_FLUID_BLOCK = new LiquidBlock(FluidsCommon.TEST_FLUID, BlockBehaviour.Properties.of(TEST_FLUID_MATERIAL).noCollission().strength(100.0F).noDrops()) { };
+	public static final LiquidBlock TEST_FLUID_BLOCK = new LiquidBlock(FluidsCommon.TEST_FLUID, BlockBehaviour.Properties.of(TEST_FLUID_MATERIAL).noCollission().strength(100.0F).noLootTable()) { };
 
 	static void initialize() {
 	}
