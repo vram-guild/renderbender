@@ -72,5 +72,5 @@ public class Conditional {
 			} else {
 				return false;
 			}
-		}, true, false));
+		}));
 }
